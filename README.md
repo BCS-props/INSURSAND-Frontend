@@ -1,5 +1,7 @@
 # PROPS-Frontend (react.js + tailwind.css + web3.js)
 
+## 💎 git commit rule
+
 ```
 📦 [package] {...} 설치 -> 패키지 매니저 설치 시
 ✨ [feat] {...} 추가 or 생성 등 -> 기능 추가/변경 시

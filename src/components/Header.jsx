@@ -38,8 +38,8 @@ const Header = ({ account, setAccount }) => {
           </Link>
           <div className="p-2 flex">
             {account ? (
-              <div className="justify-between items-center w-full">
-                <ul className="flex flex-row font-medium ">
+              <div className="justify-between items-center w-full text-sm font-light">
+                <ul className="flex flex-row">
                   <li>
                     <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
                       Dashboard
@@ -73,8 +73,8 @@ const Header = ({ account, setAccount }) => {
                 </ul>
               </div>
             ) : (
-              <div className="justify-between items-center w-full">
-                <ul className="flex flex-row font-medium">
+              <div className="justify-between items-center w-full text-sm font-light">
+                <ul className="flex flex-row">
                   <li>
                     <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
                       About DPI

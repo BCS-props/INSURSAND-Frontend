@@ -30,7 +30,7 @@ const Header = ({ account, setAccount }) => {
     <header>
       <nav className="bg-white px-4 py-2.5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <Link className="flex items-center" to="/">
+          <Link to="/" className="flex items-center">
             <div className="justify-between flex">
               <div className="mr-3 h-6">logo img</div>
               <span class="self-center text-xl font-semibold">DPI</span>
@@ -41,7 +41,10 @@ const Header = ({ account, setAccount }) => {
               <div className="justify-between items-center w-full text-sm font-light">
                 <ul className="flex flex-row">
                   <li>
-                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                    <Link
+                      to="/dashboard"
+                      className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100"
+                    >
                       Dashboard
                     </Link>
                   </li>
@@ -53,11 +56,6 @@ const Header = ({ account, setAccount }) => {
                   <li>
                     <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
                       Buy Specialized Covers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
-                      NFT Minting
                     </Link>
                   </li>
                   <li>
@@ -87,11 +85,6 @@ const Header = ({ account, setAccount }) => {
                   </li>
                   <li>
                     <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
-                      NFT Minting
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
                       Governance
                     </Link>
                   </li>
@@ -111,12 +104,14 @@ const Header = ({ account, setAccount }) => {
                   {account.substring(0, 4)}....
                   {account.substring(account.length - 4)}
                 </div>
-                <button
-                  className="p-2 ml-4 bg-gray-200 rounded-xl"
-                  onClick={onClickDisconnect}
-                >
-                  disconnect
-                </button>
+                <Link to="/">
+                  <button
+                    className="p-2 ml-4 bg-gray-200 rounded-xl"
+                    onClick={onClickDisconnect}
+                  >
+                    disconnect
+                  </button>
+                </Link>
               </div>
             ) : (
               <button

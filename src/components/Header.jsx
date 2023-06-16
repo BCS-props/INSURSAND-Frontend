@@ -39,26 +39,36 @@ const Header = ({ account, setAccount }) => {
           <div className="p-2 flex">
             {account ? (
               <div className="justify-between items-center w-full">
-                <ul className="flex flex-row font-medium">
+                <ul className="flex flex-row font-medium ">
                   <li>
-                    <Link className="block py-2 pr-4 pl-3">Dashboard</Link>
+                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                      Dashboard
+                    </Link>
                   </li>
                   <li>
-                    <Link className="block py-2 pr-4 pl-3">About DPI</Link>
+                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                      About DPI
+                    </Link>
                   </li>
                   <li>
-                    <Link className="block py-2 pr-4 pl-3">
+                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
                       Buy Specialized Covers
                     </Link>
                   </li>
                   <li>
-                    <Link className="block py-2 pr-4 pl-3">NFT Minting</Link>
+                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                      NFT Minting
+                    </Link>
                   </li>
                   <li>
-                    <Link className="block py-2 pr-4 pl-3">Governance</Link>
+                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                      Governance
+                    </Link>
                   </li>
                   <li>
-                    <Link className="block py-2 pr-4 pl-3">FAQ</Link>
+                    <Link className="block rounded-xl py-2 px-4 hover:bg-gray-100">
+                      FAQ
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -66,21 +76,29 @@ const Header = ({ account, setAccount }) => {
               <div className="justify-between items-center w-full">
                 <ul className="flex flex-row font-medium">
                   <li>
-                    <Link className="block py-2 pr-4 pl-3">About DPI</Link>
+                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                      About DPI
+                    </Link>
                   </li>
                   <li>
-                    <Link className="block py-2 pr-4 pl-3">
+                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
                       Buy Specialized Covers
                     </Link>
                   </li>
                   <li>
-                    <Link className="block py-2 pr-4 pl-3">NFT Minting</Link>
+                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                      NFT Minting
+                    </Link>
                   </li>
                   <li>
-                    <Link className="block py-2 pr-4 pl-3">Governance</Link>
+                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                      Governance
+                    </Link>
                   </li>
                   <li>
-                    <Link className="block py-2 pr-4 pl-3">FAQ</Link>
+                    <Link className="block rounded-xl py-2 px-4 hover:bg-gray-100">
+                      FAQ
+                    </Link>
                   </li>
                 </ul>
               </div>

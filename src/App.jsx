@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Main from "./pages/main";
+import DashBoard from "./pages/dashboard";
 
 function App() {
   const [account, setAccount] = useState();
@@ -15,6 +16,15 @@ function App() {
             <div>
               <Header account={account} setAccount={setAccount} />
               <Main />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="dashboard"
+          element={
+            <div>
+              <Header account={account} setAccount={setAccount} />
+              <DashBoard />
             </div>
           }
         ></Route>

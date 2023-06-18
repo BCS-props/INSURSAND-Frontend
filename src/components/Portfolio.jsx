@@ -17,7 +17,7 @@ const Portfolio = ({ account, apiKey }) => {
 
   useEffect(() => {
     if (!account) {
-      window.location.href = "/"; // 메인 페이지로 리다이렉트
+      window.location.href = "/"; // account가 없을 시 메인으로 리다이렉트
     }
     async function getVoteNum() {
       try {

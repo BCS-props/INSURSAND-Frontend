@@ -21,15 +21,11 @@ function App() {
           }
         ></Route>
         <Route
-          path="dashboard"
+          path="/dashboard"
           element={
             <div>
               <Header account={account} setAccount={setAccount} />
-              <DashBoard
-                account={account}
-                setAccount={setAccount}
-                apiKey={apiKey}
-              />
+              <DashBoard account={account} apiKey={apiKey} />
             </div>
           }
         ></Route>

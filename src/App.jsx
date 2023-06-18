@@ -5,6 +5,7 @@ import Main from "./pages/main";
 import DashBoard from "./pages/dashboard";
 
 function App() {
+  const apiKey = process.env.REACT_APP_INFURA_KEY;
   const [account, setAccount] = useState();
 
   return (
@@ -24,7 +25,11 @@ function App() {
           element={
             <div>
               <Header account={account} setAccount={setAccount} />
-              <DashBoard account={account} setAccount={setAccount} />
+              <DashBoard
+                account={account}
+                setAccount={setAccount}
+                apiKey={apiKey}
+              />
             </div>
           }
         ></Route>

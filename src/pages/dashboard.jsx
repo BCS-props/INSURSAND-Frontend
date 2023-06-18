@@ -2,9 +2,9 @@ import Web3 from "web3";
 import { GOVERNANCE_ABI, GOVERNANCE_CA } from "../web3.config";
 import { useEffect, useState } from "react";
 
-const DashBoard = ({ account, setAccount }) => {
+const DashBoard = ({ account, setAccount, apiKey }) => {
   const [voteNum, setVoteNum] = useState();
-  const web3 = new Web3("https://goerli.infura.io/v3/{apiKey}");
+  const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
   const contract = new web3.eth.Contract(GOVERNANCE_ABI, GOVERNANCE_CA);
   useEffect(() => {
     async function getVoteNum() {

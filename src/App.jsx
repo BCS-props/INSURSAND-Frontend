@@ -24,7 +24,7 @@ function App() {
           element={
             <div>
               <Header account={account} setAccount={setAccount} />
-              <DashBoard />
+              <DashBoard account={account} setAccount={setAccount} />
             </div>
           }
         ></Route>

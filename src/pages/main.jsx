@@ -1,5 +1,9 @@
 const Main = () => {
-  return <div>main page</div>;
+  return (
+    <div className="flex justify-center items-center min-h-screen">
+      main page
+    </div>
+  );
 };
 
 export default Main;

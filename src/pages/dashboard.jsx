@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 
 const DashBoard = ({ account, setAccount }) => {
   const [voteNum, setVoteNum] = useState();
-  const web3 = new Web3(
-    "https://goerli.infura.io/v3/e13b1778c9e04f3e93c1984210e9351e"
-  );
+  const web3 = new Web3("https://goerli.infura.io/v3/{apiKey}");
   const contract = new web3.eth.Contract(GOVERNANCE_ABI, GOVERNANCE_CA);
   useEffect(() => {
     async function getVoteNum() {

@@ -33,7 +33,7 @@ const Header = ({ account, setAccount }) => {
           <Link to="/" className="flex items-center">
             <div className="justify-between flex">
               <div className="mr-3 h-6">logo img</div>
-              <span class="self-center text-xl font-semibold">DPI</span>
+              <span class="self-center text-xl font-semibold">SANDsurance</span>
             </div>
           </Link>
           <div className="p-2 flex">
@@ -46,11 +46,6 @@ const Header = ({ account, setAccount }) => {
                       className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100"
                     >
                       Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
-                      About DPI
                     </Link>
                   </li>
                   <li>
@@ -73,11 +68,6 @@ const Header = ({ account, setAccount }) => {
             ) : (
               <div className="justify-between items-center w-full text-sm font-light">
                 <ul className="flex flex-row">
-                  <li>
-                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
-                      About DPI
-                    </Link>
-                  </li>
                   <li>
                     <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
                       Buy Specialized Covers
@@ -100,13 +90,13 @@ const Header = ({ account, setAccount }) => {
           <div className="flex items-center">
             {account ? (
               <div className="flex items-center">
-                <div className="">
+                <div className="text-white bg-amber-700/80 rounded-xl p-2">
                   {account.substring(0, 4)}....
                   {account.substring(account.length - 4)}
                 </div>
                 <Link to="/">
                   <button
-                    className="p-2 ml-4 bg-gray-200 rounded-xl"
+                    className="p-2 ml-4 text-white bg-amber-700/80 hover:bg-amber-800/80 rounded-xl"
                     onClick={onClickDisconnect}
                   >
                     disconnect
@@ -115,7 +105,7 @@ const Header = ({ account, setAccount }) => {
               </div>
             ) : (
               <button
-                className="bg-gray-200 p-2 rounded-xl"
+                className="p-2 text-white bg-amber-700/80 hover:bg-amber-800/80 rounded-xl"
                 onClick={onClickConnect}
               >
                 Connect Wallet

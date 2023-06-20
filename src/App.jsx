@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import Main from "./pages/main";
 import DashBoard from "./pages/dashboard";
 import Footer from "./components/Footer";
+import Governance from "./pages/governance";
+import Covers from "./pages/covers";
 
 function App() {
   const apiKey = process.env.REACT_APP_INFURA_KEY;
@@ -28,6 +30,26 @@ function App() {
             <div>
               <Header account={account} setAccount={setAccount} />
               <DashBoard account={account} apiKey={apiKey} />
+              <Footer />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/covers"
+          element={
+            <div>
+              <Header account={account} setAccount={setAccount} />
+              <Covers account={account} apiKey={apiKey} />
+              <Footer />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/governance"
+          element={
+            <div>
+              <Header account={account} setAccount={setAccount} />
+              <Governance apiKey={apiKey} />
               <Footer />
             </div>
           }

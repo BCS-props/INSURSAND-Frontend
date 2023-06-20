@@ -43,28 +43,34 @@ const Portfolio = ({ account, apiKey }) => {
     getTokenBalance();
   });
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-stone-400 pt-14 pb-20">
-      <div className="ml-12">
+    <div className="min-h-screen bg-gradient-to-b from-white to-amber-600 pt-14 pb-20">
+      <div className="ml-12 mr-12">
         <div>
-          <div className="text-2xl font-bold text-slate-800">My Portfolio</div>
+          <div className="text-2xl font-bold text-slate-800">Dashboard</div>
           <div className="text-xl mt-12">
-            <div className="flex border border-transparent border-b-slate-400 pb-20">
+            <div className="border border-transparent border-b-slate-400 pb-20 grid grid-cols-4">
               <div>
-                <div className="border border-transparent border-r-slate-400 mr-4 pr-4">
-                  <div className="font-medium text-sm">Active Cover Amount</div>
-                  <div className="mt-4 text-slate-500">0 USDT</div>
+                <div className="transition hover:scale-110 duration-500 delay-100 border border-amber-800 p-4 rounded-xl mr-6 pr-4 bg-amber-500/90 hover:bg-amber-500 shadow-lg shadow-amber-800/50">
+                  <div className="font-medium text-sm border border-transparent border-b-stone-400">
+                    Active Cover Amount
+                  </div>
+                  <div className="mt-4 text-white">0 USDT</div>
                 </div>
               </div>
               <div>
-                <div className="border border-transparent border-r-slate-400 mr-4 pr-4">
-                  <div className="font-medium text-sm">Number of Votes</div>
-                  <div className="mt-4 text-slate-500">{voteNum}</div>
+                <div className="transition hover:scale-110 duration-500 delay-100 border border-amber-800 p-4 rounded-xl mr-6 pr-4 bg-amber-500/90 hover:bg-amber-500 shadow-lg shadow-amber-800/50">
+                  <div className="font-medium text-sm border border-transparent border-b-stone-400">
+                    Number of Votes
+                  </div>
+                  <div className="mt-4 text-white">{voteNum}</div>
                 </div>
               </div>
               <div>
-                <div className="border border-transparent border-r-slate-400 pr-4">
-                  <div className="font-medium text-sm">My Balance (USDT)</div>
-                  <div className="mt-4 text-slate-500">{tokenBalance} USDT</div>
+                <div className="transition hover:scale-110 duration-500 delay-100 border border-amber-800 p-4 rounded-xl pr-4 bg-amber-500/90 hover:bg-amber-500 shadow-lg shadow-amber-800/50">
+                  <div className="font-medium text-sm border border-transparent border-b-stone-400">
+                    My Balance (USDT)
+                  </div>
+                  <div className="mt-4 text-white">{tokenBalance} USDT</div>
                 </div>
               </div>
             </div>

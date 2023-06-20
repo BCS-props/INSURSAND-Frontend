@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Main from "./pages/main";
 import DashBoard from "./pages/dashboard";
+import Footer from "./components/Footer";
 
 function App() {
   const apiKey = process.env.REACT_APP_INFURA_KEY;
@@ -17,6 +18,7 @@ function App() {
             <div>
               <Header account={account} setAccount={setAccount} />
               <Main />
+              <Footer />
             </div>
           }
         ></Route>
@@ -26,6 +28,7 @@ function App() {
             <div>
               <Header account={account} setAccount={setAccount} />
               <DashBoard account={account} apiKey={apiKey} />
+              <Footer />
             </div>
           }
         ></Route>

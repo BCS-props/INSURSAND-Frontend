@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { MetaMaskAvatar } from "react-metamask-avatar";
 
 const Header = ({ account, setAccount }) => {
   const onClickConnect = async () => {
@@ -32,8 +33,8 @@ const Header = ({ account, setAccount }) => {
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to="/" className="flex items-center">
             <div className="justify-between flex">
-              <div className="mr-3 h-6">logo img</div>
-              <span class="self-center text-xl font-semibold">SANDsurance</span>
+              {/* <div className="mr-3 h-6">logo img</div> */}
+              <span class="self-center text-xl font-semibold">INSURSAND</span>
             </div>
           </Link>
           <div className="p-2 flex">
@@ -49,12 +50,18 @@ const Header = ({ account, setAccount }) => {
                     </Link>
                   </li>
                   <li>
-                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                    <Link
+                      to="/covers"
+                      className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100"
+                    >
                       Buy Specialized Covers
                     </Link>
                   </li>
                   <li>
-                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                    <Link
+                      to="/governance"
+                      className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100"
+                    >
                       Governance
                     </Link>
                   </li>
@@ -69,12 +76,18 @@ const Header = ({ account, setAccount }) => {
               <div className="justify-between items-center w-full text-sm font-light">
                 <ul className="flex flex-row">
                   <li>
-                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                    <Link
+                      to="/covers"
+                      className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100"
+                    >
                       Buy Specialized Covers
                     </Link>
                   </li>
                   <li>
-                    <Link className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100">
+                    <Link
+                      to="/governance"
+                      className="block rounded-xl py-2 px-4 mr-2 hover:bg-gray-100"
+                    >
                       Governance
                     </Link>
                   </li>
@@ -90,9 +103,12 @@ const Header = ({ account, setAccount }) => {
           <div className="flex items-center">
             {account ? (
               <div className="flex items-center">
-                <div className="text-white bg-amber-700/80 rounded-xl p-2">
-                  {account.substring(0, 4)}....
-                  {account.substring(account.length - 4)}
+                <div className="text-white bg-amber-700/80 rounded-xl p-2 items-center flex">
+                  <MetaMaskAvatar address={account} size={24} />
+                  <div className="ml-2">
+                    {account.substring(0, 6)}....
+                    {account.substring(account.length - 4)}
+                  </div>
                 </div>
                 <Link to="/">
                   <button

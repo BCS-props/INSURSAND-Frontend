@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Web3 from "web3";
 import { GOVERNANCE_ABI, GOVERNANCE_CA } from "../web3.config";
+import { Link } from "react-router-dom";
 
 const Proposal = ({ apiKey }) => {
   const [proposalNum, setProposalNum] = useState();
@@ -26,15 +27,17 @@ const Proposal = ({ apiKey }) => {
           <div className="">
             <div className="text-3xl mb-2">Proposals</div>
             <div className="text-sm opacity-75">
-              Number of current proposals: {proposalNum}
+              Total proposals: {proposalNum}
             </div>
           </div>
           <div>
-            <button className="bg-amber-700/80 hover:bg-amber-800/80 rounded-xl transition duration-300 hover:scale-95">
-              <div className="text-lg text-white py-2 px-4">
-                Create Proposal
-              </div>
-            </button>
+            <Link to="/create">
+              <button className="bg-amber-700/80 hover:bg-amber-800/80 rounded-xl transition duration-300 hover:scale-95">
+                <div className="text-lg text-white py-2 px-4">
+                  Create Proposal
+                </div>
+              </button>
+            </Link>
           </div>
         </div>
         <div className="px-12">

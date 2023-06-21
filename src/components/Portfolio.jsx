@@ -35,7 +35,6 @@ const Portfolio = ({ account, apiKey }) => {
         if (!account || !web3 || !ERC20_contract) return;
         var balances = await ERC20_contract.methods.balanceOf(account).call();
         setTokenBalance(Number(balances));
-        console.log(balances);
       } catch (error) {
         alert("failed to get token balances");
       }

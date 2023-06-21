@@ -37,6 +37,17 @@ const Proposal = ({ apiKey }) => {
             </button>
           </div>
         </div>
+        <div className="px-12">
+          <div className="bg-amber-600/80 rounded-xl hover:bg-amber-600/40 duration-200">
+            <div className="p-4">
+              <div className="flex justify-between">
+                <div className="">Subject of proposals</div>
+                <div>Proposal's status</div>
+              </div>
+              <div className="text-xs mt-2 opacity-50">votes: </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

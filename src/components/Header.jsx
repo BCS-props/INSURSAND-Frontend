@@ -8,7 +8,6 @@ const Header = ({ account, setAccount }) => {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        console.log("success login");
         setAccount(accounts[0]);
       } catch (error) {
         console.log(error);
@@ -112,7 +111,7 @@ const Header = ({ account, setAccount }) => {
                 </div>
                 <Link to="/">
                   <button
-                    className="p-2 ml-4 text-white bg-amber-700/80 hover:bg-amber-800/80 rounded-xl"
+                    className="p-2 ml-4 text-white bg-amber-700/80 hover:bg-amber-800/80 duration-200 rounded-xl"
                     onClick={onClickDisconnect}
                   >
                     disconnect
@@ -121,7 +120,7 @@ const Header = ({ account, setAccount }) => {
               </div>
             ) : (
               <button
-                className="p-2 text-white bg-amber-700/80 hover:bg-amber-800/80 rounded-xl"
+                className="p-2 text-white bg-amber-700/80 hover:bg-amber-800/80 duration-200 rounded-xl"
                 onClick={onClickConnect}
               >
                 Connect Wallet

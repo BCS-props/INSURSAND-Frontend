@@ -1,5 +1,36 @@
-export const GOVERNANCE_CA = "0x0f5070C63379978298Ed15A74D01B748F867D105";
+export const GOVERNANCE_CA = "0xc8d53cEdE7de2b09c53dE4B9f678aae3C1832073";
 export const GOVERNANCE_ABI = [
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_admin",
+        type: "address",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [],
+    name: "P_number",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "Test_increasedVotePower",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
   {
     inputs: [
       {
@@ -12,68 +43,6 @@ export const GOVERNANCE_ABI = [
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_subject",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_detail",
-        type: "string",
-      },
-    ],
-    name: "openProposal",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "P_numbers",
-        type: "uint256",
-      },
-    ],
-    name: "openVotesAccept",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "P_numbers",
-        type: "uint256",
-      },
-    ],
-    name: "openVotesDeny",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "testjuyeol",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_admin",
-        type: "address",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "constructor",
   },
   {
     inputs: [
@@ -127,16 +96,47 @@ export const GOVERNANCE_ABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "P_number",
-    outputs: [
+    inputs: [
+      {
+        internalType: "string",
+        name: "_subject",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_detail",
+        type: "string",
+      },
+    ],
+    name: "openProposal",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "P_numbers",
         type: "uint256",
       },
     ],
-    stateMutability: "view",
+    name: "openVotesAccept",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "P_numbers",
+        type: "uint256",
+      },
+    ],
+    name: "openVotesDeny",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {

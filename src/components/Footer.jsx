@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="bg-amber-800 opacity-50">
+    <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 opacity-50">
       <div>
         <div className="pt-16 pl-12 pb-12 ml-4">
           <div className="flex w-fit items-center">

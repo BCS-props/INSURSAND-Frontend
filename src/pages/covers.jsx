@@ -8,6 +8,18 @@ const Covers = ({ account, apiKey }) => {
 
   const NFT_contract = new web3.eth.Contract(NFT_ABI, NFT_CA);
 
+  // const onClickMint = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const mintNft = await NFT_contract.methods
+  //       .Mint_Cover()
+  //       .send({ from: account });
+  //     if (!mintNft.status) return;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   async function NFT_minting(e) {
     e.preventDefault();
     await window.ethereum.request({
@@ -15,8 +27,7 @@ const Covers = ({ account, apiKey }) => {
       paras: [
         {
           from: account,
-          to: NFT_CA,
-          data: NFT_contract.methods.MintCover(),
+          data: NFT_contract.methods.Mint_Cover().encodeABI(),
         },
       ],
     });

@@ -42,7 +42,7 @@ const Portfolio = ({ account, apiKey }) => {
     getTokenBalance();
   });
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-amber-600 pt-14 pb-20">
+    <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
       <div className="ml-12 mr-12">
         <div>
           <div className="text-2xl font-bold text-slate-800">Dashboard</div>

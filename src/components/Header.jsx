@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom";
 import { MetaMaskAvatar } from "react-metamask-avatar";
+import { useState } from "react";
+import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 
 const Header = ({ account, setAccount }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  // const handleMouseEnter = () => {
+  //   setIsOpen(true);
+  // };
+  // const handleMouseLeave = () => {
+  //   setIsOpen(false);
+  // };
+
   const onClickConnect = async () => {
     if (window.ethereum) {
       try {
@@ -101,22 +112,38 @@ const Header = ({ account, setAccount }) => {
           </div>
           <div className="flex items-center">
             {account ? (
-              <div className="flex items-center">
-                <div className="text-white bg-amber-700/80 rounded-xl p-2 items-center flex">
+              <div className="flex items-center justify-end">
+                <button
+                  onClick={() => setIsOpen((prev) => !prev)}
+                  className="text-white bg-amber-700/80 rounded-xl p-2 items-center flex"
+                >
                   <MetaMaskAvatar address={account} size={24} />
                   <div className="ml-2">
-                    {account.substring(0, 6)}....
-                    {account.substring(account.length - 4)}
+                    <div className="flex items-center gap-4">
+                      {account.substring(0, 6)}....
+                      {account.substring(account.length - 4)}
+                      {!isOpen ? <AiOutlineCaretDown /> : <AiOutlineCaretUp />}
+                    </div>
                   </div>
-                </div>
-                <Link to="/">
-                  <button
-                    className="p-2 ml-4 text-white bg-amber-700/80 hover:bg-amber-800/80 duration-200 rounded-xl"
-                    onClick={onClickDisconnect}
-                  >
-                    disconnect
-                  </button>
-                </Link>
+                </button>
+                {isOpen && (
+                  <div className="absolute text-white top-14 bg-amber-700/80 flex flex-col rounded-lg p-2 mt-2 gap-2">
+                    <Link
+                      to={`https://goerli.etherscan.io/address/${account}`}
+                      target="_blank"
+                    >
+                      <button className="hover:text-gray-200">
+                        Open in Etherscan
+                      </button>
+                    </Link>
+                    <button
+                      className="hover:text-gray-200"
+                      onClick={onClickDisconnect}
+                    >
+                      Disconnect
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <button

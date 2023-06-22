@@ -1,5 +1,3 @@
-import Header from "../components/Header";
-
 const Main = () => {
   return (
     <div className="flex min-h-screen justify-center bg-gradient-to-r from-amber-400/80 to-amber-600/80">

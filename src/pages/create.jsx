@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Web3 from "web3";
 import { GOVERNANCE_ABI, GOVERNANCE_CA } from "../web3.config";
+import { BiArrowBack } from "react-icons/bi";
 
 const Create = ({ account, apiKey }) => {
   const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
@@ -29,13 +30,16 @@ const Create = ({ account, apiKey }) => {
       <div className="mx-80">
         <div>
           <Link to="/governance">
-            <button className="">
-              <div className="">Back</div>
+            <button>
+              <div className="flex items-center">
+                <BiArrowBack className="mr-1" />
+                Back
+              </div>
             </button>
           </Link>
           <div className="text-4xl font-bold mt-4">Create a new proposal</div>
         </div>
-        <div className="min-h-screen mt-16 bg-white rounded-xl shadow-2xl">
+        <div className="mt-12 bg-white rounded-xl shadow-2xl">
           <div className="p-6">
             <div>
               <div className="text-2xl pb-4 border-b-amber-600 border border-transparent">
@@ -46,7 +50,8 @@ const Create = ({ account, apiKey }) => {
               <label className="block">
                 <span className="block text-lg font-medium">Title</span>
                 <input
-                  className="border rounded-xl p-2 min-w-full mt-6"
+                  className="border rounded-xl p-4 min-w-full mt-6 placeholder:italic"
+                  placeholder="Enter the title of your porposal..."
                   name="title"
                 />
               </label>
@@ -54,8 +59,10 @@ const Create = ({ account, apiKey }) => {
                 <span className="block text-lg font-medium mt-12">
                   Overview
                 </span>
-                <input
-                  className="border rounded-xl p-2 min-w-full h-64 mt-6"
+                <textarea
+                  className="border rounded-xl p-4 min-w-full h-44 mt-6 placeholder:italic"
+                  rows="3"
+                  placeholder="Describe your proposal..."
                   name="overview"
                 />
               </label>

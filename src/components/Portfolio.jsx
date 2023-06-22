@@ -43,7 +43,7 @@ const Portfolio = ({ account, apiKey }) => {
   });
   return (
     <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
-      <div className="ml-12 mr-12">
+      <div className="ml-12 mr-12 mt-20">
         <div>
           <div className="text-2xl font-bold text-slate-800">Dashboard</div>
           <div className="text-xl mt-12">

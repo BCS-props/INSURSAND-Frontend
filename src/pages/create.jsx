@@ -27,7 +27,7 @@ const Create = ({ account, apiKey }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
-      <div className="mx-80">
+      <div className="mx-80 mt-8">
         <div>
           <Link to="/governance">
             <button>

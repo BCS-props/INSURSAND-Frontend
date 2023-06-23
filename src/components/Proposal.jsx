@@ -1,30 +1,59 @@
 import { useEffect, useState } from "react";
 import Web3 from "web3";
 import { GOVERNANCE_ABI, GOVERNANCE_CA } from "../web3.config";
+import Proposals from "./Proposals";
 import { Link } from "react-router-dom";
 
 const Proposal = ({ apiKey }) => {
   const [proposalNum, setProposalNum] = useState();
+  const [proposalInfo, setProposalInfo] = useState();
 
   const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
   const GVN_contract = new web3.eth.Contract(GOVERNANCE_ABI, GOVERNANCE_CA);
-  async function getProposalNum() {
-    try {
-      var proposals = await GVN_contract.methods.getP_number().call();
-      setProposalNum(Number(proposals));
-    } catch (error) {
-      alert("failed to get number of proposals");
-    }
-  }
+
+  // useEffect(() => {
+  //   async function getProposalNum() {
+  //     try {
+  //       var proposals = await GVN_contract.methods.getP_number().call();
+  //       setProposalNum(Number(proposals));
+  //     } catch (error) {
+  //       console.log("failed to get proposals");
+  //     }
+  //   }
+  //   getProposalNum();
+  // }, []);
 
   useEffect(() => {
-    getProposalNum();
+    async function getProposalData() {
+      try {
+        const proposalNums = Array.from(
+          { length: proposalNum },
+          (_, index) => index + 1
+        );
+        const proposalDatas = await Promise.all(
+          proposalNums.map(async (id) => {
+            const proposalInfo = await GVN_contract.methods
+              .getProposal(id)
+              .call();
+            return proposalInfo;
+          })
+        );
+        var proposals = await GVN_contract.methods.getP_number().call();
+        setProposalNum(Number(proposals));
+        // var proposalInfo = await GVN_contract.methods.getProposal(1).call();
+        setProposalInfo(proposalDatas);
+      } catch (error) {
+        console.log("failed to get data of proposal");
+      }
+    }
+    getProposalData();
   });
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
       <div className="mx-80 mt-20 min-h-screen bg-white rounded-xl shadow-2xl">
         <div className="flex justify-between p-12">
-          <div className="">
+          <div>
             <div className="text-3xl mb-2">Proposals</div>
             <div className="text-sm opacity-75">
               Total proposals: {proposalNum}
@@ -40,16 +69,17 @@ const Proposal = ({ apiKey }) => {
             </Link>
           </div>
         </div>
-        <div className="px-12">
-          <div className="bg-amber-600/80 rounded-xl hover:bg-amber-600/40 duration-200">
-            <div className="p-4">
-              <div className="flex justify-between">
-                <div className="">Subject of proposals</div>
-                <div>Proposal's status</div>
-              </div>
-              <div className="text-xs mt-2 opacity-50">votes: </div>
-            </div>
-          </div>
+        <div className="grid gap-8">
+          {proposalInfo &&
+            proposalInfo.map((v, i) => {
+              return (
+                <Proposals
+                  key={i}
+                  subject={v.subject}
+                  status={Number(v.voteResults)}
+                />
+              );
+            })}
         </div>
       </div>
     </div>

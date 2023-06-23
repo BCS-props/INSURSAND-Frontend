@@ -1,36 +1,5 @@
-export const GOVERNANCE_CA = "0xc8d53cEdE7de2b09c53dE4B9f678aae3C1832073";
+export const GOVERNANCE_CA = "0x4fc7Db345FA6f0C4725772a694ff1A3a49E2E738";
 export const GOVERNANCE_ABI = [
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_admin",
-        type: "address",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "constructor",
-  },
-  {
-    inputs: [],
-    name: "P_number",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "Test_increasedVotePower",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
   {
     inputs: [
       {
@@ -48,51 +17,18 @@ export const GOVERNANCE_ABI = [
     inputs: [
       {
         internalType: "uint256",
-        name: "P_numbers",
+        name: "_number",
         type: "uint256",
       },
-    ],
-    name: "getMyStatus",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getP_number",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
       {
         internalType: "address",
-        name: "msgsender",
+        name: "_address",
         type: "address",
       },
     ],
-    name: "getVotePower",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
+    name: "increaseVotePower",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -142,29 +78,159 @@ export const GOVERNANCE_ABI = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_addr",
+        type: "address",
+      },
+    ],
+    name: "setMintNFTContract",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "Test_increasedVotePower",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_admin",
+        type: "address",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "P_numbers",
         type: "uint256",
       },
     ],
-    name: "userVoteCheck",
+    name: "getMyStatus",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getP_number",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "P_numbers",
+        type: "uint256",
+      },
+    ],
+    name: "getProposal",
     outputs: [
       {
         components: [
           {
-            internalType: "enum governance.voteCheck",
-            name: "voteChecks",
-            type: "uint8",
+            internalType: "uint256",
+            name: "num",
+            type: "uint256",
           },
           {
             internalType: "uint256",
-            name: "count",
+            name: "time",
             type: "uint256",
           },
+          {
+            internalType: "address",
+            name: "maker",
+            type: "address",
+          },
+          {
+            internalType: "string",
+            name: "subject",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "detail",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "accept",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "deny",
+            type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "status",
+            type: "bool",
+          },
+          {
+            internalType: "enum governance.voteResult",
+            name: "voteResults",
+            type: "uint8",
+          },
         ],
-        internalType: "struct governance.myStatus",
+        internalType: "struct governance.proposal",
         name: "",
         type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "msgsender",
+        type: "address",
+      },
+    ],
+    name: "getVotePower",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "P_number",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -178,7 +244,7 @@ export const GOVERNANCE_ABI = [
         type: "uint256",
       },
     ],
-    name: "votes",
+    name: "proposals",
     outputs: [
       {
         internalType: "uint256",
@@ -229,7 +295,39 @@ export const GOVERNANCE_ABI = [
     stateMutability: "view",
     type: "function",
   },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "P_numbers",
+        type: "uint256",
+      },
+    ],
+    name: "userVoteCheck",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "enum governance.voteCheck",
+            name: "voteChecks",
+            type: "uint8",
+          },
+          {
+            internalType: "uint256",
+            name: "count",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct governance.myStatus",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
 ];
+
 export const ERC20_CA = "0x078d1B0B379d1c76C9944Fa6ed5eEdf11D6A4D80";
 export const ERC20_ABI = [
   {
@@ -544,14 +642,14 @@ export const ERC20_ABI = [
     type: "receive",
   },
 ];
-export const NFT_CA = "0x06C23A622F7660119905D1AecE372220a21ac7B0";
+export const NFT_CA = "0xfb28f8D517d788d4989465790f19822d17EA77cA";
 export const NFT_ABI = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_tokenAddress",
-        type: "address",
+        internalType: "string",
+        name: "_uri",
+        type: "string",
       },
       {
         internalType: "address",
@@ -559,9 +657,9 @@ export const NFT_ABI = [
         type: "address",
       },
       {
-        internalType: "string",
-        name: "_uri",
-        type: "string",
+        internalType: "address",
+        name: "_governance_address",
+        type: "address",
       },
     ],
     stateMutability: "nonpayable",
@@ -637,35 +735,9 @@ export const NFT_ABI = [
   },
   {
     inputs: [],
-    name: "Mint_Cover",
+    name: "mintNFT_Cover",
     outputs: [],
     stateMutability: "payable",
-    type: "function",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "previousOwner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-    ],
-    name: "OwnershipTransferred",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "renounceOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -789,37 +861,11 @@ export const NFT_ABI = [
     inputs: [
       {
         internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-    ],
-    name: "transferOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
         name: "owner",
         type: "address",
       },
     ],
     name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "fee",
     outputs: [
       {
         internalType: "uint256",
@@ -857,25 +903,12 @@ export const NFT_ABI = [
         type: "address",
       },
     ],
-    name: "getCount_NFT",
+    name: "getTotalSpend",
     outputs: [
       {
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "insurPool",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",
@@ -919,8 +952,14 @@ export const NFT_ABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "owner",
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
+    name: "ownerOf",
     outputs: [
       {
         internalType: "address",
@@ -938,13 +977,23 @@ export const NFT_ABI = [
         name: "tokenId",
         type: "uint256",
       },
+      {
+        internalType: "uint256",
+        name: "salePrice",
+        type: "uint256",
+      },
     ],
-    name: "ownerOf",
+    name: "royaltyInfo",
     outputs: [
       {
         internalType: "address",
         name: "",
         type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -983,13 +1032,43 @@ export const NFT_ABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "tokenAddress",
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "index",
+        type: "uint256",
+      },
+    ],
+    name: "tokenByIndex",
     outputs: [
       {
-        internalType: "contract IERC20",
+        internalType: "uint256",
         name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "owner",
         type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "index",
+        type: "uint256",
+      },
+    ],
+    name: "tokenOfOwnerByIndex",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -999,7 +1078,7 @@ export const NFT_ABI = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_tokenID",
+        name: "",
         type: "uint256",
       },
     ],
@@ -1009,6 +1088,19 @@ export const NFT_ABI = [
         internalType: "string",
         name: "",
         type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "totalSupply",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",

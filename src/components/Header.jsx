@@ -132,7 +132,7 @@ const Header = ({ account, setAccount }) => {
                       to={`https://goerli.etherscan.io/address/${account}`}
                       target="_blank"
                     >
-                      <button className="hover:text-amber-600 ">
+                      <button className="hover:text-amber-600 border-b border-amber-600 pb-2">
                         Open in Etherscan
                       </button>
                     </Link>
@@ -147,7 +147,7 @@ const Header = ({ account, setAccount }) => {
               </div>
             ) : (
               <button
-                className="p-2 text-gray-700 border border-amber-600 hover:bg-amber-600 duration-200 rounded-xl"
+                className="p-2 text-amber-600 border border-amber-600 hover:border-amber-800 hover:text-amber-800 duration-200 rounded-xl"
                 onClick={onClickConnect}
               >
                 Connect Wallet

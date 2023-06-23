@@ -47,7 +47,7 @@ const Proposal = ({ apiKey }) => {
       }
     }
     getProposalData();
-  });
+  }, [proposalNum]);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
@@ -77,6 +77,8 @@ const Proposal = ({ apiKey }) => {
                   key={i}
                   subject={v.subject}
                   status={Number(v.voteResults)}
+                  accept={Number(v.accept)}
+                  deny={Number(v.deny)}
                 />
               );
             })}

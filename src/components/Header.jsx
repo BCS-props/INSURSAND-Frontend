@@ -44,71 +44,38 @@ const Header = ({ account, setAccount }) => {
           <Link to="/" className="flex items-center">
             <div className="justify-between flex">
               {/* <div className="mr-3 h-6">logo img</div> */}
-              <span class="self-center text-xl font-semibold">INSURSAND</span>
+              <span class="self-center text-xl font-semibold">INSUR</span>
+              <span class="self-center text-xl font-semibold text-amber-600">
+                SAND
+              </span>
             </div>
           </Link>
           <div className="p-2 flex">
-            {account ? (
-              <div className="justify-between items-center w-full text-sm font-light">
-                <ul className="flex flex-row">
-                  <li>
-                    <Link
-                      to="/dashboard"
-                      className="block rounded-xl py-2 px-4 mr-2 hover:text-amber-600"
-                    >
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/covers"
-                      className="block rounded-xl py-2 px-4 mr-2 hover:text-amber-600"
-                    >
-                      Buy Specialized Covers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/governance"
-                      className="block rounded-xl py-2 px-4 mr-2 hover:text-amber-600"
-                    >
-                      Governance
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="block rounded-xl py-2 px-4 hover:text-amber-600">
-                      FAQ
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <div className="justify-between items-center w-full text-sm font-light">
-                <ul className="flex flex-row">
-                  <li>
-                    <Link
-                      to="/covers"
-                      className="block rounded-xl py-2 px-4 mr-2 hover:text-amber-600"
-                    >
-                      Buy Specialized Covers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/governance"
-                      className="block rounded-xl py-2 px-4 mr-2 hover:text-amber-600"
-                    >
-                      Governance
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="block rounded-xl py-2 px-4 hover:text-amber-600">
-                      FAQ
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            )}
+            <div className="justify-between items-center w-full text-sm font-light">
+              <ul className="flex flex-row">
+                <li>
+                  <Link
+                    to="/covers"
+                    className="block rounded-xl py-2 px-4 mr-2 hover:text-amber-600"
+                  >
+                    Buy Specialized Covers
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/governance"
+                    className="block rounded-xl py-2 px-4 mr-2 hover:text-amber-600"
+                  >
+                    Governance
+                  </Link>
+                </li>
+                <li>
+                  <Link className="block rounded-xl py-2 px-4 hover:text-amber-600">
+                    FAQ
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
           <div className="flex items-center">
             {account ? (
@@ -127,21 +94,28 @@ const Header = ({ account, setAccount }) => {
                   </div>
                 </button>
                 {isOpen && (
-                  <div className="absolute top-14 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-2 gap-2">
+                  <div className="absolute top-14 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-2 gap-1 divide-y divide-amber-600">
+                    <Link to="/dashboard">
+                      <button className="hover:text-amber-600 pb-1">
+                        Dashboard
+                      </button>
+                    </Link>
                     <Link
                       to={`https://goerli.etherscan.io/address/${account}`}
                       target="_blank"
                     >
-                      <button className="hover:text-amber-600 border-b border-amber-600 pb-2">
+                      <button className="hover:text-amber-600 py-1">
                         Open in Etherscan
                       </button>
                     </Link>
-                    <button
-                      className="hover:text-amber-600"
-                      onClick={onClickDisconnect}
-                    >
-                      Disconnect
-                    </button>
+                    <Link to="/">
+                      <button
+                        className="hover:text-amber-600 justify-start flex pt-1"
+                        onClick={onClickDisconnect}
+                      >
+                        Disconnect
+                      </button>
+                    </Link>
                   </div>
                 )}
               </div>

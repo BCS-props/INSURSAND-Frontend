@@ -79,6 +79,7 @@ const Proposal = ({ apiKey }) => {
                   status={Number(v.voteResults)}
                   accept={Number(v.accept)}
                   deny={Number(v.deny)}
+                  id={Number(v.num)}
                 />
               );
             })}

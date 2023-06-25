@@ -1,7 +1,8 @@
 import { FaCircle, FaCheck } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
-const Proposals = ({ subject, status, accept, deny }) => {
+const Proposals = ({ subject, status, accept, deny, id }) => {
   let statusIcon;
   const getStatus = () => {
     if (status === 0) {
@@ -21,18 +22,20 @@ const Proposals = ({ subject, status, accept, deny }) => {
 
   return (
     <div className="px-12">
-      <button className="bg-amber-600/80 rounded-xl hover:bg-amber-600/40 duration-200 min-w-full p-4">
-        <div className="flex justify-between">
-          <div className="text-xl">{subject}</div>
-          <div className="pt-4 flex items-center gap-2">
-            <div className="">{statusIcon}</div>
-            <div className="text-lg">{status}</div>
+      <Link to={`/governance/${id}`}>
+        <button className="bg-amber-600/80 rounded-xl hover:bg-amber-600/40 duration-200 min-w-full p-4">
+          <div className="flex justify-between">
+            <div className="text-xl">{subject}</div>
+            <div className="pt-4 flex items-center gap-2">
+              <div className="">{statusIcon}</div>
+              <div className="text-lg">{status}</div>
+            </div>
           </div>
-        </div>
-        <div className="text-sm opacity-50 justify-start flex w-fit">
-          total votes: {totalVotes}
-        </div>
-      </button>
+          <div className="text-sm opacity-50 justify-start flex w-fit">
+            total votes: {totalVotes}
+          </div>
+        </button>
+      </Link>
     </div>
   );
 };

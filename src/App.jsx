@@ -8,9 +8,8 @@ import Governance from "./pages/governance";
 import Covers from "./pages/covers";
 import Create from "./pages/create";
 import Detail from "./pages/detail";
-
+export const apiKey = process.env.REACT_APP_INFURA_KEY;
 function App() {
-  const apiKey = process.env.REACT_APP_INFURA_KEY;
   const [account, setAccount] = useState();
 
   return (
@@ -71,7 +70,11 @@ function App() {
           element={
             <div>
               <Header account={account} setAccount={setAccount} />
-              <Detail apiKey={apiKey} />
+              <Detail
+                apiKey={apiKey}
+                account={account}
+                setAccount={setAccount}
+              />
               <Footer />
             </div>
           }

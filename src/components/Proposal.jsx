@@ -11,18 +11,6 @@ const Proposal = ({ apiKey }) => {
   const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
   const GVN_contract = new web3.eth.Contract(GOVERNANCE_ABI, GOVERNANCE_CA);
 
-  // useEffect(() => {
-  //   async function getProposalNum() {
-  //     try {
-  //       var proposals = await GVN_contract.methods.getP_number().call();
-  //       setProposalNum(Number(proposals));
-  //     } catch (error) {
-  //       console.log("failed to get proposals");
-  //     }
-  //   }
-  //   getProposalNum();
-  // }, []);
-
   useEffect(() => {
     async function getProposalData() {
       try {
@@ -50,8 +38,8 @@ const Proposal = ({ apiKey }) => {
   }, [proposalNum]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
-      <div className="mx-80 mt-20 min-h-screen bg-white rounded-xl shadow-2xl">
+    <div className="min-h-screen flex justify-center bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
+      <div className="mx-96 w-1/2 mt-20 min-h-screen bg-white rounded-xl shadow-2xl">
         <div className="flex justify-between p-12">
           <div>
             <div className="text-3xl mb-2">Proposals</div>
@@ -69,14 +57,13 @@ const Proposal = ({ apiKey }) => {
             </Link>
           </div>
         </div>
-        <div className="grid gap-8">
+        <div className="grid gap-8 mx-12">
           {proposalInfo &&
             proposalInfo.map((v, i) => {
               return (
                 <Proposals
                   key={i}
                   subject={v.subject}
-                  status={Number(v.voteResults)}
                   accept={Number(v.accept)}
                   deny={Number(v.deny)}
                   id={Number(v.num)}

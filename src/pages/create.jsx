@@ -11,7 +11,9 @@ const Create = ({ account, apiKey }) => {
     e.preventDefault();
     const data = new FormData(e.target);
     var title = data.get("title");
-    var overview = data.get("overview");
+    var Abstract = data.get("Abstract");
+    var method = data.get("method");
+    var conclusion = data.get("conclusion");
 
     await window.ethereum.request({
       method: "eth_sendTransaction",
@@ -19,7 +21,9 @@ const Create = ({ account, apiKey }) => {
         {
           from: account,
           to: GOVERNANCE_CA,
-          data: GVN_contract.methods.openProposal(title, overview).encodeABI(),
+          data: GVN_contract.methods
+            .openProposal(title, Abstract, method, conclusion)
+            .encodeABI(),
         },
       ],
     });
@@ -59,12 +63,39 @@ const Create = ({ account, apiKey }) => {
                 <span className="block text-lg font-medium mt-12">
                   Overview
                 </span>
-                <textarea
-                  className="border rounded-xl p-4 min-w-full h-44 mt-6 placeholder:italic"
-                  rows="3"
-                  placeholder="Describe your proposal..."
-                  name="overview"
-                />
+                <div>
+                  <span className="flex mt-6 pb-2 text-amber-900 opacity-70">
+                    Abstract
+                  </span>
+                  <textarea
+                    className="border rounded-xl p-4 min-w-full h-32 placeholder:italic"
+                    rows="3"
+                    placeholder="Describe your abstract..."
+                    name="Abstract"
+                  />
+                </div>
+                <div>
+                  <span className="flex mt-6 pb-2 text-amber-900 opacity-70">
+                    Method
+                  </span>
+                  <textarea
+                    className="border rounded-xl p-4 min-w-full h-32 placeholder:italic"
+                    rows="3"
+                    placeholder="Describe your methodology..."
+                    name="method"
+                  />
+                </div>
+                <div>
+                  <span className="flex mt-6 pb-2 text-amber-900 opacity-70">
+                    Conclusion
+                  </span>
+                  <textarea
+                    className="border rounded-xl p-4 min-w-full h-32 placeholder:italic"
+                    rows="3"
+                    placeholder="Describe your conclusion..."
+                    name="conclusion"
+                  />
+                </div>
               </label>
               <div className="mt-12 flex justify-end">
                 <button

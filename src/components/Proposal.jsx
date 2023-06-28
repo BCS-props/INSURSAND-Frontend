@@ -64,8 +64,8 @@ const Proposal = ({ apiKey }) => {
                 <Proposals
                   key={i}
                   subject={v.subject}
-                  accept={Number(v.accept)}
-                  deny={Number(v.deny)}
+                  accept={Number(v.agree)}
+                  deny={Number(v.disagree)}
                   id={Number(v.num)}
                 />
               );

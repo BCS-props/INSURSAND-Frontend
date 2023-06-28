@@ -11,7 +11,7 @@ const Create = ({ account, apiKey }) => {
     e.preventDefault();
     const data = new FormData(e.target);
     var title = data.get("title");
-    var Abstract = data.get("Abstract");
+    var summary = data.get("summary");
     var method = data.get("method");
     var conclusion = data.get("conclusion");
 
@@ -22,7 +22,7 @@ const Create = ({ account, apiKey }) => {
           from: account,
           to: GOVERNANCE_CA,
           data: GVN_contract.methods
-            .openProposal(title, Abstract, method, conclusion)
+            .openProposal(title, summary, method, conclusion)
             .encodeABI(),
         },
       ],
@@ -65,13 +65,13 @@ const Create = ({ account, apiKey }) => {
                 </span>
                 <div>
                   <span className="flex mt-6 pb-2 text-amber-900 opacity-70">
-                    Abstract
+                    Summary
                   </span>
                   <textarea
                     className="border rounded-xl p-4 min-w-full h-32 placeholder:italic"
                     rows="3"
                     placeholder="Describe your abstract..."
-                    name="Abstract"
+                    name="summary"
                   />
                 </div>
                 <div>

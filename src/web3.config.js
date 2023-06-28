@@ -1,18 +1,5 @@
-export const GOVERNANCE_CA = "0x4fc7Db345FA6f0C4725772a694ff1A3a49E2E738";
+export const GOVERNANCE_CA = "0x06913EC0AB8DF7cD7109dc50F2005F78Bc26f195";
 export const GOVERNANCE_ABI = [
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "P_numbers",
-        type: "uint256",
-      },
-    ],
-    name: "closeProposal",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
   {
     inputs: [
       {
@@ -40,7 +27,17 @@ export const GOVERNANCE_ABI = [
       },
       {
         internalType: "string",
-        name: "_detail",
+        name: "_abstract",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_method",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_conclusion",
         type: "string",
       },
     ],
@@ -172,7 +169,17 @@ export const GOVERNANCE_ABI = [
           },
           {
             internalType: "string",
-            name: "detail",
+            name: "Abstract",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "method",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "conclusion",
             type: "string",
           },
           {
@@ -184,16 +191,6 @@ export const GOVERNANCE_ABI = [
             internalType: "uint256",
             name: "deny",
             type: "uint256",
-          },
-          {
-            internalType: "bool",
-            name: "status",
-            type: "bool",
-          },
-          {
-            internalType: "enum governance.voteResult",
-            name: "voteResults",
-            type: "uint8",
           },
         ],
         internalType: "struct governance.proposal",
@@ -268,7 +265,17 @@ export const GOVERNANCE_ABI = [
       },
       {
         internalType: "string",
-        name: "detail",
+        name: "Abstract",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "method",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "conclusion",
         type: "string",
       },
       {
@@ -280,16 +287,6 @@ export const GOVERNANCE_ABI = [
         internalType: "uint256",
         name: "deny",
         type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "status",
-        type: "bool",
-      },
-      {
-        internalType: "enum governance.voteResult",
-        name: "voteResults",
-        type: "uint8",
       },
     ],
     stateMutability: "view",
@@ -308,14 +305,14 @@ export const GOVERNANCE_ABI = [
       {
         components: [
           {
-            internalType: "enum governance.voteCheck",
-            name: "voteChecks",
+            internalType: "uint8",
+            name: "count",
             type: "uint8",
           },
           {
-            internalType: "uint256",
-            name: "count",
-            type: "uint256",
+            internalType: "uint8",
+            name: "accept",
+            type: "uint8",
           },
         ],
         internalType: "struct governance.myStatus",
@@ -327,7 +324,6 @@ export const GOVERNANCE_ABI = [
     type: "function",
   },
 ];
-
 export const ERC20_CA = "0x078d1B0B379d1c76C9944Fa6ed5eEdf11D6A4D80";
 export const ERC20_ABI = [
   {

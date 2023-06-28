@@ -11,9 +11,13 @@ const Detail = ({ account, setAccount }) => {
   let [status, setStatus] = useState();
   const [time, setTime] = useState();
   const [address, setAddress] = useState();
-  const [detail, setDetail] = useState();
+  const [abstract, setAbstract] = useState();
+  const [method, setMethod] = useState();
+  const [conclusion, setConclusion] = useState();
   const [accept, setAccept] = useState();
   const [deny, setDeny] = useState();
+
+  const [closed, setClosed] = useState();
 
   const date = new Date(time * 1000);
   const year = date.getFullYear();
@@ -46,7 +50,6 @@ const Detail = ({ account, setAccount }) => {
   } else if (month === 12) {
     month = "December";
   }
-
   const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
   const GVN_contract = new web3.eth.Contract(GOVERNANCE_ABI, GOVERNANCE_CA);
 
@@ -54,10 +57,11 @@ const Detail = ({ account, setAccount }) => {
     try {
       const proposalInfo = await GVN_contract.methods.getProposal(id).call();
       setSubject(proposalInfo.subject);
-      setStatus(Number(proposalInfo.voteResults));
       setTime(Number(proposalInfo.time));
       setAddress(proposalInfo.maker);
-      setDetail(proposalInfo.detail);
+      setAbstract(proposalInfo.Abstract);
+      setMethod(proposalInfo.method);
+      setConclusion(proposalInfo.conclusion);
       setAccept(Number(proposalInfo.accept));
       setDeny(Number(proposalInfo.deny));
     } catch (error) {
@@ -65,10 +69,48 @@ const Detail = ({ account, setAccount }) => {
     }
   };
 
-  const onClickVote = async () => {
+  const onClickAgree = async (e) => {
     if (account) {
       try {
-        alert("you can vote");
+        e.preventDefault();
+        await window.ethereum.request({
+          method: "eth_sendTransaction",
+          params: [
+            {
+              from: account,
+              to: GOVERNANCE_CA,
+              data: GVN_contract.methods.openVotesAccept(id).encodeABI(),
+            },
+          ],
+        });
+      } catch (error) {
+        alert("you can't vote");
+      }
+    } else {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        setAccount(accounts[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  const onClickDisagree = async (e) => {
+    if (account) {
+      try {
+        e.preventDefault();
+        await window.ethereum.request({
+          method: "eth_sendTransaction",
+          params: [
+            {
+              from: account,
+              to: GOVERNANCE_CA,
+              data: GVN_contract.methods.openVotesDeny(id).encodeABI(),
+            },
+          ],
+        });
       } catch (error) {
         alert("you can't vote");
       }
@@ -101,8 +143,8 @@ const Detail = ({ account, setAccount }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
-      <div className="mx-80 mt-8">
-        <div>
+      <div className="mx-96 mt-8 flex justify-center items-center">
+        <div className="">
           <Link to="/governance">
             <button>
               <div className="flex items-center">
@@ -145,22 +187,43 @@ const Detail = ({ account, setAccount }) => {
             <div className="bg-white rounded-xl shadow-2xl">
               <div className="">
                 <div className="justify-between items-center flex p-8 text-2xl border-b border-amber-800">
-                  <div>Voting progress</div>
-                  <button
-                    onClick={onClickVote}
-                    className="p-2 text-amber-600 border border-amber-600 hover:border-amber-800 hover:text-amber-800 duration-200 rounded-xl"
-                  >
-                    Vote
-                  </button>
+                  <div className="">Voting progress</div>
                 </div>
               </div>
             </div>
-            <div className="mt-14 min-h-screen bg-white rounded-xl shadow-2xl">
+            <div className="mt-14 bg-white rounded-xl shadow-2xl border">
               <div>
                 <div className="p-8 text-2xl border-b border-amber-800">
                   Proposal details
                 </div>
-                <div className="p-8">{detail}</div>
+                <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 rounded-xl shadow-inner shadow-amber-700 m-8 pb-72">
+                  <div className="p-8">
+                    <div className="text-xl font-medium mb-3">Abstract</div>
+                    <div>{abstract}</div>
+                  </div>
+                  <div className="p-8">
+                    <div className="text-xl font-medium mb-3">Method</div>
+                    <div>{method}</div>
+                  </div>
+                  <div className="p-8">
+                    <div className="text-xl font-medium mb-3">Conclusion</div>
+                    <div>{conclusion}</div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-between px-4 pb-4">
+                <button
+                  onClick={onClickAgree}
+                  className="p-2 text-green-600 border border-green-600 hover:green-800 hover:text-green-800 duration-200 rounded-xl"
+                >
+                  Agree
+                </button>
+                <button
+                  onClick={onClickDisagree}
+                  className="p-2 text-red-600 border border-red-600 hover:border-red-800 hover:text-red-800 duration-200 rounded-xl"
+                >
+                  Disagree
+                </button>
               </div>
             </div>
           </div>

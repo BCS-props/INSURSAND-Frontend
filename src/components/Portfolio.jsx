@@ -1,46 +1,18 @@
-import { useEffect, useState } from "react";
-import Web3 from "web3";
-import {
-  ERC20_ABI,
-  ERC20_CA,
-  GOVERNANCE_ABI,
-  GOVERNANCE_CA,
-} from "../web3.config";
+import { useEffect } from "react";
+import { useGet } from "../hooks/get";
 
-const Portfolio = ({ account, apiKey }) => {
-  const [voteNum, setVoteNum] = useState();
-  const [tokenBalance, setTokenBalance] = useState();
-
-  const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
-  const GVN_contract = new web3.eth.Contract(GOVERNANCE_ABI, GOVERNANCE_CA);
-  const ERC20_contract = new web3.eth.Contract(ERC20_ABI, ERC20_CA);
+const Portfolio = ({ account }) => {
+  const { getTokenBalance, tokenBalance, getVoteNum, voteNum } =
+    useGet(account);
 
   useEffect(() => {
     if (!account) {
       window.location.href = "/"; // account가 없을 시 메인으로 리다이렉트
     }
-    async function getVoteNum() {
-      try {
-        if (!account || !web3 || !GVN_contract) return;
-        var votes = await GVN_contract.methods.getVotePower(account).call();
-        setVoteNum(Number(votes));
-      } catch (error) {
-        alert("failed to get number of votes");
-      }
-    }
     getVoteNum();
-
-    async function getTokenBalance() {
-      try {
-        if (!account || !web3 || !ERC20_contract) return;
-        var balances = await ERC20_contract.methods.balanceOf(account).call();
-        setTokenBalance(Number(balances));
-      } catch (error) {
-        alert("failed to get token balances");
-      }
-    }
     getTokenBalance();
   });
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
       <div className="ml-12 mr-12 mt-20">

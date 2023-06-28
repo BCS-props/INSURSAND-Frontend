@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
+import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import { apiKey } from "../App";
 import Web3 from "web3";
 import { GOVERNANCE_ABI, GOVERNANCE_CA } from "../web3.config";
+import { useOnClick } from "../hooks/onClick";
 
 const Detail = ({ account, setAccount }) => {
   const { id } = useParams();
+
   const [subject, setSubject] = useState(null);
-  let [status, setStatus] = useState();
   const [time, setTime] = useState();
   const [address, setAddress] = useState();
-  const [abstract, setAbstract] = useState();
+  const [summary, setSummary] = useState();
   const [method, setMethod] = useState();
   const [conclusion, setConclusion] = useState();
-  const [accept, setAccept] = useState();
-  const [deny, setDeny] = useState();
-
-  const [closed, setClosed] = useState();
+  const [status, setStatus] = useState("In Progress");
+  const [agree, setAgree] = useState();
+  const [disagree, setDisagree] = useState();
 
   const date = new Date(time * 1000);
   const year = date.getFullYear();
@@ -50,8 +51,6 @@ const Detail = ({ account, setAccount }) => {
   } else if (month === 12) {
     month = "December";
   }
-  const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
-  const GVN_contract = new web3.eth.Contract(GOVERNANCE_ABI, GOVERNANCE_CA);
 
   const getProposalData = async () => {
     try {
@@ -59,87 +58,70 @@ const Detail = ({ account, setAccount }) => {
       setSubject(proposalInfo.subject);
       setTime(Number(proposalInfo.time));
       setAddress(proposalInfo.maker);
-      setAbstract(proposalInfo.Abstract);
+      setSummary(proposalInfo.summary);
       setMethod(proposalInfo.method);
       setConclusion(proposalInfo.conclusion);
-      setAccept(Number(proposalInfo.accept));
-      setDeny(Number(proposalInfo.deny));
+      setAgree(Number(proposalInfo.agree));
+      setDisagree(Number(proposalInfo.disagree));
     } catch (error) {
       console.log("failed to get data of proposal");
     }
   };
 
-  const onClickAgree = async (e) => {
-    if (account) {
+  const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
+  const GVN_contract = new web3.eth.Contract(GOVERNANCE_ABI, GOVERNANCE_CA);
+  // 안건 종료 시간 구하는 함수
+  const getD_day = (time) => {
+    const twoWeeks = 1209600;
+    const twoWeeksLater = time + twoWeeks; // 2주 뒤 시간
+    const currentTime = Math.floor(Date.now() / 1000); // 현재 시간
+
+    const timeDiff = twoWeeksLater - currentTime;
+
+    const days = Math.floor(timeDiff / (24 * 60 * 60)); // 일 단위 계산
+    const hours = Math.floor((timeDiff % (24 * 60 * 60)) / (60 * 60)); // 시 단위 계산
+    const minutes = Math.floor((timeDiff % (60 * 60)) / 60); // 분 단위 계산
+    const seconds = timeDiff % 60; // 초 단위 계산
+
+    return { days, hours, minutes, seconds, timeDiff };
+  };
+
+  const { days, hours, minutes, seconds, timeDiff } = getD_day(time);
+
+  // 프론트엔드에 실시간으로 남은 시간 표시
+  // console.log(
+  //   `안건 종료까지 ${days}일 ${hours}시간 ${minutes}분 ${seconds}초 남았습니다.`
+  // );
+  // console.log(timeDiff);
+
+  const getStatus = async () => {
+    if (timeDiff <= 0 && agree > disagree) {
       try {
-        e.preventDefault();
-        await window.ethereum.request({
-          method: "eth_sendTransaction",
-          params: [
-            {
-              from: account,
-              to: GOVERNANCE_CA,
-              data: GVN_contract.methods.openVotesAccept(id).encodeABI(),
-            },
-          ],
-        });
-      } catch (error) {
-        alert("you can't vote");
-      }
-    } else {
-      try {
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        setAccount(accounts[0]);
+        setStatus("Proposed");
       } catch (error) {
         console.log(error);
       }
-    }
-  };
-  const onClickDisagree = async (e) => {
-    if (account) {
+    } else if (timeDiff <= 0 && agree <= disagree) {
       try {
-        e.preventDefault();
-        await window.ethereum.request({
-          method: "eth_sendTransaction",
-          params: [
-            {
-              from: account,
-              to: GOVERNANCE_CA,
-              data: GVN_contract.methods.openVotesDeny(id).encodeABI(),
-            },
-          ],
-        });
-      } catch (error) {
-        alert("you can't vote");
-      }
-    } else {
-      try {
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        setAccount(accounts[0]);
+        setStatus("Rejected");
       } catch (error) {
         console.log(error);
       }
     }
   };
 
-  const getStatus = () => {
-    if (status === 0) {
-      status = "In Progress";
-    } else if (status === 1) {
-      status = "Proposed";
-    } else if (status === 2) {
-      status = "Rejected";
-    }
-  };
-  getStatus();
+  // const getTotalVotePower()
+
+  // hooks의 useOnClick 사용
+  const { onClickAgree, onClickDisagree } = useOnClick(id, account, setAccount);
+
+  console.log(agree);
+  console.log(disagree);
 
   useEffect(() => {
     getProposalData();
-  }, []);
+    getStatus();
+  }, [status]);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
@@ -198,8 +180,8 @@ const Detail = ({ account, setAccount }) => {
                 </div>
                 <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 rounded-xl shadow-inner shadow-amber-700 m-8 pb-72">
                   <div className="p-8">
-                    <div className="text-xl font-medium mb-3">Abstract</div>
-                    <div>{abstract}</div>
+                    <div className="text-xl font-medium mb-3">Summary</div>
+                    <div>{summary}</div>
                   </div>
                   <div className="p-8">
                     <div className="text-xl font-medium mb-3">Method</div>
@@ -211,17 +193,19 @@ const Detail = ({ account, setAccount }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between px-4 pb-4">
+              <div className="flex justify-between px-52 pb-4">
                 <button
                   onClick={onClickAgree}
-                  className="p-2 text-green-600 border border-green-600 hover:green-800 hover:text-green-800 duration-200 rounded-xl"
+                  className="p-2 flex items-center gap-2 text-green-600 border border-green-600 hover:green-800 hover:text-green-800 duration-200 rounded-xl"
                 >
+                  <AiOutlineCheck />
                   Agree
                 </button>
                 <button
                   onClick={onClickDisagree}
-                  className="p-2 text-red-600 border border-red-600 hover:border-red-800 hover:text-red-800 duration-200 rounded-xl"
+                  className="p-2 flex items-center gap-2 text-red-600 border border-red-600 hover:border-red-800 hover:text-red-800 duration-200 rounded-xl"
                 >
+                  <AiOutlineClose />
                   Disagree
                 </button>
               </div>

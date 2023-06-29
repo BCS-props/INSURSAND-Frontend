@@ -1,18 +1,30 @@
+import { BsDiscord, BsTwitter, BsGithub } from "react-icons/bs";
+
 const Footer = () => {
   return (
-    <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 opacity-50 h-80">
+    <div className="bg-amber-100">
       <div>
-        <div className="pt-16 pl-12 pb-28 ml-4">
+        <div className="pt-12 pl-12 pb-4 ml-4">
           <div className="flex w-fit items-center">
-            {/* <div>logo img</div> */}
-            <div className="text-4xl">I N S U R S A N D</div>
+            <span class="self-center text-5xl font-semibold">
+              I N S U R&nbsp;
+            </span>
+            <span class="self-center text-5xl font-semibold text-amber-600">
+              S A N D
+            </span>
           </div>
-          <div className="pt-12">
-            <div>discord</div>
+          <div className="opacity-70 pb-8 w-fit">
+            <div className="pb-4 mt-4 ">Every moment in DeFi,</div>
+            <div className="">Safe easy with INSURSAND</div>
           </div>
-        </div>
-        <div className="flex justify-end pr-4">
-          © 2023 INSURSAND. All rights reserved.
+          <div className="flex justify-between pr-4 mt-20">
+            <div className="flex gap-8">
+              <BsDiscord size={26} />
+              <BsTwitter size={26} />
+              <BsGithub size={26} />
+            </div>
+            <div>© 2023 INSURSAND. All rights reserved.</div>
+          </div>
         </div>
       </div>
     </div>

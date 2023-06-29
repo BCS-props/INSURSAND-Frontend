@@ -14,6 +14,7 @@ export function useGet(account) {
 
   const [tokenBalance, setTokenBalance] = useState();
   const [voteNum, setVoteNum] = useState();
+  const [totalVoteNum, setTotalVoteNum] = useState();
 
   const getTokenBalance = async () => {
     try {
@@ -35,5 +36,21 @@ export function useGet(account) {
     }
   };
 
-  return { getTokenBalance, tokenBalance, getVoteNum, voteNum };
+  const getTotalVotePower = async () => {
+    try {
+      var totalVotes = await GVN_contract.methods.getTotalVotePower().call();
+      setTotalVoteNum(Number(totalVotes));
+    } catch (error) {
+      alert("failed to get total votes");
+    }
+  };
+
+  return {
+    getTokenBalance,
+    tokenBalance,
+    getVoteNum,
+    voteNum,
+    getTotalVotePower,
+    totalVoteNum,
+  };
 }

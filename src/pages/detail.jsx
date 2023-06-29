@@ -6,6 +6,7 @@ import { apiKey } from "../App";
 import Web3 from "web3";
 import { GOVERNANCE_ABI, GOVERNANCE_CA } from "../web3.config";
 import { useOnClick } from "../hooks/onClick";
+import { useGet } from "../hooks/get";
 
 const Detail = ({ account, setAccount }) => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ const Detail = ({ account, setAccount }) => {
   const [status, setStatus] = useState("In Progress");
   const [agree, setAgree] = useState();
   const [disagree, setDisagree] = useState();
+  const [total, setTotal] = useState();
 
   const date = new Date(time * 1000);
   const year = date.getFullYear();
@@ -63,6 +65,7 @@ const Detail = ({ account, setAccount }) => {
       setConclusion(proposalInfo.conclusion);
       setAgree(Number(proposalInfo.agree));
       setDisagree(Number(proposalInfo.disagree));
+      setTotal(Number(proposalInfo.agree) + Number(proposalInfo.disagree)); // 해당 안건의 총 투표 수
     } catch (error) {
       console.log("failed to get data of proposal");
     }
@@ -95,7 +98,7 @@ const Detail = ({ account, setAccount }) => {
   // console.log(timeDiff);
 
   const getStatus = async () => {
-    if (timeDiff <= 0 && agree > disagree) {
+    if (timeDiff <= 0 && agree > disagree && total >= totalVoteNum * 0.2) {
       try {
         setStatus("Proposed");
       } catch (error) {
@@ -115,12 +118,17 @@ const Detail = ({ account, setAccount }) => {
   // hooks의 useOnClick 사용
   const { onClickAgree, onClickDisagree } = useOnClick(id, account, setAccount);
 
+  const { getTotalVotePower, totalVoteNum } = useGet();
+
   console.log(agree);
   console.log(disagree);
+  // console.log(totalVoteNum);
+  console.log(total);
 
   useEffect(() => {
     getProposalData();
     getStatus();
+    getTotalVotePower();
   }, [status]);
 
   return (

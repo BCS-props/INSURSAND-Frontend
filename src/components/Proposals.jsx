@@ -2,7 +2,7 @@ import { FaCircle, FaCheck } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const Proposals = ({ subject, status, accept, deny, id }) => {
+const Proposals = ({ subject, status, agree, disagree, id }) => {
   // let statusIcon;
   // const getStatus = () => {
   //   if (status === 0) {
@@ -18,7 +18,7 @@ const Proposals = ({ subject, status, accept, deny, id }) => {
   // };
   // getStatus();
 
-  const totalVotes = accept + deny; // 총 투표수
+  const totalVotes = agree + disagree; // 총 투표수
 
   return (
     <div className="px-12">

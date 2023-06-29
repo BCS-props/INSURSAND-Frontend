@@ -44,9 +44,11 @@ const Header = ({ account, setAccount }) => {
           <Link to="/" className="flex items-center">
             <div className="justify-between flex">
               {/* <div className="mr-3 h-6">logo img</div> */}
-              <span class="self-center text-xl font-semibold">INSUR</span>
+              <span class="self-center text-xl font-semibold">
+                I N S U R&nbsp;
+              </span>
               <span class="self-center text-xl font-semibold text-amber-600">
-                SAND
+                S A N D
               </span>
             </div>
           </Link>

@@ -7,6 +7,25 @@ import Web3 from "web3";
 import { GOVERNANCE_ABI, GOVERNANCE_CA } from "../web3.config";
 import { useOnClick } from "../hooks/onClick";
 import { useGet } from "../hooks/get";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const Detail = ({ account, setAccount }) => {
   const { id } = useParams();
@@ -125,6 +144,33 @@ const Detail = ({ account, setAccount }) => {
   // console.log(totalVoteNum);
   console.log(total);
 
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+    },
+  };
+
+  const labels = ["agree / disagree"];
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Agree",
+        data: labels.map(() => agree),
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+      {
+        label: "Disagree",
+        data: labels.map(() => disagree),
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
+
   useEffect(() => {
     getProposalData();
     getStatus();
@@ -144,7 +190,7 @@ const Detail = ({ account, setAccount }) => {
             </button>
           </Link>
           <div>
-            <div>
+            <div className="flex items-center justify-between">
               <div
                 className={`text-xl border rounded-3xl w-fit mt-8 p-2 ${
                   status === "In Progress"
@@ -158,6 +204,19 @@ const Detail = ({ account, setAccount }) => {
               >
                 {status}
               </div>
+              {timeDiff !== 0 ? (
+                <div
+                  className={`mt-6 border p-2 rounded-xl border-green-700 ${
+                    days === 0 ? "text-red-400" : "text-green-800"
+                  }`}
+                >
+                  End of the proposal: {days} days, {hours}:{minutes}:{seconds}
+                </div>
+              ) : (
+                <div className="mt-6 border p-2 rounded-xl border-red-800 text-red-800">
+                  Proposal has ended.
+                </div>
+              )}
             </div>
             <div className="text-5xl font-bold mt-6">{subject}</div>
             <div className="opacity-60 mt-4 flex">
@@ -176,8 +235,15 @@ const Detail = ({ account, setAccount }) => {
             <div className="mt-4"></div>
             <div className="bg-white rounded-xl shadow-2xl">
               <div className="">
-                <div className="justify-between items-center flex p-8 text-2xl border-b border-amber-800">
-                  <div className="">Voting progress</div>
+                <div className="items-center p-8">
+                  <div className="text-2xl mb-4">Voting progress</div>
+                  <div>
+                    {total !== 0 ? (
+                      <Bar options={options} data={data} />
+                    ) : (
+                      <div>There is no vote yet...</div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

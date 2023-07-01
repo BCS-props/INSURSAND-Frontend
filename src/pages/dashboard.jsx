@@ -1,9 +1,9 @@
 import Portfolio from "../components/Portfolio";
 
-const DashBoard = ({ account, apiKey }) => {
+const DashBoard = ({ account }) => {
   return (
     <div>
-      <Portfolio account={account} apiKey={apiKey} />
+      <Portfolio account={account} />
     </div>
   );
 };

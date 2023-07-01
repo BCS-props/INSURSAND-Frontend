@@ -3,8 +3,9 @@ import Web3 from "web3";
 import { GOVERNANCE_ABI, GOVERNANCE_CA } from "../web3.config";
 import Proposals from "./Proposals";
 import { Link } from "react-router-dom";
+import { apiKey } from "../App";
 
-const Proposal = ({ apiKey }) => {
+const Proposal = () => {
   const [proposalNum, setProposalNum] = useState();
   const [proposalInfo, setProposalInfo] = useState();
 

@@ -43,13 +43,11 @@ const Header = ({ account, setAccount }) => {
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to="/" className="flex items-center">
             <div className="justify-between flex">
-              {/* <div className="mr-3 h-6">logo img</div> */}
-              <span class="self-center text-xl font-semibold">
-                I N S U R&nbsp;
-              </span>
-              <span class="self-center text-xl font-semibold text-amber-600">
-                S A N D
-              </span>
+              <img
+                src={`${process.env.PUBLIC_URL}/images/logo.png`}
+                alt="logo"
+                className="w-28"
+              />
             </div>
           </Link>
           <div className="p-2 flex">

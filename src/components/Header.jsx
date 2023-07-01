@@ -60,7 +60,7 @@ const Header = ({ account, setAccount }) => {
                     to="/covers"
                     className="block rounded-xl py-2 px-4 mr-2 hover:text-amber-600"
                   >
-                    Buy Specialized Covers
+                    Buy Covers
                   </Link>
                 </li>
                 <li>

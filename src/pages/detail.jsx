@@ -17,6 +17,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import Covers from "./covers";
 
 ChartJS.register(
   CategoryScale,
@@ -37,8 +38,8 @@ const Detail = ({ account, setAccount }) => {
   const [method, setMethod] = useState();
   const [conclusion, setConclusion] = useState();
   const [status, setStatus] = useState("In Progress");
-  const [agree, setAgree] = useState();
-  const [disagree, setDisagree] = useState();
+  const [agree, setAgree] = useState(0);
+  const [disagree, setDisagree] = useState(0);
   const [total, setTotal] = useState();
 
   const date = new Date(time * 1000);
@@ -117,7 +118,9 @@ const Detail = ({ account, setAccount }) => {
   // console.log(timeDiff);
 
   const getStatus = async () => {
-    if (timeDiff <= 0 && agree > disagree && total >= totalVoteNum * 0.2) {
+    console.log("test");
+    // if (timeDiff <= 0 && agree > disagree && total >= totalVoteNum * 0.2) {
+    if (agree > disagree) {
       try {
         setStatus("Proposed");
       } catch (error) {
@@ -135,7 +138,11 @@ const Detail = ({ account, setAccount }) => {
   // const getTotalVotePower()
 
   // hooks의 useOnClick 사용
-  const { onClickAgree, onClickDisagree } = useOnClick(id, account, setAccount);
+  const { onClickAgree, onClickDisagree, isLoading } = useOnClick(
+    id,
+    account,
+    setAccount
+  );
 
   const { getTotalVotePower, totalVoteNum } = useGet();
 
@@ -173,9 +180,14 @@ const Detail = ({ account, setAccount }) => {
 
   useEffect(() => {
     getProposalData();
-    getStatus();
+
     getTotalVotePower();
   }, [status]);
+
+  useEffect(() => {
+    if (!agree || !disagree || !total) return;
+    getStatus();
+  }, [agree, disagree, total]);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
@@ -204,7 +216,7 @@ const Detail = ({ account, setAccount }) => {
               >
                 {status}
               </div>
-              {timeDiff !== 0 ? (
+              {status === "In Progress" ? (
                 <div
                   className={`mt-6 border p-2 rounded-xl border-green-700 ${
                     days === 0 ? "text-red-400" : "text-green-800"
@@ -214,7 +226,7 @@ const Detail = ({ account, setAccount }) => {
                 </div>
               ) : (
                 <div className="mt-6 border p-2 rounded-xl border-red-800 text-red-800">
-                  Proposal has ended.
+                  Proposal has expired.
                 </div>
               )}
             </div>
@@ -255,33 +267,69 @@ const Detail = ({ account, setAccount }) => {
                 <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 rounded-xl shadow-inner shadow-amber-700 m-8 pb-72">
                   <div className="p-8">
                     <div className="text-xl font-medium mb-3">Summary</div>
-                    <div>{summary}</div>
+                    <div className="break-words" style={{ width: "540px" }}>
+                      {summary}
+                    </div>
                   </div>
                   <div className="p-8">
                     <div className="text-xl font-medium mb-3">Method</div>
-                    <div>{method}</div>
+                    <div className="break-words" style={{ width: "540px" }}>
+                      {method}
+                    </div>
                   </div>
                   <div className="p-8">
                     <div className="text-xl font-medium mb-3">Conclusion</div>
-                    <div>{conclusion}</div>
+                    <div className="break-words" style={{ width: "540px" }}>
+                      {conclusion}
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="flex justify-between px-52 pb-4">
-                <button
-                  onClick={onClickAgree}
-                  className="p-2 flex items-center gap-2 text-green-600 border border-green-600 hover:green-800 hover:text-green-800 duration-200 rounded-xl"
-                >
-                  <AiOutlineCheck />
-                  Agree
-                </button>
-                <button
-                  onClick={onClickDisagree}
-                  className="p-2 flex items-center gap-2 text-red-600 border border-red-600 hover:border-red-800 hover:text-red-800 duration-200 rounded-xl"
-                >
-                  <AiOutlineClose />
-                  Disagree
-                </button>
+                {status === "In Progress" ? (
+                  <button
+                    disabled={isLoading}
+                    onClick={onClickAgree}
+                    className="p-2 flex items-center gap-2 text-green-600 border border-green-600 hover:green-800 hover:text-green-800 duration-200 rounded-xl"
+                  >
+                    {isLoading ? (
+                      <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gradient-to-r from-amber-400/90 to-amber-600/90 cursor-not-allowed z-0">
+                        <span className="text-xl font-semibold text-black ">
+                          Voting...
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <AiOutlineCheck />
+                        agree
+                      </div>
+                    )}
+                  </button>
+                ) : (
+                  <div></div>
+                )}
+                {status === "In Progress" ? (
+                  <button
+                    disabled={isLoading}
+                    onClick={onClickDisagree}
+                    className="p-2 flex items-center gap-2 text-red-600 border border-red-600 hover:border-red-800 hover:text-red-800 duration-200 rounded-xl"
+                  >
+                    {isLoading ? (
+                      <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gradient-to-r from-amber-400/90 to-amber-600/90 cursor-not-allowed z-0">
+                        <span className="text-xl font-semibold text-black ">
+                          Voting...
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <AiOutlineClose />
+                        Disagree
+                      </div>
+                    )}
+                  </button>
+                ) : (
+                  <div></div>
+                )}
               </div>
             </div>
           </div>

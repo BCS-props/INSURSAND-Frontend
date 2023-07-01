@@ -1,6 +1,6 @@
 import Proposal from "../components/Proposal";
 
-const Governance = ({ apiKey }) => {
-  return <Proposal apiKey={apiKey} />;
+const Governance = () => {
+  return <Proposal />;
 };
 export default Governance;

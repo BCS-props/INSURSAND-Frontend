@@ -1,11 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Web3 from "web3";
 import { GOVERNANCE_ABI, GOVERNANCE_CA } from "../web3.config";
 import { BiArrowBack } from "react-icons/bi";
+import { apiKey } from "../App";
 
-const Create = ({ account, apiKey }) => {
+const Create = ({ account }) => {
   const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
   const GVN_contract = new web3.eth.Contract(GOVERNANCE_ABI, GOVERNANCE_CA);
+
+  const navigate = useNavigate();
 
   async function submitProposal(e) {
     e.preventDefault();
@@ -27,6 +30,8 @@ const Create = ({ account, apiKey }) => {
         },
       ],
     });
+    navigate(-1);
+    alert("Proposal submission is complete!");
   }
 
   return (

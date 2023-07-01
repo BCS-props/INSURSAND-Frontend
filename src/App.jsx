@@ -8,20 +8,20 @@ import Governance from "./pages/governance";
 import Covers from "./pages/covers";
 import Create from "./pages/create";
 import Detail from "./pages/detail";
+import Quote from "./pages/quote";
 export const apiKey = process.env.REACT_APP_INFURA_KEY;
 function App() {
   const [account, setAccount] = useState();
 
   return (
     <BrowserRouter>
+      <Header account={account} setAccount={setAccount} />
       <Routes>
         <Route
           path="/"
           element={
             <div>
-              <Header account={account} setAccount={setAccount} />
               <Main />
-              <Footer />
             </div>
           }
         ></Route>
@@ -29,9 +29,7 @@ function App() {
           path="/dashboard"
           element={
             <div>
-              <Header account={account} setAccount={setAccount} />
-              <DashBoard account={account} apiKey={apiKey} />
-              <Footer />
+              <DashBoard account={account} />
             </div>
           }
         ></Route>
@@ -39,9 +37,7 @@ function App() {
           path="/covers"
           element={
             <div>
-              <Header account={account} setAccount={setAccount} />
-              <Covers account={account} apiKey={apiKey} />
-              <Footer />
+              <Covers account={account} />
             </div>
           }
         ></Route>
@@ -49,9 +45,7 @@ function App() {
           path="/governance"
           element={
             <div>
-              <Header account={account} setAccount={setAccount} />
-              <Governance apiKey={apiKey} />
-              <Footer />
+              <Governance />
             </div>
           }
         ></Route>
@@ -59,9 +53,7 @@ function App() {
           path="/create"
           element={
             <div>
-              <Header account={account} setAccount={setAccount} />
-              <Create account={account} apiKey={apiKey} />
-              <Footer />
+              <Create account={account} />
             </div>
           }
         ></Route>
@@ -69,17 +61,20 @@ function App() {
           path="/governance/:id"
           element={
             <div>
-              <Header account={account} setAccount={setAccount} />
-              <Detail
-                apiKey={apiKey}
-                account={account}
-                setAccount={setAccount}
-              />
-              <Footer />
+              <Detail account={account} setAccount={setAccount} />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/covers/:id"
+          element={
+            <div>
+              <Quote />
             </div>
           }
         ></Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

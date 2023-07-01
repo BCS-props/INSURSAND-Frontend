@@ -1,24 +1,13 @@
 import Web3 from "web3";
 import { NFT_ABI, NFT_CA } from "../web3.config";
+import { apiKey } from "../App";
+import { GiSandsOfTime } from "react-icons/gi";
+import { IoShieldCheckmarkOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
-const Covers = ({ account, apiKey }) => {
-  const web3 = new Web3(
-    "https://sepolia.infura.io/v3/4bc46d21f741449c981aa74ba6d10b1d"
-  );
-
+const Covers = ({ account }) => {
+  const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
   const NFT_contract = new web3.eth.Contract(NFT_ABI, NFT_CA);
-
-  // const onClickMint = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const mintNft = await NFT_contract.methods
-  //       .Mint_Cover()
-  //       .send({ from: account });
-  //     if (!mintNft.status) return;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   async function NFT_minting(e) {
     e.preventDefault();
@@ -33,13 +22,43 @@ const Covers = ({ account, apiKey }) => {
     });
   }
   return (
-    <div className="min-h-screen justify-center flex">
-      <div className="mt-32">
-        <form onSubmit={NFT_minting}>
-          <button type="submit" className="border-2 p-2 rounded-xl bg-red-200">
-            NFT Minting
-          </button>
-        </form>
+    <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
+      <div className="flex justify-center items-center gap-40 mt-20 text-lg pb-20">
+        <button className="border bg-white opacity-70 rounded-md p-8">
+          Required documents
+        </button>
+        <button className="border bg-white opacity-70 rounded-md p-8">
+          How to buy coverage
+        </button>
+        <button className="border bg-white opacity-70 rounded-md p-8">
+          How to make a claim
+        </button>
+      </div>
+      <div className="" style={{ height: "560px" }}>
+        <div className="flex h-full px-60 gap-20">
+          <div className="border rounded-xl flex-1 h-full bg-gray-100 opacity-80">
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2 pt-4 px-4 text-xl">
+                <IoShieldCheckmarkOutline />
+                Value Drop Coverage
+              </div>
+              <button className="flex mx-auto mt-96  items-center border border-black text-2xl p-2 rounded-2xl">
+                <Link to={`/covers/1`}>get quote</Link>
+              </button>
+            </div>
+          </div>
+          <div className="border rounded-xl flex-1 h-full bg-gray-100 opacity-80">
+            <div>
+              <div className="flex items-center gap-2 pt-4 px-4 text-xl">
+                <GiSandsOfTime />
+                Value Drop Coverage during lockup period
+              </div>
+              <button className="flex mx-auto mt-96 items-center border border-black text-2xl p-2 rounded-2xl">
+                <Link to={`/covers/2`}>get quote</Link>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

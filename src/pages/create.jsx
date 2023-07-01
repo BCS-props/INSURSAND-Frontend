@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Web3 from "web3";
 import { GOVERNANCE_ABI, GOVERNANCE_CA } from "../web3.config";
 import { BiArrowBack } from "react-icons/bi";
+import { BsCheck2Square } from "react-icons/bs";
 import { apiKey } from "../App";
 
 const Create = ({ account }) => {
@@ -36,7 +37,7 @@ const Create = ({ account }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
-      <div className="mx-80 mt-8">
+      <div className="mx-auto mt-8" style={{ width: "910px" }}>
         <div>
           <Link to="/governance">
             <button>
@@ -57,15 +58,16 @@ const Create = ({ account }) => {
             </div>
             <form onSubmit={submitProposal} className="mt-12">
               <label className="block">
-                <span className="block text-lg font-medium">Title</span>
+                <span className="block text-xl font-medium">Title</span>
                 <input
                   className="border rounded-xl p-4 min-w-full mt-6 placeholder:italic"
                   placeholder="Enter the title of your porposal..."
                   name="title"
+                  required
                 />
               </label>
               <label className="block">
-                <span className="block text-lg font-medium mt-12">
+                <span className="block text-xl font-medium mt-12">
                   Overview
                 </span>
                 <div>
@@ -77,6 +79,7 @@ const Create = ({ account }) => {
                     rows="3"
                     placeholder="Describe your abstract..."
                     name="summary"
+                    required
                   />
                 </div>
                 <div>
@@ -88,6 +91,7 @@ const Create = ({ account }) => {
                     rows="3"
                     placeholder="Describe your methodology..."
                     name="method"
+                    required
                   />
                 </div>
                 <div>
@@ -99,16 +103,52 @@ const Create = ({ account }) => {
                     rows="3"
                     placeholder="Describe your conclusion..."
                     name="conclusion"
+                    required
                   />
                 </div>
               </label>
-              <div className="mt-12 flex justify-end">
-                <button
-                  type="submit"
-                  className="border text-white rounded-xl bg-amber-700/80 hover:bg-amber-800/80 transition duration-300 hover:scale-95 p-2"
-                >
-                  Submit Proposal
-                </button>
+              <div className="bg-black/10 rounded-xl mt-8 h-88">
+                <div className="p-6">
+                  <div className="flex items-center border-b-amber-600 border border-transparent">
+                    <div className="text-2xl pb-4 ">
+                      Before submitting the proposal ...
+                    </div>
+                  </div>
+                  <div className="mt-4 opacity-70">
+                    <div className="flex gap-2">
+                      <BsCheck2Square className="mt-1" />
+                      When creating an proposal, one voting right is consumed.
+                      <br />
+                      <br />
+                    </div>
+                    <div className="flex gap-2">
+                      <BsCheck2Square className="mt-1" />
+                      After you create the proposal, there will be a two-week
+                      period for participants to vote.
+                      <br /> If the number of votes received after the two weeks
+                      constitutes more than 20% of the total voting rights,
+                      <br /> and the number of affirmative votes exceeds the
+                      number of dissenting votes, the proposal will be proposed.
+                      <br />
+                      <br />
+                    </div>
+                    <div className="flex gap-2">
+                      <BsCheck2Square className="mt-1" />
+                      After the proposal, it will undergo a meeting with the
+                      Discord forum administrators for final deliberation.
+                      <br /> A final decision will be reached after the
+                      discussion with the INSURSAND team.
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-end p-3">
+                  <button
+                    type="submit"
+                    className="border text-white rounded-xl bg-amber-700/80 hover:bg-amber-800/80 transition duration-300 hover:scale-95 p-2"
+                  >
+                    Submit Proposal
+                  </button>
+                </div>
               </div>
             </form>
           </div>

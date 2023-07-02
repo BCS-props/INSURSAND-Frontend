@@ -7,7 +7,7 @@ import {
 } from "../web3.config";
 import { apiKey } from "../App";
 import { useState } from "react";
-export function useGet(account) {
+export function useGet(account, id) {
   const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
   const GVN_contract = new web3.eth.Contract(GOVERNANCE_ABI, GOVERNANCE_CA);
   const ERC20_contract = new web3.eth.Contract(ERC20_ABI, ERC20_CA);
@@ -15,6 +15,7 @@ export function useGet(account) {
   const [tokenBalance, setTokenBalance] = useState();
   const [voteNum, setVoteNum] = useState();
   const [totalVoteNum, setTotalVoteNum] = useState();
+  const [myStatus, setMyStatus] = useState();
 
   const getTokenBalance = async () => {
     try {
@@ -26,11 +27,23 @@ export function useGet(account) {
     }
   };
 
+  const getMyStatus = async () => {
+    try {
+      if (!account || !web3 || !GVN_contract) return;
+      var myVotes = await GVN_contract.methods.getMyStatus(id, account).call();
+      setMyStatus(Number(myVotes));
+      console.log(myStatus);
+    } catch (error) {
+      alert("failed to get number of votes in this proposal");
+    }
+  };
+
   const getVoteNum = async () => {
     try {
       if (!account || !web3 || !GVN_contract) return;
       var votes = await GVN_contract.methods.getVotePower(account).call();
       setVoteNum(Number(votes));
+      console.log(voteNum);
     } catch (error) {
       alert("failed to get number of votes");
     }
@@ -52,5 +65,7 @@ export function useGet(account) {
     voteNum,
     getTotalVotePower,
     totalVoteNum,
+    getMyStatus,
+    myStatus,
   };
 }

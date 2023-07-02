@@ -145,7 +145,6 @@ const Detail = ({ account, setAccount }) => {
   );
 
   const { getTotalVotePower, totalVoteNum } = useGet();
-
   console.log(agree);
   console.log(disagree);
   // console.log(totalVoteNum);
@@ -153,6 +152,14 @@ const Detail = ({ account, setAccount }) => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        ticks: {
+          stepSize: 1,
+        },
+      },
+    },
     plugins: {
       legend: {
         position: "top",
@@ -160,7 +167,7 @@ const Detail = ({ account, setAccount }) => {
     },
   };
 
-  const labels = ["agree / disagree"];
+  const labels = [""];
 
   const data = {
     labels,
@@ -169,6 +176,7 @@ const Detail = ({ account, setAccount }) => {
         label: "Agree",
         data: labels.map(() => agree),
         backgroundColor: "rgba(53, 162, 235, 0.5)",
+        barThickness: 20,
       },
       {
         label: "Disagree",
@@ -251,7 +259,7 @@ const Detail = ({ account, setAccount }) => {
                   <div className="text-2xl mb-4">Voting progress</div>
                   <div>
                     {total !== 0 ? (
-                      <Bar options={options} data={data} />
+                      <Bar options={options} data={data} height={250} />
                     ) : (
                       <div>There is no vote yet...</div>
                     )}

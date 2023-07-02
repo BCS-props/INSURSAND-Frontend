@@ -7,10 +7,11 @@ import { apiKey } from "../App";
 
 const Proposal = () => {
   const [proposalNum, setProposalNum] = useState();
-  const [proposalInfo, setProposalInfo] = useState();
+  const [proposalInfo, setProposalInfo] = useState([]);
+  const [sortBy, setSortBy] = useState("oldest"); // 추가: 정렬 기준을 저장하는 상태
 
-  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(4);
   const offset = (page - 1) * limit;
 
   const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
@@ -33,7 +34,6 @@ const Proposal = () => {
         );
         var proposals = await GVN_contract.methods.getP_number().call();
         setProposalNum(Number(proposals));
-        // var proposalInfo = await GVN_contract.methods.getProposal(1).call();
         setProposalInfo(proposalDatas);
       } catch (error) {
         console.log("failed to get data of proposal");
@@ -42,7 +42,39 @@ const Proposal = () => {
     getProposalData();
   }, [proposalNum]);
 
-  const renderPageButtons = () => {
+  useEffect(() => {
+    const sortProposals = () => {
+      if (sortBy === "oldest") {
+        // 최신순으로 정렬
+        setProposalInfo((prevProposals) =>
+          [...prevProposals].sort((a, b) => Number(a.num) - Number(b.num))
+        );
+      } else if (sortBy === "latest") {
+        // 오래된 순으로 정렬
+        setProposalInfo((prevProposals) =>
+          [...prevProposals].sort((a, b) => Number(b.num) - Number(a.num))
+        );
+      } else if (sortBy === "most votes") {
+        // 투표 수가 많은 순으로 정렬
+        setProposalInfo((prevProposals) =>
+          [...prevProposals].sort(
+            (a, b) =>
+              Number(b.agree) +
+              Number(b.disagree) -
+              (Number(a.agree) + Number(a.disagree))
+          )
+        );
+      }
+    };
+
+    sortProposals();
+  }, [sortBy]);
+
+  const handleSortByChange = (e) => {
+    setSortBy(e.target.value);
+  };
+
+  const PageButtons = () => {
     const totalPages = Math.ceil(proposalNum / limit);
     const buttons = [];
 
@@ -51,7 +83,7 @@ const Proposal = () => {
         <button
           key={i}
           onClick={() => setPage(i)}
-          className={`mx-1 py-1 px-2 rounded-lg ${
+          className={`mx-1 py-1 px-2 rounded-lg animate-fade animate-once ${
             i === page ? "bg-amber-700 text-white" : "bg-white text-amber-700"
           }`}
         >
@@ -83,6 +115,17 @@ const Proposal = () => {
             </Link>
           </div>
         </div>
+        <div className="flex justify-end mr-24">
+          <select
+            className="mb-12 border p-1 rounded-xl border-black"
+            value={sortBy}
+            onChange={handleSortByChange}
+          >
+            <option value="oldest">Oldest</option>
+            <option value="latest">Latest</option>
+            <option value="most votes">Most Votes</option>
+          </select>
+        </div>
         <div className="grid gap-8 mx-12">
           {proposalInfo &&
             proposalInfo.slice(offset, offset + limit).map((v, i) => {
@@ -99,7 +142,7 @@ const Proposal = () => {
         </div>
       </div>
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 font-bold">
-        {renderPageButtons()}
+        {PageButtons()}
       </div>
     </div>
   );

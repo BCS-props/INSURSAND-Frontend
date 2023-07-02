@@ -11,33 +11,40 @@ export function useOnClick(id, account, setAccount) {
   const [isLoading, setIsLoading] = useState(false);
 
   // hooks의 useGet 사용
-  const { getVoteNum, voteNum } = useGet(account);
+  const { getVoteNum, voteNum, getMyStatus, myStatus } = useGet(account, id);
   const navigate = useNavigate();
 
   useEffect(() => {
     getVoteNum();
-  }, []);
+    getMyStatus();
+    console.log(voteNum);
+    console.log(myStatus);
+  }, [account]);
 
   const onClickAgree = async (e) => {
     if (account) {
       if (voteNum >= 1) {
-        try {
-          e.preventDefault();
-          setIsLoading(true);
-          await window.ethereum.request({
-            method: "eth_sendTransaction",
-            params: [
-              {
-                from: account,
-                to: GOVERNANCE_CA,
-                data: GVN_contract.methods.openVotesagree(id - 1).encodeABI(),
-              },
-            ],
-          });
-          navigate(-1);
-          alert("Voting completed!");
-        } catch (error) {
-          alert("you can't vote");
+        if (myStatus < 3) {
+          try {
+            e.preventDefault();
+            setIsLoading(true);
+            await window.ethereum.request({
+              method: "eth_sendTransaction",
+              params: [
+                {
+                  from: account,
+                  to: GOVERNANCE_CA,
+                  data: GVN_contract.methods.openVotesagree(id - 1).encodeABI(),
+                },
+              ],
+            });
+            navigate(-1);
+            alert("Voting completed!");
+          } catch (error) {
+            alert("you can't vote");
+          }
+        } else {
+          alert("You have already made three votes");
         }
       } else {
         alert("please check your number of votes");
@@ -60,25 +67,29 @@ export function useOnClick(id, account, setAccount) {
   const onClickDisagree = async (e) => {
     if (account) {
       if (voteNum >= 1) {
-        try {
-          e.preventDefault();
-          setIsLoading(true);
-          await window.ethereum.request({
-            method: "eth_sendTransaction",
-            params: [
-              {
-                from: account,
-                to: GOVERNANCE_CA,
-                data: GVN_contract.methods
-                  .openVotesdisagree(id - 1)
-                  .encodeABI(),
-              },
-            ],
-          });
-          navigate(-1);
-          alert("Voting completed!");
-        } catch (error) {
-          alert("you can't vote");
+        if (myStatus < 3) {
+          try {
+            e.preventDefault();
+            setIsLoading(true);
+            await window.ethereum.request({
+              method: "eth_sendTransaction",
+              params: [
+                {
+                  from: account,
+                  to: GOVERNANCE_CA,
+                  data: GVN_contract.methods
+                    .openVotesdisagree(id - 1)
+                    .encodeABI(),
+                },
+              ],
+            });
+            navigate(-1);
+            alert("Voting completed!");
+          } catch (error) {
+            alert("you can't vote");
+          }
+        } else {
+          alert("You have already made three votes");
         }
       } else {
         alert("please check your number of votes");

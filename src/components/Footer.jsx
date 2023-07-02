@@ -2,16 +2,15 @@ import { BsDiscord, BsTwitter, BsGithub } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <div className="bg-amber-100">
+    <div className="bg-amber-100 relative">
       <div>
-        <div className="pt-12 pl-12 pb-4 ml-4">
+        <div className="pt-4 pl-12 pb-4 ml-4">
           <div className="flex w-fit items-center">
-            <span class="self-center text-5xl font-semibold">
-              I N S U R&nbsp;
-            </span>
-            <span class="self-center text-5xl font-semibold text-amber-600">
-              S A N D
-            </span>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/logo.png`}
+              alt="logo"
+              className="w-52"
+            />
           </div>
           <div className="opacity-70 pb-8 w-fit">
             <div className="pb-4 mt-4 ">Every moment in DeFi,</div>

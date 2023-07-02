@@ -1,27 +1,88 @@
-export const GOVERNANCE_CA = "0x116F759597b362A509635dCA3D9C2926eFc0AB88";
+export const GOVERNANCE_CA = "0xd8d5d0797b8C32B86787d3cf4D2f070bc1800ee8";
 export const GOVERNANCE_ABI = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_number",
+        type: "uint256",
+      },
+      {
         internalType: "address",
-        name: "_admin",
+        name: "_address",
         type: "address",
       },
     ],
+    name: "increaseVotePower",
+    outputs: [],
     stateMutability: "nonpayable",
-    type: "constructor",
+    type: "function",
   },
   {
-    inputs: [],
-    name: "P_number",
-    outputs: [
+    inputs: [
+      {
+        internalType: "string",
+        name: "_subject",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_summary",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_method",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_conclusion",
+        type: "string",
+      },
+    ],
+    name: "openProposal",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "P_numbers",
         type: "uint256",
       },
     ],
-    stateMutability: "view",
+    name: "openVotesagree",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "P_numbers",
+        type: "uint256",
+      },
+    ],
+    name: "openVotesdisagree",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_addr",
+        type: "address",
+      },
+    ],
+    name: "setMintNFTContract",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -34,9 +95,25 @@ export const GOVERNANCE_ABI = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_admin",
+        type: "address",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "P_numbers",
         type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "msgsender",
+        type: "address",
       },
     ],
     name: "getMyStatus",
@@ -162,88 +239,16 @@ export const GOVERNANCE_ABI = [
     type: "function",
   },
   {
-    inputs: [
+    inputs: [],
+    name: "P_number",
+    outputs: [
       {
         internalType: "uint256",
-        name: "_number",
+        name: "",
         type: "uint256",
       },
     ],
-    name: "increaseTotalVotePower",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_number",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_address",
-        type: "address",
-      },
-    ],
-    name: "increaseVotePower",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_subject",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_summary",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_method",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_conclusion",
-        type: "string",
-      },
-    ],
-    name: "openProposal",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "P_numbers",
-        type: "uint256",
-      },
-    ],
-    name: "openVotesagree",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "P_numbers",
-        type: "uint256",
-      },
-    ],
-    name: "openVotesdisagree",
-    outputs: [],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -303,19 +308,6 @@ export const GOVERNANCE_ABI = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_addr",
-        type: "address",
-      },
-    ],
-    name: "setMintNFTContract",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {

@@ -38,7 +38,7 @@ const Header = ({ account, setAccount }) => {
     }
   };
   return (
-    <header className="absolute w-full z-20">
+    <header className="fixed w-full z-20">
       <nav className="px-4 py-2.5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to="/" className="flex items-center">
@@ -94,7 +94,7 @@ const Header = ({ account, setAccount }) => {
                   </div>
                 </button>
                 {isOpen && (
-                  <div className="absolute top-14 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-2 gap-1 divide-y divide-amber-600">
+                  <div className="animate-fade-down animate-once absolute top-14 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-4 gap-1 divide-y divide-amber-600">
                     <Link to="/dashboard">
                       <button className="hover:text-amber-600 pb-1">
                         Dashboard
@@ -121,7 +121,7 @@ const Header = ({ account, setAccount }) => {
               </div>
             ) : (
               <button
-                className="p-2 text-amber-600 border border-amber-600 hover:border-amber-800 hover:text-amber-800 duration-200 rounded-xl"
+                className="p-2 text-amber-600 border border-amber-600 hover:border-amber-800 hover:text-amber-800 duration-200 rounded-xl animate-delay-300"
                 onClick={onClickConnect}
               >
                 Connect Wallet

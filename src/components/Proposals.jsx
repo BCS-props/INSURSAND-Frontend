@@ -21,7 +21,7 @@ const Proposals = ({ subject, status, agree, disagree, id }) => {
   const totalVotes = agree + disagree; // 총 투표수
 
   return (
-    <div className="px-12">
+    <div className="px-12 animate-fade animate-once">
       <Link to={`/governance/${id}`}>
         <button className="bg-amber-600/80 rounded-xl hover:bg-amber-600/40 duration-200 min-w-full p-4">
           <div className="flex justify-between">

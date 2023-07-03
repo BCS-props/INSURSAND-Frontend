@@ -47,16 +47,24 @@ const Main = () => {
           )}
         </div>
       </div>
-      <div
-        className="min-h-screen flex justify-center items-center z-0"
-        ref={targetRef}
-      >
-        <div className="relative w-full flex flex-col justify-between bg-amber-800">
-          <img
-            src={`${process.env.PUBLIC_URL}/images/background_2.jpg`}
-            className="opacity-30"
-            alt="sand"
-          />
+      <div className="bg-amber-800">
+        <div
+          className="min-h-screen flex z-0"
+          ref={targetRef}
+          style={{
+            backgroundImage: `url(${process.env.PUBLIC_URL}/images/background_2.jpg)`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: "0.55",
+          }}
+        >
+          <div className="flex-grow p-40">
+            <div>
+              <div className="text-5xl pt-28">
+                INSURSAND provide two DeFi insurance products
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

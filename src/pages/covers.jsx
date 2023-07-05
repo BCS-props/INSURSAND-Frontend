@@ -5,15 +5,15 @@ import { GiSandsOfTime } from "react-icons/gi";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-const Covers = ({ account }) => {
-  const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
-  const NFT_contract = new web3.eth.Contract(NFT_ABI, NFT_CA);
+const web3 = new Web3(window.ethereum);
+export const NFT_contract = new web3.eth.Contract(NFT_ABI, NFT_CA);
 
+const Covers = ({ account }) => {
   async function NFT_minting(e) {
     e.preventDefault();
     await window.ethereum.request({
       method: "eth_sendTransaction",
-      paras: [
+      params: [
         {
           from: account,
           data: NFT_contract.methods.Mint_Cover().encodeABI(),
@@ -43,7 +43,7 @@ const Covers = ({ account }) => {
                 Value Drop Coverage
               </div>
               <button className="flex mx-auto mt-96  items-center border border-black text-2xl p-2 rounded-2xl">
-                <Link to={`/covers/1`}>get quote</Link>
+                <Link to={`/covers/coindrop`}>Get quote</Link>
               </button>
             </div>
           </div>
@@ -54,7 +54,7 @@ const Covers = ({ account }) => {
                 Value Drop Coverage during lockup period
               </div>
               <button className="flex mx-auto mt-96 items-center border border-black text-2xl p-2 rounded-2xl">
-                <Link to={`/covers/2`}>get quote</Link>
+                <Link to={`/covers/2`}>Get quote</Link>
               </button>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import { NFT_ABI, NFT_CA } from "../web3.config";
+import { ERC20_ABI, ERC20_CA, NFT_ABI, NFT_CA } from "../web3.config";
 import { apiKey } from "../App";
 import { GiSandsOfTime } from "react-icons/gi";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 const web3 = new Web3(window.ethereum);
 export const NFT_contract = new web3.eth.Contract(NFT_ABI, NFT_CA);
+export const ERC20_contract = new web3.eth.Contract(ERC20_ABI, ERC20_CA);
 
 const Covers = ({ account }) => {
   async function NFT_minting(e) {

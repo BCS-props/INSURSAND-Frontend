@@ -8,7 +8,7 @@ import Governance from "./pages/governance";
 import Covers from "./pages/covers";
 import Create from "./pages/create";
 import Detail from "./pages/detail";
-import Quote from "./pages/quote";
+import CoinQuote from "./pages/coinQuote";
 export const apiKey = process.env.REACT_APP_INFURA_KEY;
 function App() {
   const [account, setAccount] = useState();
@@ -66,10 +66,10 @@ function App() {
           }
         ></Route>
         <Route
-          path="/covers/:id"
+          path="/covers/coindrop"
           element={
             <div>
-              <Quote />
+              <CoinQuote account={account} />
             </div>
           }
         ></Route>

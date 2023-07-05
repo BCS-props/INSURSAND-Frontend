@@ -4,6 +4,8 @@ import {
   ERC20_CA,
   GOVERNANCE_ABI,
   GOVERNANCE_CA,
+  NFT_ABI,
+  NFT_CA,
 } from "../web3.config";
 import { apiKey } from "../App";
 import { useState } from "react";
@@ -11,11 +13,13 @@ export function useGet(account, id) {
   const web3 = new Web3(`https://goerli.infura.io/v3/${apiKey}`);
   const GVN_contract = new web3.eth.Contract(GOVERNANCE_ABI, GOVERNANCE_CA);
   const ERC20_contract = new web3.eth.Contract(ERC20_ABI, ERC20_CA);
+  const NFT_contract = new web3.eth.Contract(NFT_ABI, NFT_CA);
 
   const [tokenBalance, setTokenBalance] = useState();
   const [voteNum, setVoteNum] = useState();
   const [totalVoteNum, setTotalVoteNum] = useState();
   const [myStatus, setMyStatus] = useState();
+  const [totalSpend, setTotalSpend] = useState();
 
   const getTokenBalance = async () => {
     try {
@@ -24,6 +28,16 @@ export function useGet(account, id) {
       setTokenBalance(Number(balances));
     } catch (error) {
       alert("failed to get token balances");
+    }
+  };
+
+  const getTotalSpend = async () => {
+    try {
+      if (!account || !web3 || !NFT_contract) return;
+      var totalSpend = await NFT_contract.methods.getTotalSpend(account).call();
+      setTotalSpend(Number(totalSpend));
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -67,5 +81,7 @@ export function useGet(account, id) {
     totalVoteNum,
     getMyStatus,
     myStatus,
+    getTotalSpend,
+    totalSpend,
   };
 }

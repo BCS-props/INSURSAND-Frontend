@@ -1,17 +1,32 @@
 import { Link } from "react-router-dom";
 import { MetaMaskAvatar } from "react-metamask-avatar";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 
 const Header = ({ account, setAccount }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // const handleMouseEnter = () => {
-  //   setIsOpen(true);
-  // };
-  // const handleMouseLeave = () => {
-  //   setIsOpen(false);
-  // };
+  const dropdownRef = useRef(null);
+
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleItemClick = (index) => {
+    setSelectedItem(index);
+  };
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   const onClickConnect = async () => {
     if (window.ethereum) {
@@ -41,7 +56,11 @@ const Header = ({ account, setAccount }) => {
     <header className="fixed w-full z-20">
       <nav className="px-4 py-2.5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <Link to="/" className="flex items-center">
+          <Link
+            to="/"
+            className="flex items-center"
+            onClick={() => handleItemClick(null)}
+          >
             <div className="justify-between flex">
               <img
                 src={`${process.env.PUBLIC_URL}/images/logo.png`}
@@ -56,21 +75,42 @@ const Header = ({ account, setAccount }) => {
                 <li>
                   <Link
                     to="/covers"
-                    className="block rounded-xl py-2 px-4 mr-2 hover:text-amber-600"
+                    className={`block rounded-xl py-2 px-4 mr-2 ${
+                      selectedItem === 0
+                        ? "text-amber-600"
+                        : "hover:text-amber-600"
+                    }`}
+                    onClick={() => handleItemClick(0)}
                   >
-                    Buy Covers
+                    Buy Cover
                   </Link>
                 </li>
                 <li>
                   <Link
                     to="/governance"
-                    className="block rounded-xl py-2 px-4 mr-2 hover:text-amber-600"
+                    className={`block rounded-xl py-2 px-4 mr-2 ${
+                      selectedItem === 1
+                        ? "text-amber-600"
+                        : "hover:text-amber-600"
+                    }`}
+                    onClick={() => handleItemClick(1)}
                   >
                     Governance
                   </Link>
                 </li>
+                <li className="block rounded-xl py-2 px-4 hover:text-amber-600">
+                  Community
+                </li>
                 <li>
-                  <Link className="block rounded-xl py-2 px-4 hover:text-amber-600">
+                  <Link
+                    to="/faq"
+                    className={`block rounded-xl py-2 px-4 ${
+                      selectedItem === 2
+                        ? "text-amber-600"
+                        : "hover:text-amber-600"
+                    }`}
+                    onClick={() => handleItemClick(2)}
+                  >
                     FAQ
                   </Link>
                 </li>
@@ -94,7 +134,10 @@ const Header = ({ account, setAccount }) => {
                   </div>
                 </button>
                 {isOpen && (
-                  <div className="animate-fade-down animate-once absolute top-14 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-4 gap-1 divide-y divide-amber-600">
+                  <div
+                    ref={dropdownRef}
+                    className="animate-fade-down animate-once absolute top-14 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-4 gap-1 divide-y divide-amber-600"
+                  >
                     <Link to="/dashboard">
                       <button className="hover:text-amber-600 pb-1">
                         Dashboard

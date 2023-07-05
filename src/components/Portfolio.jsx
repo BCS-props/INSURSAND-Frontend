@@ -2,8 +2,14 @@ import { useEffect } from "react";
 import { useGet } from "../hooks/get";
 
 const Portfolio = ({ account }) => {
-  const { getTokenBalance, tokenBalance, getVoteNum, voteNum } =
-    useGet(account);
+  const {
+    getTokenBalance,
+    tokenBalance,
+    getVoteNum,
+    voteNum,
+    getTotalSpend,
+    totalSpend,
+  } = useGet(account);
 
   useEffect(() => {
     if (!account) {
@@ -11,6 +17,7 @@ const Portfolio = ({ account }) => {
     }
     getVoteNum();
     getTokenBalance();
+    getTotalSpend();
   });
 
   return (
@@ -25,7 +32,7 @@ const Portfolio = ({ account }) => {
                   <div className="font-medium text-sm border border-transparent border-b-stone-400">
                     Active Cover Amount
                   </div>
-                  <div className="mt-4 text-white">0 USDT</div>
+                  <div className="mt-4 text-white">{totalSpend} USDT</div>
                 </div>
               </div>
               <div>

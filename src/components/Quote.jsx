@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { NFT_contract } from "../pages/covers";
+import { NFT_contract, ERC20_contract } from "../pages/covers";
+import { NFT_CA } from "../web3.config";
 
 const JWT = process.env.REACT_APP_JWT;
 const pinataURI = "https://teal-individual-peafowl-274.mypinata.cloud/ipfs/";
@@ -239,7 +240,7 @@ const generateMetadata = async (res) => {
   return metadataFile;
 };
 
-const FileUpload = ({ amount, period, account }) => {
+const FileUpload = ({ finalPrice, period, account }) => {
   const [selectedFile, setSelectedFile] = useState();
   const [generatedImageData, setGeneratedImageData] = useState(null);
 
@@ -313,74 +314,93 @@ const FileUpload = ({ amount, period, account }) => {
   };
 
   const onClickSubmission = async () => {
-    const formData = new FormData();
-
-    formData.append("file", await onScreengenerateImage());
-
-    const metadata = JSON.stringify({
-      name: "File name",
-    });
-    formData.append("pinataMetadata", metadata);
-
-    const options = JSON.stringify({
-      cidVersion: 0,
-    });
-    formData.append("pinataOptions", options);
-
     try {
-      const res = await axios.post(
-        "https://api.pinata.cloud/pinning/pinFileToIPFS",
-        formData,
-        {
-          maxBodyLength: "Infinity",
-          headers: {
-            "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
-            Authorization: JWT,
-          },
-        }
-      );
-      console.log(res.data);
-      var responseOfPinataHash = res;
-    } catch (error) {
-      console.log(error);
-    }
-
-    const metaDatas = new FormData();
-
-    metaDatas.append("file", await generateMetadata(responseOfPinataHash));
-
-    const fileMetaData = JSON.stringify({
-      name: `METADATA`,
-    });
-    metaDatas.append("pinataMetadata", fileMetaData);
-
-    const options1 = JSON.stringify({
-      cidVersion: 0,
-    });
-    metaDatas.append("pinataOptions", options1);
-
-    try {
-      const response = await axios.post(
-        "https://api.pinata.cloud/pinning/pinFileToIPFS",
-        metaDatas,
-        {
-          maxBodyLength: "Infinity",
-          headers: {
-            "Content-Type": `multipart/form-data; boundary=${metaDatas._boundary}`,
-            Authorization: JWT,
-          },
-        }
-      );
-      if (response.status === 200) {
-        const mint = await NFT_contract.methods
-
-          .mintNFT_Cover(period, amount, response.data.IpfsHash)
+      if (account) {
+        console.log(Math.ceil(finalPrice));
+        const approve = await ERC20_contract.methods
+          .approve(NFT_CA, Math.ceil(finalPrice))
           .send({
             from: account,
           });
-        console.log(mint);
+        console.log(approve);
+
+        const formData = new FormData();
+
+        formData.append("file", await onScreengenerateImage());
+
+        const metadata = JSON.stringify({
+          name: "File name",
+        });
+        formData.append("pinataMetadata", metadata);
+
+        const options = JSON.stringify({
+          cidVersion: 0,
+        });
+        formData.append("pinataOptions", options);
+
+        try {
+          const res = await axios.post(
+            "https://api.pinata.cloud/pinning/pinFileToIPFS",
+            formData,
+            {
+              maxBodyLength: "Infinity",
+              headers: {
+                "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+                Authorization: JWT,
+              },
+            }
+          );
+          console.log(res.data);
+          var responseOfPinataHash = res;
+        } catch (error) {
+          console.log(error);
+        }
+
+        const metaDatas = new FormData();
+
+        metaDatas.append("file", await generateMetadata(responseOfPinataHash));
+
+        const fileMetaData = JSON.stringify({
+          name: `METADATA`,
+        });
+        metaDatas.append("pinataMetadata", fileMetaData);
+
+        const options1 = JSON.stringify({
+          cidVersion: 0,
+        });
+        metaDatas.append("pinataOptions", options1);
+
+        try {
+          const response = await axios.post(
+            "https://api.pinata.cloud/pinning/pinFileToIPFS",
+            metaDatas,
+            {
+              maxBodyLength: "Infinity",
+              headers: {
+                "Content-Type": `multipart/form-data; boundary=${metaDatas._boundary}`,
+                Authorization: JWT,
+              },
+            }
+          );
+          if (response.status === 200) {
+            const mint = await NFT_contract.methods
+
+              .mintNFT_Cover(
+                period,
+                Math.ceil(finalPrice),
+                response.data.IpfsHash
+              )
+              .send({
+                from: account,
+              });
+            console.log(mint);
+          }
+        } catch (error) {
+          console.log(error);
+        } // return response;
+      } else {
+        alert("please connect");
       }
-      // return response;
     } catch (error) {
       console.log(error);
     }
@@ -395,10 +415,10 @@ const FileUpload = ({ amount, period, account }) => {
   return (
     <div>
       <button
-        className="flex justify-center bg-red-100 mb-12 p-4 rounded-xl"
+        className="flex justify-center border text-green-600 border-green-500 mb-12 p-4 rounded-xl hover:animate-jump hover:animate-once hover:animate-duration-[1500ms] hover:text-green-800 hover:border-green-700 hover:bg-green-100"
         onClick={onClickSubmission}
       >
-        Upload to Pinata Server
+        Get Covered !
       </button>
       {/* <div>
         <button onClick={onClickGenerateImage}>generateImage</button>

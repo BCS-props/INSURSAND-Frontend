@@ -2,7 +2,7 @@ import { BsDiscord, BsTwitter, BsGithub } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <div className="bg-amber-100 relative">
+    <div className="bg-gradient-to-r from-white to-amber-400/80 relative">
       <div>
         <div className="pt-4 pl-12 pb-4 ml-4">
           <div className="flex w-fit items-center">

@@ -16,6 +16,29 @@ const CoinQuote = ({ account }) => {
   const [dailyRate, setDailyRate] = useState(0);
   const [coveragePeriod, setCoveragePeriod] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
+  const [position, setPosition] = useState(0);
+  const [stop, setStop] = useState();
+
+  function onScroll() {
+    setPosition(window.scrollY);
+  }
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (position > 803) {
+      setStop("bottom-96");
+    } else if (position > 430) {
+      setStop("bottom-48");
+    } else {
+      setStop("");
+    }
+    console.log(position);
+  }, [position]);
 
   const onClickToggle = () => {
     // 30
@@ -94,7 +117,7 @@ const CoinQuote = ({ account }) => {
   }, [finalPrice]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
+    <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
       <div className="mx-40 mt-24">
         <div>
           <Link to="/covers">
@@ -178,7 +201,9 @@ const CoinQuote = ({ account }) => {
                 </div>
               </div>
             </div>
-            <div className="w-1/3">
+            <div
+              className={`w-1/3 fixed right-0 mr-8 shadow-2xl ${stop} duration-700`}
+            >
               <div className="mt-12 bg-white rounded-xl shadow-2xl h-full flex flex-col">
                 <div className="p-6 text-2xl flex items-center gap-2">
                   <IoReaderOutline />

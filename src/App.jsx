@@ -9,6 +9,7 @@ import Covers from "./pages/covers";
 import Create from "./pages/create";
 import Detail from "./pages/detail";
 import CoinQuote from "./pages/coinQuote";
+import FAQ from "./pages/faq";
 export const apiKey = process.env.REACT_APP_INFURA_KEY;
 function App() {
   const [account, setAccount] = useState();
@@ -70,6 +71,14 @@ function App() {
           element={
             <div>
               <CoinQuote account={account} />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/faqs"
+          element={
+            <div>
+              <FAQ />
             </div>
           }
         ></Route>

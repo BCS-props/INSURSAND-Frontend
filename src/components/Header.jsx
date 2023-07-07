@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MetaMaskAvatar } from "react-metamask-avatar";
+// import { MetaMaskAvatar } from "react-metamask-avatar";
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 
@@ -104,7 +104,7 @@ const Header = ({ account, setAccount }) => {
                 </li>
                 <li>
                   <Link
-                    to="/faq"
+                    to="/faqs"
                     className={`block rounded-xl py-2 px-4 ${
                       selectedItem === 2
                         ? "text-amber-600"
@@ -112,7 +112,7 @@ const Header = ({ account, setAccount }) => {
                     }`}
                     onClick={() => handleItemClick(2)}
                   >
-                    FAQ
+                    FAQs
                   </Link>
                 </li>
               </ul>
@@ -125,7 +125,7 @@ const Header = ({ account, setAccount }) => {
                   onClick={() => setIsOpen((prev) => !prev)}
                   className="text-amber-600 border border-amber-600 hover:border-amber-800 hover:text-amber-800 duration-200 rounded-xl p-2 items-center flex"
                 >
-                  <MetaMaskAvatar address={account} size={24} />
+                  {/* <MetaMaskAvatar address={account} size={24} /> */}
                   <div className="ml-2">
                     <div className="flex items-center gap-4">
                       {account.substring(0, 6)}....

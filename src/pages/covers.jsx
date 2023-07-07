@@ -1,6 +1,5 @@
 import Web3 from "web3";
 import { ERC20_ABI, ERC20_CA, NFT_ABI, NFT_CA } from "../web3.config";
-import { apiKey } from "../App";
 import { HiLockClosed } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { FaEthereum } from "react-icons/fa";
@@ -10,7 +9,7 @@ const web3 = new Web3(window.ethereum);
 export const NFT_contract = new web3.eth.Contract(NFT_ABI, NFT_CA);
 export const ERC20_contract = new web3.eth.Contract(ERC20_ABI, ERC20_CA);
 
-const Covers = ({ account }) => {
+const Covers = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
       <div className="flex justify-center items-center gap-40 mt-20 text-lg pb-20">
@@ -32,7 +31,7 @@ const Covers = ({ account }) => {
       </div>
       <div className="" style={{ height: "560px" }}>
         <div className="flex h-full px-60 gap-52 items-center justify-center">
-          <div className="border rounded-xl w-2/5 h-full bg-gray-100 opacity-80 shadow-2xl shadow-amber-700 hover:bg-white duration-500 hover:scale-105">
+          <div className="border rounded-xl w-2/5 h-full bg-gray-100/80 shadow-2xl shadow-amber-700 hover:bg-white/90 duration-500 hover:scale-105">
             <div className="flex flex-col">
               <div className="flex ml-12 mt-4 gap-8">
                 <div className="w-fit">
@@ -78,7 +77,7 @@ const Covers = ({ account }) => {
               </button>
             </div>
           </div>
-          <div className="border rounded-xl w-2/5 h-full bg-gray-100 opacity-80 shadow-2xl shadow-amber-700 hover:bg-white duration-500 hover:scale-105">
+          <div className="border rounded-xl w-2/5 h-full bg-gray-100/80 shadow-2xl shadow-amber-700 hover:bg-white/90 duration-500 hover:scale-105">
             <div className="flex flex-col">
               <div className="flex ml-12 mt-4 gap-8">
                 <div className="w-fit">

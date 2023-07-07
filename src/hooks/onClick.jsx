@@ -16,10 +16,10 @@ export function useOnClick(id, account, setAccount) {
 
   useEffect(() => {
     getVoteNum();
-    getMyStatus();
     console.log(voteNum);
+    getMyStatus();
     console.log(myStatus);
-  }, [account]);
+  }, [myStatus]);
 
   const onClickAgree = async (e) => {
     if (account) {

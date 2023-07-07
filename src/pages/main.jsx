@@ -47,7 +47,7 @@ const Main = () => {
           )}
         </div>
       </div>
-      <div className="bg-amber-800">
+      <div className="">
         <div
           className="min-h-screen flex z-0"
           ref={targetRef}
@@ -55,14 +55,31 @@ const Main = () => {
             backgroundImage: `url(${process.env.PUBLIC_URL}/images/background_2.jpg)`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            opacity: "0.55",
+            // opacity: "0.9",
           }}
         >
-          <div className="flex-grow p-40">
-            <div>
-              <div className="text-5xl pt-28">
-                INSURSAND provide two DeFi insurance products
+          <div className="flex-grow px-40 pt-24">
+            <div className="text-6xl pt-28 flex justify-center">
+              About INSURSAND
+            </div>
+            <div className="flex justify-center mt-52">
+              <div className="grid grid-cols-4 gap-12 bg-red-100">
+                <div className="p-4 bg-white w-fit">
+                  <div>Supported chains</div>
+                </div>
+                <div className="p-4 bg-white w-fit">
+                  <div>Total coverage amount</div>
+                </div>
+                <div className="p-4 bg-white w-fit">
+                  <div>Supported insurance types</div>
+                </div>
+                <div className="p-4 bg-white w-fit">
+                  <div>Types of coins for insurance claim</div>
+                </div>
               </div>
+            </div>
+            <div className="flex justify-center mt-40">
+              <button className="bg-white p-4">Get Cover</button>
             </div>
           </div>
         </div>

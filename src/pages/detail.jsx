@@ -197,8 +197,8 @@ const Detail = ({ account, setAccount }) => {
   }, [agree, disagree, total]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
-      <div className="mx-96 mt-8 flex justify-center items-center">
+    <div className="min-h-screen flex justify-center bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
+      <div className="mx-96 w-1/2 mt-20 min-h-screen rounded-xl">
         <div className="">
           <Link to="/governance">
             <button>

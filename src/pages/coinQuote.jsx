@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Quote from "../components/Quote";
 import { AiOutlineSelect } from "react-icons/ai";
 import { IoReaderOutline } from "react-icons/io5";
+import { GiConfirmed } from "react-icons/gi";
 
 const CoinQuote = ({ account }) => {
   const [amount, setAmount] = useState(1);
@@ -16,6 +17,29 @@ const CoinQuote = ({ account }) => {
   const [dailyRate, setDailyRate] = useState(0);
   const [coveragePeriod, setCoveragePeriod] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
+  const [position, setPosition] = useState(0);
+  const [stop, setStop] = useState();
+
+  function onScroll() {
+    setPosition(window.scrollY);
+  }
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (position > 803) {
+      setStop("bottom-96");
+    } else if (position > 430) {
+      setStop("bottom-48");
+    } else {
+      setStop("");
+    }
+    console.log(position);
+  }, [position]);
 
   const onClickToggle = () => {
     // 30
@@ -94,7 +118,7 @@ const CoinQuote = ({ account }) => {
   }, [finalPrice]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
+    <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
       <div className="mx-40 mt-24">
         <div>
           <Link to="/covers">
@@ -105,13 +129,17 @@ const CoinQuote = ({ account }) => {
               </div>
             </button>
           </Link>
-          <div className="mt-4 text-5xl text-amber-900">Buy cover</div>
-          <div className="mt-3 text-lg text-amber-900/80">
-            Enter the coverage amount and Select the coverage period and Get the
-            quote!
+          <div>
+            <div className="mt-4 text-5xl text-amber-900">Buy cover</div>
+            <div className="mt-3 text-lg text-amber-900/80">
+              Enter the coverage amount and Select the coverage period and Get
+              the quote!
+            </div>
           </div>
-          <div className="flex flex-row gap-20">
-            <div className="w-2/3">
+        </div>
+        <div className="flex">
+          <div className="flex flex-col gap-12 w-2/3 mr-20">
+            <div className="">
               <div className="mt-12 bg-white rounded-xl shadow-2xl h-full">
                 <div className="p-6 text-2xl flex items-center gap-2">
                   <AiOutlineSelect />
@@ -178,121 +206,145 @@ const CoinQuote = ({ account }) => {
                 </div>
               </div>
             </div>
-            <div className="w-1/3">
-              <div className="mt-12 bg-white rounded-xl shadow-2xl h-full flex flex-col">
-                <div className="p-6 text-2xl flex items-center gap-2">
-                  <IoReaderOutline />
-                  Receipt
-                </div>
-                <div className="mx-12">
-                  <div className="border mt-8 rounded-xl">
-                    <div className="p-2 font-bold">
-                      <u>Request</u>
+            <div className="">
+              <div className="mt-8 bg-white rounded-xl shadow-2xl h-full">
+                <div className=" bg-white rounded-xl shadow-2xl h-full">
+                  <div className="p-6 text-2xl flex items-center gap-2">
+                    <div>
+                      <GiConfirmed />
                     </div>
-                    <div className="flex justify-between p-3 mx-8 text-sm">
-                      <div>coverage period:</div>
-                      <div className="font-bold">{coveragePeriod} days</div>
-                    </div>
-                    <div className="flex justify-between p-3 mx-8 text-sm">
-                      <div>coverage amount:</div>
-                      <div className="font-bold">{amount} ETH</div>
-                    </div>
+                    Terms and conditions
                   </div>
-                  <div className="border mt-8 rounded-xl">
-                    <div className="p-2 font-bold">
-                      <u>Quote</u>
+                  <div className="p-6 text-sm">
+                    <div className="text-xl mb-2">1. Coverage Options</div>
+                    &nbsp; &nbsp;1.1. You can choose between two coverage
+                    options: 30 days and 365 days. The coverage period starts
+                    from the date of purchase.
+                    <br /> &nbsp; &nbsp;1.2. Please note that the fee rates may
+                    vary depending on the chosen duration.
+                    <br /> &nbsp; &nbsp;1.3. The coverage amount will be
+                    calculated differently based on the chosen coverage amount
+                    and duration.
+                    <div className="text-xl mb-2 mt-2">
+                      2. Coverage Eligibility
                     </div>
-                    <div className="flex justify-between p-3 mx-8 text-sm">
-                      <div>amount you'll pay:</div>
-                      <div className="font-bold">{finalPrice} ETH</div>
+                    &nbsp; &nbsp;2.1. The coverage is available for holders of
+                    the specified coin (to be determined).
+                    <br /> &nbsp; &nbsp;2.2. You must hold the specified coin at
+                    the time of purchase to be eligible for coverage.
+                    <br /> <div className="text-xl mb-2 mt-2">
+                      3. Payment
+                    </div>{" "}
+                    &nbsp; &nbsp;3.1. The payment currency for the coverage is
+                    USDT.
+                    <br /> &nbsp; &nbsp;3.2. The coverage amount must be paid in
+                    full at the time of purchase.
+                    <br />{" "}
+                    <div className="text-xl mb-2 mt-2">4. Voting Rights</div>
+                    &nbsp; &nbsp;4.1. By purchasing coverage, you will obtain
+                    voting rights based on the final price of the specified
+                    coin.
+                    <br /> &nbsp; &nbsp;4.2. Voting rights will be allocated
+                    proportionally to the coverage amount.
+                    <br />{" "}
+                    <div className="text-xl mb-2 mt-2">
+                      5. NFT Issuance
+                    </div>{" "}
+                    &nbsp; &nbsp;5.1. Upon purchasing coverage, you will receive
+                    a unique non-fungible token (NFT) as proof of coverage.
+                    <br /> &nbsp; &nbsp;5.2. The NFT will be issued to the
+                    wallet address used for the purchase.
+                    <br />{" "}
+                    <div className="text-xl mb-2 mt-2">6. Claim Process</div>
+                    &nbsp; &nbsp;6.1. In the event of a valid claim, you must
+                    follow the specified claim process provided separately.
+                    <br /> &nbsp; &nbsp;6.2. Claims will be evaluated based on
+                    the terms and conditions outlined in the claim process.
+                    <br />
+                    <div className="text-xl mb-2 mt-2">
+                      7. Market Fluctuations
                     </div>
-                    <div className="flex justify-between p-3 mx-8 text-sm">
-                      <div>votes you'll receive:</div>
-                      <div className="font-bold">{votes}</div>
-                    </div>
-                    <div className="flex-grow flex justify-between p-3 mx-8 text-sm">
-                      <div>fee rate:</div>
-                      <div className="flex font-bold">
-                        <div>{totalRate}% (total)</div>
-                        <div className="mx-1"> | </div>
-                        <div>{dailyRate}% (daily)</div>
-                      </div>
-                    </div>
+                    &nbsp; &nbsp;7.1. Please be aware that the final price of
+                    the specified coin may vary due to market fluctuations.
+                    <br /> &nbsp; &nbsp;7.2. INSURSAND does not guarantee any
+                    specific outcome or returns from the coverage.
+                    <br />{" "}
+                    <div className="text-xl mb-2 mt-2">8. Disclaimer</div>{" "}
+                    &nbsp; &nbsp;8.1. INSURSAND reserves the right to modify or
+                    update these terms and conditions at any time.
+                    <br /> &nbsp; &nbsp;8.2. By purchasing coverage, you agree
+                    to comply with these terms and conditions.
                   </div>
-                </div>
-                <div>
-                  <div className="flex justify-center mt-8">
-                    {
-                      <Quote
-                        finalPrice={finalPrice}
-                        period={period}
-                        account={account}
-                        amount={amount}
-                        isChecked={isChecked}
-                      />
-                    }
-                  </div>
-                  <label className="flex justify-center items-center gap-2 text-sm">
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={handleCheckboxChange}
-                    />
-                    I have read and agreed to the terms and conditions.
-                  </label>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="sticky top-50 mx-40 mt-24 w-1/2">
-        <div className=" bg-white rounded-xl shadow-2xl h-full">
-          <div className="p-6 text-2xl">Terms and conditions</div>
-          <div className="p-6 text-sm">
-            <div className="text-xl mb-2">1. Coverage Options</div>
-            &nbsp; &nbsp;1.1. You can choose between two coverage options: 30
-            days and 365 days. The coverage period starts from the date of
-            purchase.
-            <br /> &nbsp; &nbsp;1.2. Please note that the fee rates may vary
-            depending on the chosen duration.
-            <br /> &nbsp; &nbsp;1.3. The coverage amount will be calculated
-            differently based on the chosen coverage amount and duration.
-            <div className="text-xl mb-2 mt-2">2. Coverage Eligibility</div>
-            &nbsp; &nbsp;2.1. The coverage is available for holders of the
-            specified coin (to be determined).
-            <br /> &nbsp; &nbsp;2.2. You must hold the specified coin at the
-            time of purchase to be eligible for coverage.
-            <br /> <div className="text-xl mb-2 mt-2">3. Payment</div> &nbsp;
-            &nbsp;3.1. The payment currency for the coverage is USDT.
-            <br /> &nbsp; &nbsp;3.2. The coverage amount must be paid in full at
-            the time of purchase.
-            <br /> <div className="text-xl mb-2 mt-2">4. Voting Rights</div>
-            &nbsp; &nbsp;4.1. By purchasing coverage, you will obtain voting
-            rights based on the final price of the specified coin.
-            <br /> &nbsp; &nbsp;4.2. Voting rights will be allocated
-            proportionally to the coverage amount.
-            <br /> <div className="text-xl mb-2 mt-2">5. NFT Issuance</div>{" "}
-            &nbsp; &nbsp;5.1. Upon purchasing coverage, you will receive a
-            unique non-fungible token (NFT) as proof of coverage.
-            <br /> &nbsp; &nbsp;5.2. The NFT will be issued to the wallet
-            address used for the purchase.
-            <br /> <div className="text-xl mb-2 mt-2">6. Claim Process</div>
-            &nbsp; &nbsp;6.1. In the event of a valid claim, you must follow the
-            specified claim process provided separately.
-            <br /> &nbsp; &nbsp;6.2. Claims will be evaluated based on the terms
-            and conditions outlined in the claim process.
-            <br />
-            <div className="text-xl mb-2 mt-2">7. Market Fluctuations</div>
-            &nbsp; &nbsp;7.1. Please be aware that the final price of the
-            specified coin may vary due to market fluctuations.
-            <br /> &nbsp; &nbsp;7.2. INSURSAND does not guarantee any specific
-            outcome or returns from the coverage.
-            <br /> <div className="text-xl mb-2 mt-2">8. Disclaimer</div> &nbsp;
-            &nbsp;8.1. INSURSAND reserves the right to modify or update these
-            terms and conditions at any time.
-            <br /> &nbsp; &nbsp;8.2. By purchasing coverage, you agree to comply
-            with these terms and conditions.
+          <div className="w-1/3 h-full">
+            <div className="mt-12 bg-white rounded-xl shadow-2xl shadow-amber-800/80 flex flex-col">
+              <div className="p-6 text-2xl flex items-center gap-2">
+                <IoReaderOutline />
+                Receipt
+              </div>
+              <div className="mx-12">
+                <div className="border mt-8 rounded-xl">
+                  <div className="p-2 font-bold">
+                    <u>Request</u>
+                  </div>
+                  <div className="flex justify-between p-3 mx-8 text-sm">
+                    <div>coverage period:</div>
+                    <div className="font-bold">{coveragePeriod} days</div>
+                  </div>
+                  <div className="flex justify-between p-3 mx-8 text-sm">
+                    <div>coverage amount:</div>
+                    <div className="font-bold">{amount} ETH</div>
+                  </div>
+                </div>
+                <div className="border mt-8 rounded-xl">
+                  <div className="p-2 font-bold">
+                    <u>Quote</u>
+                  </div>
+                  <div className="flex justify-between p-3 mx-8 text-sm">
+                    <div>amount you'll pay:</div>
+                    <div className="font-bold">{finalPrice} ETH</div>
+                  </div>
+                  <div className="flex justify-between p-3 mx-8 text-sm">
+                    <div>votes you'll receive:</div>
+                    <div className="font-bold">{votes}</div>
+                  </div>
+                  <div className="flex-grow flex justify-between p-3 mx-8 text-sm">
+                    <div>fee rate:</div>
+                    <div className="flex font-bold">
+                      <div>{totalRate}% (total)</div>
+                      <div className="mx-1"> | </div>
+                      <div>{dailyRate}% (daily)</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-center mt-8">
+                  {
+                    <Quote
+                      finalPrice={finalPrice}
+                      period={period}
+                      account={account}
+                      amount={amount}
+                      isChecked={isChecked}
+                    />
+                  }
+                </div>
+                <label
+                  className={`flex justify-center items-center gap-2 text-sm mb-4 ${stop}`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                  />
+                  I have read and agreed to the terms and conditions.
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>

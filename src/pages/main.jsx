@@ -64,7 +64,8 @@ const Main = () => {
           <div className="flex-grow px-40 pt-24">
             <div
               className={`text-6xl pt-28 flex justify-center ${
-                isObserved && "bg-red-100"
+                isObserved &&
+                "animate-ping animate-once animate-duration-1000 animate-reverse"
               }`}
               ref={dom}
             >

@@ -1,4 +1,4 @@
-export const GOVERNANCE_CA = "0x5029b8560bc41D18736b641b69B1749151656bd0";
+export const GOVERNANCE_CA = "0x8F22bfb57fBF9eF5d2dedb56589b22A2BCC7A5fe";
 export const GOVERNANCE_ABI = [
   {
     inputs: [
@@ -37,6 +37,11 @@ export const GOVERNANCE_ABI = [
         internalType: "uint256",
         name: "P_numbers",
         type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "_msgsender",
+        type: "address",
       },
     ],
     name: "getMyStatus",
@@ -312,6 +317,11 @@ export const GOVERNANCE_ABI = [
         name: "P_numbers",
         type: "uint256",
       },
+      {
+        internalType: "address",
+        name: "_msgsender",
+        type: "address",
+      },
     ],
     name: "userVoteCheck",
     outputs: [
@@ -337,7 +347,6 @@ export const GOVERNANCE_ABI = [
     type: "function",
   },
 ];
-
 export const ERC20_CA = "0x617489EDf1b0E9546D34aA50f22194F582E17f81";
 export const ERC20_ABI = [
   {
@@ -639,7 +648,7 @@ export const ERC20_ABI = [
     type: "receive",
   },
 ];
-export const NFT_CA = "0x8A4049235F525d0AAc96f79122c5310C2c1908Ed";
+export const NFT_CA = "0x9C3052Cc63f14d0Fe84183899277D496376AB10E";
 export const NFT_ABI = [
   {
     inputs: [
@@ -840,6 +849,54 @@ export const NFT_ABI = [
   {
     inputs: [
       {
+        internalType: "uint8",
+        name: "_coverTerm",
+        type: "uint8",
+      },
+      {
+        internalType: "uint8",
+        name: "_coverRatio",
+        type: "uint8",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "calculateCoverFee",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "calculateVotePower",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "_tokenId",
         type: "uint256",
@@ -870,19 +927,6 @@ export const NFT_ABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "getBalances_return",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "uint256",
@@ -898,6 +942,16 @@ export const NFT_ABI = [
             internalType: "uint8",
             name: "coverTerm",
             type: "uint8",
+          },
+          {
+            internalType: "uint8",
+            name: "tokenType",
+            type: "uint8",
+          },
+          {
+            internalType: "uint256",
+            name: "coverRatio",
+            type: "uint256",
           },
           {
             internalType: "uint256",
@@ -955,6 +1009,25 @@ export const NFT_ABI = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "getPercentage",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "getTotalActiveCoverAmount",
     outputs: [
@@ -989,6 +1062,32 @@ export const NFT_ABI = [
       },
     ],
     name: "getTotalSpend",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getUNIBalances",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getWETHBalances",
     outputs: [
       {
         internalType: "uint256",
@@ -1044,6 +1143,11 @@ export const NFT_ABI = [
         type: "uint8",
       },
       {
+        internalType: "uint8",
+        name: "_coverRatio",
+        type: "uint8",
+      },
+      {
         internalType: "uint256",
         name: "_amount",
         type: "uint256",
@@ -1054,7 +1158,35 @@ export const NFT_ABI = [
         type: "string",
       },
     ],
-    name: "mintNFT_Cover",
+    name: "mintNFTCover_UNI",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint8",
+        name: "_coverTerm",
+        type: "uint8",
+      },
+      {
+        internalType: "uint8",
+        name: "_coverRatio",
+        type: "uint8",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_ipfsHash",
+        type: "string",
+      },
+    ],
+    name: "mintNFTCover_wETH",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1197,8 +1329,13 @@ export const NFT_ABI = [
         type: "uint8",
       },
       {
-        internalType: "uint8",
+        internalType: "uint16",
         name: "_setFormula_365",
+        type: "uint16",
+      },
+      {
+        internalType: "uint8",
+        name: "_priceDiscount",
         type: "uint8",
       },
     ],

@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { BsChevronCompactDown } from "react-icons/bs";
+import { useObserve } from "../hooks/observe";
 
 const Main = () => {
   const [showIcon, setShowIcon] = useState(false);
   const targetRef = useRef(null);
+
+  const { isObserved, dom } = useObserve();
 
   useEffect(() => {
     setTimeout(() => {
@@ -59,7 +62,12 @@ const Main = () => {
           }}
         >
           <div className="flex-grow px-40 pt-24">
-            <div className="text-6xl pt-28 flex justify-center">
+            <div
+              className={`text-6xl pt-28 flex justify-center ${
+                isObserved && "bg-red-100"
+              }`}
+              ref={dom}
+            >
               About INSURSAND
             </div>
             <div className="flex justify-center mt-52">

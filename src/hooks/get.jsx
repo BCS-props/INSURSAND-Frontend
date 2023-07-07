@@ -20,6 +20,7 @@ export function useGet(account, id) {
   const [totalVoteNum, setTotalVoteNum] = useState();
   const [myStatus, setMyStatus] = useState();
   const [totalSpend, setTotalSpend] = useState();
+  const [totalAmount, setTotalAmount] = useState(); // 총 커버 금액
 
   const getTokenBalance = async () => {
     try {
@@ -72,6 +73,15 @@ export function useGet(account, id) {
     }
   };
 
+  const getTotalCoverAmount = async () => {
+    try {
+      var total = await NFT_contract.methods.getTotalCoverAmount().call();
+      setTotalAmount(Number(total));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getTokenBalance,
     tokenBalance,
@@ -83,5 +93,7 @@ export function useGet(account, id) {
     myStatus,
     getTotalSpend,
     totalSpend,
+    getTotalCoverAmount,
+    totalAmount,
   };
 }

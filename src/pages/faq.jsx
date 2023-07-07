@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { BsDot } from "react-icons/bs";
 import { FaMountain } from "react-icons/fa";
 import { HiArrowDown, HiArrowNarrowUp } from "react-icons/hi";
 

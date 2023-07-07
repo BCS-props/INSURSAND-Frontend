@@ -1,4 +1,4 @@
-export const GOVERNANCE_CA = "0x8F22bfb57fBF9eF5d2dedb56589b22A2BCC7A5fe";
+export const GOVERNANCE_CA = "0xC55a3701D0f6ec8064e46fc49013f0EaEE99554E";
 export const GOVERNANCE_ABI = [
   {
     inputs: [

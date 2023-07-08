@@ -4,9 +4,51 @@ import { useEffect, useRef, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 
 const Header = ({ account, setAccount }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isWalletOpen, setIsWalletOpen] = useState(false);
+  const [isCommunityOpen, setIsCommunityOpen] = useState(false);
+  const [isDropdownHovered, setIsDropdownHovered] = useState(false);
 
   const dropdownRef = useRef(null);
+
+  const handleDropdownMouseEnter = () => {
+    setIsDropdownHovered(true);
+  };
+
+  const handleDropdownMouseLeave = () => {
+    setIsDropdownHovered(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsCommunityOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsCommunityOpen(false);
+  };
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleCommunityHover = (hovered) => {
+    setIsDropdownOpen(hovered);
+  };
+
+  const handleCommunityClick = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  const handleMenuItemHover = () => {
+    setIsDropdownOpen(true);
+  };
+
+  const handleMenuLeave = () => {
+    setIsDropdownOpen(false);
+  };
+
+  // const handleMenuItemHover = (hovered) => {
+  //   if (isDropdownOpen) {
+  //     setIsDropdownOpen(hovered);
+  //   }
+  // };
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -17,7 +59,21 @@ const Header = ({ account, setAccount }) => {
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setIsOpen(false);
+        setIsWalletOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsCommunityOpen(false);
       }
     };
 
@@ -99,8 +155,33 @@ const Header = ({ account, setAccount }) => {
                     Governance
                   </Link>
                 </li>
-                <li className="block rounded-xl py-2 px-4 hover:text-amber-600">
+                <li
+                  className="relative block rounded-xl py-2 px-4 hover:text-amber-600 cursor-pointer"
+                  onMouseEnter={handleMenuItemHover}
+                  onMouseLeave={handleMenuLeave}
+                  onClick={handleCommunityClick}
+                >
                   Community
+                  {isDropdownOpen && (
+                    <div className="animate-fade-down animate-once absolute top-4 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-4 gap-1 divide-y divide-amber-600">
+                      <a
+                        href="https://discord.gg/h4QwrSfA"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-amber-600 pb-1 px-1"
+                      >
+                        Discord
+                      </a>
+                      <a
+                        href="https://twitter.com/example"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-amber-600 pt-1 px-1"
+                      >
+                        Twitter
+                      </a>
+                    </div>
+                  )}
                 </li>
                 <li>
                   <Link
@@ -121,20 +202,23 @@ const Header = ({ account, setAccount }) => {
           <div className="flex items-center">
             {account ? (
               <div className="flex items-center justify-end">
-                <button
-                  onClick={() => setIsOpen((prev) => !prev)}
-                  className="text-amber-600 border border-amber-600 hover:border-amber-800 hover:text-amber-800 duration-200 rounded-xl p-2 items-center flex"
-                >
+                <button className="text-amber-600 border border-amber-600 hover:border-amber-800 hover:text-amber-800 duration-200 rounded-xl p-2 items-center flex">
                   {/* <MetaMaskAvatar address={account} size={24} /> */}
                   <div className="ml-2">
                     <div className="flex items-center gap-4">
                       {account.substring(0, 6)}....
                       {account.substring(account.length - 4)}
-                      {!isOpen ? <AiOutlineCaretDown /> : <AiOutlineCaretUp />}
+                      {!isWalletOpen ? (
+                        <AiOutlineCaretDown
+                          onClick={() => setIsWalletOpen((prev) => !prev)}
+                        />
+                      ) : (
+                        <AiOutlineCaretUp />
+                      )}
                     </div>
                   </div>
                 </button>
-                {isOpen && (
+                {isWalletOpen && (
                   <div
                     ref={dropdownRef}
                     className="animate-fade-down animate-once absolute top-14 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-4 gap-1 divide-y divide-amber-600"

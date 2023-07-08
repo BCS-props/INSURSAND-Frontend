@@ -10,7 +10,6 @@ export const useObserve = () => {
     if (dom.current) {
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) setIsObserved(true);
-        else setIsObserved(false);
       });
 
       observer.current.observe(dom.current);

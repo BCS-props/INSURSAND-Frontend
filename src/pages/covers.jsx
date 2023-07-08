@@ -29,9 +29,9 @@ const Covers = () => {
           </div>
         </button>
       </div>
-      <div className="" style={{ height: "560px" }}>
-        <div className="flex h-full px-60 gap-52 items-center justify-center">
-          <div className="border rounded-xl w-2/5 h-full bg-gray-100/80 shadow-2xl shadow-amber-700 hover:bg-white/90 duration-500 hover:scale-105">
+      <div className="">
+        <div className="grid grid-cols-4 px-12 gap-12 items-center justify-center">
+          <div className="border rounded-xl bg-gray-100/80 shadow-2xl shadow-amber-700 hover:bg-white/90 duration-500 hover:scale-105">
             <div className="flex flex-col">
               <div className="flex ml-12 mt-4 gap-8">
                 <div className="w-fit">
@@ -49,12 +49,23 @@ const Covers = () => {
                   </div>
                 </div>
               </div>
-              <div className="border-2 rounded-xl mx-8 my-12">
+              <div className="border-2 rounded-xl mx-2 my-4 text-sm">
                 <div className="mt-12 mx-12 flex justify-between">
                   <div>Type: </div>
                   <div className="flex items-center gap-1">
                     <BsGraphDownArrow />
                     Asset Insur.
+                  </div>
+                </div>
+                <div className="mt-8 mx-12 flex justify-between">
+                  <div>Covered Token: </div>
+                  <div className="flex items-end gap-1">
+                    <img
+                      src={`${process.env.PUBLIC_URL}/images/weth_logo.png`}
+                      alt="weth"
+                      className="w-8"
+                    />
+                    WETH
                   </div>
                 </div>
                 <div className="mt-8 mx-12 flex justify-between">
@@ -67,17 +78,21 @@ const Covers = () => {
                   <div>Period: </div>
                   <div>30days / 365days</div>
                 </div>
+                <div className="mt-8 mx-12 flex justify-between">
+                  <div>Ratio: </div>
+                  <div>10% ~ 90%</div>
+                </div>
                 <div className="mt-8 mb-12 mx-12 flex justify-between">
                   <div>Votes: </div>
-                  <div>1 ~ 3</div>
+                  <div>1(min) ~ 3(max)</div>
                 </div>
               </div>
-              <button className="flex mt-8 mx-auto items-center border border-green-700 text-2xl text-green-700 hover:bg-green-600/30 hover:border-green-800 hover:text-green-900 duration-300 p-2 rounded-2xl">
-                <Link to={`/covers/coindrop`}>Get Quote</Link>
+              <button className="flex mt-4 mx-auto mb-4 items-center border border-green-700 text-2xl text-green-700 hover:bg-green-600/30 hover:border-green-800 hover:text-green-900 duration-300 p-2 rounded-2xl">
+                <Link to={`/covers/weth`}>Get Quote</Link>
               </button>
             </div>
           </div>
-          <div className="border rounded-xl w-2/5 h-full bg-gray-100/80 shadow-2xl shadow-amber-700 hover:bg-white/90 duration-500 hover:scale-105">
+          <div className="border rounded-xl bg-gray-100/80 shadow-2xl shadow-amber-700 hover:bg-white/90 duration-500 hover:scale-105">
             <div className="flex flex-col">
               <div className="flex ml-12 mt-4 gap-8">
                 <div className="w-fit">
@@ -91,16 +106,88 @@ const Covers = () => {
                   <div className="font-bold text-lg">INSURSAND</div>
                   <div className="flex items-center gap-2 text-amber-800/80">
                     <BsShieldCheck className="" />
-                    Unstaking Lockup Insurance
+                    Asset Insurance
                   </div>
                 </div>
               </div>
-              <div className="border-2 rounded-xl mx-8 my-12">
+              <div className="border-2 rounded-xl mx-2 my-4 text-sm">
                 <div className="mt-12 mx-12 flex justify-between">
                   <div>Type: </div>
                   <div className="flex items-center gap-1">
+                    <BsGraphDownArrow />
+                    Asset Insur.
+                  </div>
+                </div>
+                <div className="mt-8 mx-12 flex justify-between">
+                  <div>Covered Token: </div>
+                  <div className="flex items-end gap-1">
+                    <img
+                      src={`${process.env.PUBLIC_URL}/images/uniswap_logo.png`}
+                      alt="uni"
+                      className="w-8"
+                    />
+                    UNI
+                  </div>
+                </div>
+                <div className="mt-8 mx-12 flex justify-between">
+                  <div>Chains: </div>
+                  <div>
+                    <FaEthereum size={20} />
+                  </div>
+                </div>
+                <div className="mt-8 mx-12 flex justify-between">
+                  <div>Period: </div>
+                  <div>30days / 365days</div>
+                </div>
+                <div className="mt-8 mx-12 flex justify-between">
+                  <div>Ratio: </div>
+                  <div>10% ~ 90%</div>
+                </div>
+                <div className="mt-8 mb-12 mx-12 flex justify-between">
+                  <div>Votes: </div>
+                  <div>1(min) ~ 3(max)</div>
+                </div>
+              </div>
+              <button className="flex mt-4 mx-auto mb-4 items-center border border-green-700 text-2xl text-green-700 hover:bg-green-600/30 hover:border-green-800 hover:text-green-900 duration-300 p-2 rounded-2xl">
+                <Link to={`/covers/uni`}>Get Quote</Link>
+              </button>
+            </div>
+          </div>
+          <div className="border rounded-xl bg-gray-100/80 shadow-2xl shadow-amber-700 hover:bg-white/90 duration-500 hover:scale-105">
+            <div className="flex flex-col">
+              <div className="flex ml-12 mt-4 gap-8">
+                <div className="w-fit">
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/logo.png`}
+                    alt="logo"
+                    className="w-24"
+                  />
+                </div>
+                <div className="">
+                  <div className="font-bold text-lg">INSURSAND</div>
+                  <div className="flex items-center gap-2 text-amber-800/80">
                     <HiLockClosed />
-                    Unstaking Lockup Insur.
+                    Lock-up Insur.
+                  </div>
+                </div>
+              </div>
+              <div className="border-2 rounded-xl mx-2 my-4 text-sm">
+                <div className="mt-12 mx-12 flex justify-between">
+                  <div>Type: </div>
+                  <div className="flex items-center gap-1">
+                    <BsGraphDownArrow />
+                    Lock-up Insur.
+                  </div>
+                </div>
+                <div className="mt-8 mx-12 flex justify-between">
+                  <div>Covered Token: </div>
+                  <div className="flex items-end gap-1">
+                    <img
+                      src={`${process.env.PUBLIC_URL}/images/uniswap_logo.png`}
+                      alt="uni"
+                      className="w-8"
+                    />
+                    UNI
                   </div>
                 </div>
                 <div className="mt-8 mx-12 flex justify-between">
@@ -115,10 +202,10 @@ const Covers = () => {
                 </div>
                 <div className="mt-8 mb-12 mx-12 flex justify-between">
                   <div>Votes: </div>
-                  <div>1 ~ 3</div>
+                  <div>1(min) ~ 3(max)</div>
                 </div>
               </div>
-              <button className="flex mt-8 mx-auto items-center border border-green-700 text-2xl text-green-700 hover:bg-green-600/30 hover:border-green-800 hover:text-green-900 duration-300 p-2 rounded-2xl">
+              <button className="flex mt-4 mx-auto mb-4 items-center border border-green-700 text-2xl text-green-700 hover:bg-green-600/30 hover:border-green-800 hover:text-green-900 duration-300 p-2 rounded-2xl">
                 <Link to={`/covers/coindrop`}>Get Quote</Link>
               </button>
             </div>

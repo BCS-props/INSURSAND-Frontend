@@ -12,6 +12,7 @@ const Main = () => {
   const targetRef = useRef(null);
 
   const { isObserved, dom } = useObserve();
+
   const { getTotalCoverAmount, totalAmount } = useGet();
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const Main = () => {
             </div>
           </div>
           {showIcon && (
-            <div className="flex justify-center mb-20 animate__animated animate__bounce animate__infinite">
+            <div className="flex justify-center mb-20 animate-bounce animate-infinite">
               <BsChevronCompactDown
                 className="opacity-50"
                 size={100}
@@ -73,23 +74,23 @@ const Main = () => {
           />
           <div className="flex-grow px-40 pt-24 z-20">
             <div
-              className={`text-6xl pt-20 flex justify-center text-white/80 font-roboto ${
+              className={`text-7xl pt-20 flex justify-center text-blue-950/80 font-chakra font-semibold ${
                 isObserved &&
                 "animate__animated animate__fadeInUp animate__slow"
               }`}
               ref={dom}
             >
-              about INSURSAND
+              INSURSAND solutions
             </div>
             <div className="flex justify-center mt-40">
-              <div className="grid grid-cols-4 gap-12">
+              <div className="grid grid-cols-4 gap-12 font-chakra">
                 <div
                   className={`bg-blue-400/40 flex flex-col rounded-3xl shadow-2xl ${
                     isObserved &&
                     "animate__animated animate__fadeInUp animate__slower"
                   }`}
                 >
-                  <div className="text-2xl mb-4 px-8 pt-4 flex text-blue-900/80">
+                  <div className="text-2xl mb-4 px-8 pt-4 flex text-blue-900/80 font-semibold">
                     <BiPlus className="mt-1" />
                     Supported
                     <br /> chains
@@ -100,7 +101,9 @@ const Main = () => {
                       src={`${process.env.PUBLIC_URL}/images/eth_logo.png`}
                       alt="ETH"
                     ></img>
-                    <div className="mt-2 mb-20 text-blue-900/80">ETH</div>
+                    <div className="mt-2 mb-20 text-blue-900/80 font-medium">
+                      ETH
+                    </div>
                   </div>
                 </div>
                 <div
@@ -109,16 +112,18 @@ const Main = () => {
                     "animate__animated animate__fadeInUp animate__slower"
                   }`}
                 >
-                  <div className="text-2xl mb-4 px-8 pt-4 flex text-blue-900/80">
+                  <div className="text-2xl mb-4 px-8 pt-4 flex text-blue-900/80 font-semibold">
                     <BiPlus className="mt-1" />
                     Total coverage
                     <br /> amount
                   </div>
                   <div className="flex flex-col justify-center items-center border-4 border-blue-900/40 border-dashed m-12 rounded-full">
-                    <div className="mt-20 mb-8 text-2xl text-blue-900/80">
+                    <div className="mt-20 mb-8 text-2xl text-blue-900/80 font-medium">
                       {totalAmount}
                     </div>
-                    <div className="mt-2 mb-20 text-blue-900/80">ETH</div>
+                    <div className="mt-2 mb-20 text-blue-900/80 font-medium">
+                      USDT
+                    </div>
                   </div>
                 </div>
                 <div
@@ -127,20 +132,21 @@ const Main = () => {
                     "animate__animated animate__fadeInUp animate__slower"
                   }`}
                 >
-                  <div className="text-2xl mb-4 px-8 pt-4 flex text-blue-900/80">
+                  <div className="text-2xl mb-4 px-8 pt-4 flex text-blue-900/80 font-semibold">
                     <BiPlus className="mt-1" />
                     Supported insurance
                     <br /> types
                   </div>
                   <div className="flex flex-col justify-center items-center border-4 border-blue-900/40 border-dashed m-12 rounded-full">
-                    <div className="mt-20 text-2xl flex items-center text-blue-900/80">
+                    <div className="mt-20 text-2xl flex items-center text-blue-900/80 font-medium">
                       <BsDot />
                       Asset Cover
+                      <br />
+                      (WETH, UNI)
                     </div>
-                    <div className="mt-2 mb-16 text-2xl flex text-blue-900/80">
+                    <div className="mt-2 mb-16 text-2xl flex text-blue-900/80 font-medium">
                       <BsDot className="mt-1" />
-                      Lock-up Period
-                      <br /> Cover
+                      Lock-up Cover
                     </div>
                   </div>
                 </div>
@@ -150,7 +156,7 @@ const Main = () => {
                     "animate__animated animate__fadeInUp animate__slower"
                   }`}
                 >
-                  <div className="text-2xl mb-4 px-8 pt-4 flex text-blue-900/80">
+                  <div className="text-2xl mb-4 px-8 pt-4 flex text-blue-900/80 font-semibold">
                     <BiPlus className="mt-1" /> Types of coins for
                     <br /> insurance claim
                   </div>
@@ -160,15 +166,22 @@ const Main = () => {
                       src={`${process.env.PUBLIC_URL}/images/usdt_logo.png`}
                       alt="USDT"
                     ></img>
-                    <div className="mt-2 mb-20 text-blue-900/80">USDT</div>
+                    <div className="mt-2 mb-20 text-blue-900/80 font-medium">
+                      USDT
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="flex justify-center mt-40 mb-20">
               <Link to="/covers">
-                <button className="bg-white/80 px-24 py-8 text-2xl rounded-2xl shadow-2xl">
-                  INSURSAND's Coverage Products
+                <button
+                  className={`bg-white/80 px-24 py-8 text-2xl rounded-2xl shadow-2xl font-chakra font-semibold hover:bg-white ${
+                    isObserved &&
+                    "animate__animated animate__fadeInUp animate__slower"
+                  }`}
+                >
+                  Coverage Products
                 </button>
               </Link>
             </div>

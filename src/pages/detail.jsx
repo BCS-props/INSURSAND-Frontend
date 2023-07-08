@@ -175,6 +175,7 @@ const Detail = ({ account, setAccount }) => {
         label: "Agree",
         data: labels.map(() => agree),
         backgroundColor: "rgba(53, 162, 235, 0.5)",
+        barThickness: 20,
       },
       {
         label: "Disagree",

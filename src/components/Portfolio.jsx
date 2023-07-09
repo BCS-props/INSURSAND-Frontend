@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useGet } from "../hooks/get";
+import MyNfts from "./MyNfts";
 
 const Portfolio = ({ account }) => {
   const {
@@ -18,37 +19,39 @@ const Portfolio = ({ account }) => {
     getVoteNum();
     getTokenBalance();
     getTotalSpend();
-  });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
       <div className="ml-12 mr-12 mt-20">
         <div>
-          <div className="text-2xl font-bold text-slate-800">Dashboard</div>
-          <div className="text-xl mt-12">
-            <div className="border border-transparent border-b-slate-400 pb-20 grid grid-cols-4">
+          <div className="text-3xl font-bold font-montserrat text-amber-900/80">
+            Dashboard
+          </div>
+          <div className="text-xl mt-12 font-montserrat">
+            <div className="pb-20 grid grid-cols-3 mx-12">
               <div>
-                <div className="transition hover:scale-110 duration-500 delay-100 border border-amber-800 p-4 rounded-xl mr-6 pr-4 bg-amber-500/90 hover:bg-amber-500 shadow-lg shadow-amber-800/50">
-                  <div className="font-medium text-sm border border-transparent border-b-stone-400">
+                <div className="transition hover:scale-105 duration-300 delay-100 border border-amber-800 p-4 rounded-xl mr-6 pr-4 bg-amber-500/70 hover:bg-amber-500/90 shadow-lg shadow-amber-800/50">
+                  <div className="font-medium text-sm underline">
                     Active Cover Amount
                   </div>
-                  <div className="mt-4 text-white">{totalSpend} USDT</div>
+                  <div className="mt-4 text-black/80">{totalSpend} USDT</div>
                 </div>
               </div>
               <div>
-                <div className="transition hover:scale-110 duration-500 delay-100 border border-amber-800 p-4 rounded-xl mr-6 pr-4 bg-amber-500/90 hover:bg-amber-500 shadow-lg shadow-amber-800/50">
-                  <div className="font-medium text-sm border border-transparent border-b-stone-400">
-                    Number of Votes
-                  </div>
-                  <div className="mt-4 text-white">{voteNum}</div>
-                </div>
-              </div>
-              <div>
-                <div className="transition hover:scale-110 duration-500 delay-100 border border-amber-800 p-4 rounded-xl pr-4 bg-amber-500/90 hover:bg-amber-500 shadow-lg shadow-amber-800/50">
-                  <div className="font-medium text-sm border border-transparent border-b-stone-400">
+                <div className="transition hover:scale-105 duration-300 delay-100 border border-amber-800 p-4 rounded-xl pr-4 mr-6 bg-amber-500/70 hover:bg-amber-500/90 shadow-lg shadow-amber-800/50">
+                  <div className="font-medium text-sm underline">
                     My Balance (USDT)
                   </div>
-                  <div className="mt-4 text-white">{tokenBalance} USDT</div>
+                  <div className="mt-4 text-black/80">{tokenBalance} USDT</div>
+                </div>
+              </div>
+              <div>
+                <div className="transition hover:scale-105 duration-300 delay-100 border border-amber-800 p-4 rounded-xl pr-4 bg-amber-500/70 hover:bg-amber-500/90 shadow-lg shadow-amber-800/50">
+                  <div className="font-medium text-sm underline">
+                    Number of Votes
+                  </div>
+                  <div className="mt-4 text-black/80">{voteNum}</div>
                 </div>
               </div>
             </div>
@@ -56,7 +59,7 @@ const Portfolio = ({ account }) => {
         </div>
         <div>
           <div>
-            <div className="mt-8 text-xl text-slate-700">My Cover NFT</div>
+            <MyNfts account={account} />
           </div>
         </div>
       </div>

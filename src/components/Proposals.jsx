@@ -25,7 +25,7 @@ const Proposals = ({ subject, status, agree, disagree, id }) => {
       <Link to={`/governance/${id}`}>
         <button className="bg-amber-600/80 rounded-xl hover:bg-amber-600/40 duration-200 min-w-full p-4">
           <div className="flex justify-between">
-            <div className="text-xl">{subject}</div>
+            <div className="text-xl text-left">{subject}</div>
             {/* <div className="pt-4 flex items-center gap-2">
               <div className="">{statusIcon}</div>
               <div className="text-lg">{status}</div>

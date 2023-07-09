@@ -6,6 +6,7 @@ import { BsDiscord, BsTwitter } from "react-icons/bs";
 import { IoExit } from "react-icons/io5";
 import { BiLink } from "react-icons/bi";
 import { MdSpaceDashboard } from "react-icons/md";
+import { useOnClick } from "../hooks/onClick";
 
 const Header = ({ account, setAccount }) => {
   const [isWalletOpen, setIsWalletOpen] = useState(false);
@@ -91,6 +92,7 @@ const Header = ({ account, setAccount }) => {
   const onClickDisconnect = async () => {
     try {
       setAccount("");
+      setSelectedItem(null);
     } catch (error) {
       console.log(error);
     }
@@ -220,7 +222,10 @@ const Header = ({ account, setAccount }) => {
                     className="animate-fade-down animate-once absolute top-14 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-3 gap-1"
                   >
                     <Link to="/dashboard">
-                      <button className="hover:text-amber-600 pb-1 flex items-center gap-1">
+                      <button
+                        className="hover:text-amber-600 pb-1 flex items-center gap-1"
+                        onClick={() => setSelectedItem(null)}
+                      >
                         <MdSpaceDashboard />
                         Dashboard
                       </button>
@@ -229,7 +234,10 @@ const Header = ({ account, setAccount }) => {
                       to={`https://goerli.etherscan.io/address/${account}`}
                       target="_blank"
                     >
-                      <button className="hover:text-amber-600 py-1 flex items-center gap-1">
+                      <button
+                        className="hover:text-amber-600 py-1 flex items-center gap-1"
+                        onClick={() => setSelectedItem(null)}
+                      >
                         <BiLink />
                         Open in Etherscan
                       </button>

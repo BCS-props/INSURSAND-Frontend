@@ -11,6 +11,7 @@ const CoverUni = ({ account }) => {
   const [amount, setAmount] = useState(1);
   const [toUsdt, setToUsdt] = useState(1); // 입력받은 uni가 usdt로 변환된 값
   const [uniPrice, setUniPrice] = useState(null); // 현재 UNI 가격 조회
+  const [activePrice, setActivePrice] = useState(); // 보험금을 청구할 수 있는 UNI 가격
   const [period, setPeriod] = useState(null); // 0(30) or 1(365)
   const [ratio, setRatio] = useState(10);
   const [discount, setDiscount] = useState(0);
@@ -50,7 +51,7 @@ const CoverUni = ({ account }) => {
   const calculateDiscount = () => {
     if (Number(amount) >= 5100) {
       var discountRatio = [Math.floor((Number(amount) - 5000) / 100) * 0.001];
-      setDiscount((Number(amount) * (Number(discountRatio) / 100)).toFixed(2));
+      setDiscount(Math.floor(Number(amount) * (Number(discountRatio) / 100)));
     } else {
       setDiscount(0);
     }
@@ -142,11 +143,13 @@ const CoverUni = ({ account }) => {
     calculateDiscount();
     getUniPrice();
     setToUsdt(amount * uniPrice);
+    setActivePrice(Math.floor(uniPrice - (uniPrice * ratio) / 100));
+
     // console.log("discount: ", discount);
     // console.log(typeof Number(amount));
 
     console.log("UNI price: ", uniPrice);
-  }, [amount]);
+  }, [amount, ratio]);
 
   return (
     <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
@@ -407,6 +410,10 @@ const CoverUni = ({ account }) => {
                   <div className="flex justify-between p-3 mx-8 text-sm">
                     <div>amount you'll pay:</div>
                     <div className="font-bold">{finalPrice} USDT</div>
+                  </div>
+                  <div className="flex justify-between p-3 mx-8 text-sm">
+                    <div>claimable amount:</div>
+                    <div className="font-bold">{activePrice} USDT</div>
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
                     <div>votes you'll receive:</div>

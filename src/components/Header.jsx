@@ -2,53 +2,40 @@ import { Link } from "react-router-dom";
 // import { MetaMaskAvatar } from "react-metamask-avatar";
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
+import { BsDiscord, BsTwitter } from "react-icons/bs";
+import { IoExit } from "react-icons/io5";
+import { BiLink } from "react-icons/bi";
+import { MdSpaceDashboard } from "react-icons/md";
 
 const Header = ({ account, setAccount }) => {
   const [isWalletOpen, setIsWalletOpen] = useState(false);
   const [isCommunityOpen, setIsCommunityOpen] = useState(false);
-  const [isDropdownHovered, setIsDropdownHovered] = useState(false);
 
   const dropdownRef = useRef(null);
 
-  const handleDropdownMouseEnter = () => {
-    setIsDropdownHovered(true);
+  const handleCommunityClick = () => {
+    setIsCommunityOpen((prev) => !prev);
   };
 
-  const handleDropdownMouseLeave = () => {
-    setIsDropdownHovered(false);
-  };
-
-  const handleMouseEnter = () => {
+  const handleCommunityItemHover = () => {
     setIsCommunityOpen(true);
   };
 
-  const handleMouseLeave = () => {
+  const handleCommunityLeave = () => {
     setIsCommunityOpen(false);
   };
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const handleCommunityHover = (hovered) => {
-    setIsDropdownOpen(hovered);
+  const handleWalletClick = () => {
+    setIsWalletOpen((prev) => !prev);
   };
 
-  const handleCommunityClick = () => {
-    setIsDropdownOpen((prev) => !prev);
+  const handleWalletItemHover = () => {
+    setIsWalletOpen(true);
   };
 
-  const handleMenuItemHover = () => {
-    setIsDropdownOpen(true);
+  const handleWalletLeave = () => {
+    setIsWalletOpen(false);
   };
-
-  const handleMenuLeave = () => {
-    setIsDropdownOpen(false);
-  };
-
-  // const handleMenuItemHover = (hovered) => {
-  //   if (isDropdownOpen) {
-  //     setIsDropdownOpen(hovered);
-  //   }
-  // };
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -70,19 +57,19 @@ const Header = ({ account, setAccount }) => {
     };
   }, []);
 
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setIsCommunityOpen(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleOutsideClick = (e) => {
+  //     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+  //       setIsCommunityOpen(false);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleOutsideClick);
+  //   document.addEventListener("mousedown", handleOutsideClick);
 
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleOutsideClick);
+  //   };
+  // }, []);
 
   const onClickConnect = async () => {
     if (window.ethereum) {
@@ -157,28 +144,34 @@ const Header = ({ account, setAccount }) => {
                 </li>
                 <li
                   className="relative block rounded-xl py-2 px-4 hover:text-amber-600 cursor-pointer"
-                  onMouseEnter={handleMenuItemHover}
-                  onMouseLeave={handleMenuLeave}
+                  onMouseEnter={handleCommunityItemHover}
+                  onMouseLeave={handleCommunityLeave}
                   onClick={handleCommunityClick}
                 >
                   Community
-                  {isDropdownOpen && (
-                    <div className="animate-fade-down animate-once absolute top-4 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-4 gap-1 divide-y divide-amber-600">
+                  {isCommunityOpen && (
+                    <div className="animate-fade-down animate-once absolute top-4 text-black border border-amber-600 duration-200 flex flex-col p-2 mt-4 gap-1 divide-amber-600">
                       <a
                         href="https://discord.gg/h4QwrSfA"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-amber-600 pb-1 px-1"
+                        className="hover:text-amber-600 pb-1 pr-4"
                       >
-                        Discord
+                        <div className="flex items-center gap-1">
+                          <BsDiscord />
+                          Discord
+                        </div>
                       </a>
                       <a
                         href="https://twitter.com/example"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-amber-600 pt-1 px-1"
+                        className="hover:text-amber-600 pt-1 pr-4"
                       >
-                        Twitter
+                        <div className="flex items-center gap-1">
+                          <BsTwitter />
+                          Twitter
+                        </div>
                       </a>
                     </div>
                   )}
@@ -201,7 +194,12 @@ const Header = ({ account, setAccount }) => {
           </div>
           <div className="flex items-center">
             {account ? (
-              <div className="flex items-center justify-end">
+              <div
+                className="flex items-center justify-end"
+                onMouseEnter={handleWalletItemHover}
+                onMouseLeave={handleWalletLeave}
+                onClick={handleWalletClick}
+              >
                 <button className="text-amber-600 border border-amber-600 hover:border-amber-800 hover:text-amber-800 duration-200 rounded-xl p-2 items-center flex">
                   {/* <MetaMaskAvatar address={account} size={24} /> */}
                   <div className="ml-2">
@@ -209,9 +207,7 @@ const Header = ({ account, setAccount }) => {
                       {account.substring(0, 6)}....
                       {account.substring(account.length - 4)}
                       {!isWalletOpen ? (
-                        <AiOutlineCaretDown
-                          onClick={() => setIsWalletOpen((prev) => !prev)}
-                        />
+                        <AiOutlineCaretDown />
                       ) : (
                         <AiOutlineCaretUp />
                       )}
@@ -221,10 +217,11 @@ const Header = ({ account, setAccount }) => {
                 {isWalletOpen && (
                   <div
                     ref={dropdownRef}
-                    className="animate-fade-down animate-once absolute top-14 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-4 gap-1 divide-y divide-amber-600"
+                    className="animate-fade-down animate-once absolute top-14 text-black border border-amber-600 duration-200 flex flex-col rounded-lg p-2 mt-3 gap-1"
                   >
                     <Link to="/dashboard">
-                      <button className="hover:text-amber-600 pb-1">
+                      <button className="hover:text-amber-600 pb-1 flex items-center gap-1">
+                        <MdSpaceDashboard />
                         Dashboard
                       </button>
                     </Link>
@@ -232,15 +229,17 @@ const Header = ({ account, setAccount }) => {
                       to={`https://goerli.etherscan.io/address/${account}`}
                       target="_blank"
                     >
-                      <button className="hover:text-amber-600 py-1">
+                      <button className="hover:text-amber-600 py-1 flex items-center gap-1">
+                        <BiLink />
                         Open in Etherscan
                       </button>
                     </Link>
                     <Link to="/">
                       <button
-                        className="hover:text-amber-600 justify-start flex pt-1"
+                        className="hover:text-amber-600 justify-start items-center flex pt-1 gap-1"
                         onClick={onClickDisconnect}
                       >
+                        <IoExit />
                         Disconnect
                       </button>
                     </Link>

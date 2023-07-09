@@ -186,27 +186,26 @@ const CoverWeth = ({ account }) => {
                   Coverage Options
                 </div>
                 <div className="p-6">
-                  You can choose between two coverage options:&nbsp;
+                  · You can choose between two coverage options:&nbsp;
                   <div className="inline underline font-bold">30 days</div>{" "}
                   and&nbsp;
                   <div className="inline underline font-bold">365 days</div>.
                   <br /> <br />
-                  Please note that the fee rates may vary depending on the
+                  · Please note that the fee rates may vary depending on the
                   chosen duration,
                   <br /> and the coverage amount will also be calculated
                   differently based on the chosen coverage amount and duration.
                   <br />
-                  <br />
-                  If the price declines to the user-inputted coverage decline
-                  rate, which can range
+                  <br />· If the price declines to the user-inputted coverage
+                  decline rate, which can range&nbsp;
                   <div className="inline underline font-bold">
-                    {" "}
-                    from 10% to 90%,
+                    from 10% to 90%
                   </div>
+                  ,
                   <br />
                   you will be eligible to receive the insurance payout.
                   <br />
-                  <br /> There is a discount available for the total payment
+                  <br /> · There is a discount available for the total payment
                   amount.
                   <br />{" "}
                   <div className="inline underline font-bold">
@@ -214,11 +213,11 @@ const CoverWeth = ({ account }) => {
                     discount of 0.001% for every 100 WETH increment.
                   </div>
                   <br />
-                  <br />
-                  <u>
+                  <br /> ·&nbsp;
+                  <div className="inline underline">
                     the coverage amount will also be calculated differently
                     based on the chosen coverage amount and duration.
-                  </u>
+                  </div>
                 </div>
                 <div className="p-6 flex justify-evenly gap-4">
                   <div className="border rounded-xl w-1/2">
@@ -265,7 +264,7 @@ const CoverWeth = ({ account }) => {
                         ></input>
                         <span className="text-lg text-amber-800">WETH</span>
                       </div>
-                      <div className="flex items-center mt-2 mb-2 justify-center">
+                      <div className="flex items-center ml-3 mt-2 mb-2 justify-center">
                         <AiOutlineArrowDown size={24} />
                       </div>
                       <div className="flex items-center gap-4">
@@ -379,9 +378,9 @@ const CoverWeth = ({ account }) => {
                 <IoReaderOutline />
                 Receipt
               </div>
-              <div className="mx-12">
+              <div className="mx-8">
                 <div className="border mt-8 rounded-xl">
-                  <div className="p-2 font-bold">
+                  <div className="p-4 font-bold">
                     <u>Request</u>
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
@@ -398,7 +397,7 @@ const CoverWeth = ({ account }) => {
                   </div>
                 </div>
                 <div className="border mt-8 rounded-xl">
-                  <div className="p-2 font-bold">
+                  <div className="p-4 font-bold">
                     <u>Quote</u>
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
@@ -438,7 +437,7 @@ const CoverWeth = ({ account }) => {
                 </div>
                 <label
                   className={
-                    "flex justify-center items-center gap-2 text-sm mb-6"
+                    "flex justify-center items-center gap-2 text-xs font-bold mb-6"
                   }
                 >
                   <input

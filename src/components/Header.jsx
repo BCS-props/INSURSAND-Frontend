@@ -111,7 +111,7 @@ const Header = ({ account, setAccount }) => {
 
   return (
     <header className="fixed w-full z-50">
-      <nav className="px-4 py-2.5">
+      <nav className="px-6 py-2.5 mx-2">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link
             to="/"

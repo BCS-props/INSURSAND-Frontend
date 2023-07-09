@@ -33,7 +33,7 @@ const Covers = () => {
         <div className="grid grid-cols-4 px-12 gap-12 items-center justify-center">
           <div className="border rounded-xl bg-gray-100/80 shadow-2xl shadow-amber-700 hover:bg-white/90 duration-500 hover:scale-105">
             <div className="flex flex-col">
-              <div className="flex ml-12 mt-4 gap-8">
+              <div className="flex ml-4 mt-4 gap-8">
                 <div className="w-fit">
                   <img
                     src={`${process.env.PUBLIC_URL}/images/logo.png`}
@@ -59,13 +59,13 @@ const Covers = () => {
                 </div>
                 <div className="mt-8 mx-12 flex justify-between">
                   <div>Covered Token: </div>
-                  <div className="flex items-end gap-1">
+                  <div className="flex gap-1">
                     <img
                       src={`${process.env.PUBLIC_URL}/images/weth_logo.png`}
                       alt="weth"
-                      className="w-8"
+                      className="w-8  items-start"
                     />
-                    WETH
+                    <div className="flex items-center">WETH</div>
                   </div>
                 </div>
                 <div className="mt-8 mx-12 flex justify-between">
@@ -94,7 +94,7 @@ const Covers = () => {
           </div>
           <div className="border rounded-xl bg-gray-100/80 shadow-2xl shadow-amber-700 hover:bg-white/90 duration-500 hover:scale-105">
             <div className="flex flex-col">
-              <div className="flex ml-12 mt-4 gap-8">
+              <div className="flex ml-4 mt-4 gap-8">
                 <div className="w-fit">
                   <img
                     src={`${process.env.PUBLIC_URL}/images/logo.png`}
@@ -120,13 +120,13 @@ const Covers = () => {
                 </div>
                 <div className="mt-8 mx-12 flex justify-between">
                   <div>Covered Token: </div>
-                  <div className="flex items-end gap-1">
+                  <div className="flex gap-1">
                     <img
                       src={`${process.env.PUBLIC_URL}/images/uniswap_logo.png`}
                       alt="uni"
-                      className="w-8"
+                      className="w-8 flex items-start"
                     />
-                    UNI
+                    <div className="flex items-center">UNI</div>
                   </div>
                 </div>
                 <div className="mt-8 mx-12 flex justify-between">
@@ -155,7 +155,7 @@ const Covers = () => {
           </div>
           <div className="border rounded-xl bg-gray-100/80 shadow-2xl shadow-amber-700 hover:bg-white/90 duration-500 hover:scale-105">
             <div className="flex flex-col">
-              <div className="flex ml-12 mt-4 gap-8">
+              <div className="flex ml-4 mt-4 gap-8">
                 <div className="w-fit">
                   <img
                     src={`${process.env.PUBLIC_URL}/images/logo.png`}

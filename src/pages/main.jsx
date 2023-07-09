@@ -72,7 +72,7 @@ const Main = () => {
               opacity: "0.4",
             }}
           />
-          <div className="flex-grow px-40 pt-24 z-20">
+          <div className="flex-grow px-20 pt-24 z-20">
             <div
               className={`text-7xl pt-20 flex justify-center text-blue-950/80 font-chakra font-semibold ${
                 isObserved &&
@@ -94,6 +94,8 @@ const Main = () => {
                     <BiPlus className="mt-1" />
                     Supported
                     <br /> chains
+                    <br />
+                    <br />
                   </div>
                   <div className="flex flex-col justify-center items-center border-4 border-blue-900/40 border-dashed m-12 rounded-full">
                     <img
@@ -116,6 +118,8 @@ const Main = () => {
                     <BiPlus className="mt-1" />
                     Total coverage
                     <br /> amount
+                    <br />
+                    <br />
                   </div>
                   <div className="flex flex-col justify-center items-center border-4 border-blue-900/40 border-dashed m-12 rounded-full">
                     <div className="mt-20 mb-8 text-2xl text-blue-900/80 font-medium">
@@ -157,8 +161,8 @@ const Main = () => {
                   }`}
                 >
                   <div className="text-2xl mb-4 px-8 pt-4 flex text-blue-900/80 font-semibold">
-                    <BiPlus className="mt-1" /> Types of coins for
-                    <br /> insurance claim
+                    <BiPlus className="mt-1" /> Types of coins
+                    <br /> for insurance claim
                   </div>
                   <div className="flex flex-col justify-center items-center border-4 border-blue-900/40 border-dashed m-12 rounded-full">
                     <img

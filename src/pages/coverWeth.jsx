@@ -6,11 +6,11 @@ import { AiOutlineArrowDown, AiOutlineSelect } from "react-icons/ai";
 import { IoReaderOutline } from "react-icons/io5";
 import { GiConfirmed } from "react-icons/gi";
 import { NFT_contract } from "./covers";
-
 const CoverWeth = ({ account }) => {
   const [amount, setAmount] = useState(1);
   const [toUsdt, setToUsdt] = useState(1); // 입력받은 weth가 usdt로 변환된 값
   const [wethPrice, setWethPrice] = useState(null); // 현재 wETH 가격 조회
+  const [activePrice, setActivePrice] = useState(); // 보험금을 청구할 수 있는 wETH 가격
   const [period, setPeriod] = useState(null); // 0(30) or 1(365)
   const [ratio, setRatio] = useState(10);
   const [discount, setDiscount] = useState(0);
@@ -50,7 +50,7 @@ const CoverWeth = ({ account }) => {
   const calculateDiscount = () => {
     if (Number(amount) >= 5100) {
       var discountRatio = [Math.floor((Number(amount) - 5000) / 100) * 0.001];
-      setDiscount((Number(amount) * (Number(discountRatio) / 100)).toFixed(2));
+      setDiscount(Math.floor(Number(amount) * (Number(discountRatio) / 100)));
     } else {
       setDiscount(0);
     }
@@ -142,11 +142,14 @@ const CoverWeth = ({ account }) => {
     calculateDiscount();
     getWethPrice();
     setToUsdt(amount * wethPrice);
+    setActivePrice(Math.floor(wethPrice - (wethPrice * ratio) / 100));
+    console.log(activePrice);
+
     // console.log("discount: ", discount);
     // console.log(typeof Number(amount));
 
     console.log("wETH price: ", wethPrice);
-  }, [amount]);
+  }, [amount, ratio]);
 
   return (
     <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
@@ -409,6 +412,10 @@ const CoverWeth = ({ account }) => {
                     <div className="font-bold">{finalPrice} USDT</div>
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
+                    <div>claimable amount:</div>
+                    <div className="font-bold">{activePrice} USDT</div>
+                  </div>
+                  <div className="flex justify-between p-3 mx-8 text-sm">
                     <div>votes you'll receive:</div>
                     <div className="font-bold">{votes}</div>
                   </div>
@@ -432,6 +439,8 @@ const CoverWeth = ({ account }) => {
                       amount={amount}
                       isChecked={isChecked}
                       ratio={ratio}
+                      wethPrice={wethPrice}
+                      toUsdt={toUsdt}
                     />
                   }
                 </div>

@@ -6,6 +6,7 @@ module.exports = {
       cairo: ["Cairo", "sans-serif"],
       roboto: ["Roboto", "sans-serif"],
       chakra: ["Chakra Petch", "sans-serif"],
+      montserrat: ["Montserrat", "sans-serif"],
     },
   },
   plugins: [require("tailwindcss-animated")],

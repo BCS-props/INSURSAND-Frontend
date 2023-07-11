@@ -7,6 +7,10 @@ import { IoExit } from "react-icons/io5";
 import { BiLink } from "react-icons/bi";
 import { MdSpaceDashboard } from "react-icons/md";
 import { useOnClick } from "../hooks/onClick";
+import Web3 from "web3";
+import { apiKey } from "../App";
+
+const web3 = new Web3(window.ethereum);
 
 const Header = ({ account, setAccount }) => {
   const [isWalletOpen, setIsWalletOpen] = useState(false);
@@ -79,9 +83,45 @@ const Header = ({ account, setAccount }) => {
           method: "eth_requestAccounts",
         });
         setAccount(accounts[0]);
+        const chainId = await web3.eth.getChainId();
+
+        if (chainId !== "0x5") {
+          try {
+            await window.ethereum.request({
+              method: "wallet_switchEthereumChain",
+              params: [{ chainId: "0x5" }],
+            });
+          } catch (error) {
+            if (error.code === 4902) {
+              try {
+                await window.ethereum.request({
+                  method: "wallet_addEthereumChain",
+                  params: [
+                    {
+                      chainId: "0x5",
+                      chainName: "Goerli Testnet",
+                      nativeCurrency: {
+                        name: "Ether",
+                        symbol: "ETH",
+                        decimals: 18,
+                      },
+                      rpcUrls: [`https://goerli.infura.io/v3/${apiKey}`],
+                      blockExplorerUrls: ["https://goerli.etherscan.io"],
+                    },
+                  ],
+                });
+              } catch (addError) {
+                console.log(addError);
+                alert("Failed to add Goerli Testnet");
+              }
+            } else {
+              console.log(error);
+              alert("Failed to switch to Goerli Testnet");
+            }
+          }
+        }
       } catch (error) {
         console.log(error);
-
         alert("Failed to Metamask login.");
       }
     } else {
@@ -100,7 +140,7 @@ const Header = ({ account, setAccount }) => {
 
   return (
     <header className="fixed w-full z-50">
-      <nav className="px-6 py-2.5 mx-2">
+      <nav className="px-6 py-2.5 mx-2 font-cairo">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link
             to="/"
@@ -152,7 +192,7 @@ const Header = ({ account, setAccount }) => {
                 >
                   Community
                   {isCommunityOpen && (
-                    <div className="animate-fade-down animate-once absolute top-4 text-black border border-amber-600 duration-200 flex flex-col p-2 mt-4 gap-1 divide-amber-600">
+                    <div className="animate-fade-down animate-once absolute top-4 rounded-xl text-black border border-amber-600 duration-200 flex flex-col p-2 mt-4 gap-1 divide-amber-600">
                       <a
                         href="https://discord.gg/h4QwrSfA"
                         target="_blank"
@@ -165,7 +205,7 @@ const Header = ({ account, setAccount }) => {
                         </div>
                       </a>
                       <a
-                        href="https://twitter.com/example"
+                        href="https://twitter.com/INSURSAND"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-amber-600 pt-1 pr-4"

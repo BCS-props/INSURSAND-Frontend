@@ -364,14 +364,14 @@ const CoverWeth = ({ account }) => {
               </div>
             </div>
           </div>
-          <div className="w-1/3 h-full">
-            <div className="mt-12 bg-white rounded-xl shadow-2xl shadow-amber-800/80 flex flex-col">
-              <div className="p-6 text-2xl flex items-center gap-2">
+          <div className="w-1/3 h-full top-10 sticky">
+            <div className="mt-12 top-0 sticky bg-white rounded-xl shadow-2xl shadow-amber-800/80 flex flex-col">
+              <div className="pl-6 pt-4 text-2xl flex items-center gap-2">
                 <IoReaderOutline />
                 Receipt
               </div>
               <div className="mx-8">
-                <div className="border mt-8 rounded-xl">
+                <div className="border mt-4 rounded-xl">
                   <div className="p-4 font-bold">
                     <u>Request</u>
                   </div>
@@ -419,7 +419,7 @@ const CoverWeth = ({ account }) => {
                 </div>
               </div>
               <div>
-                <div className="flex justify-center mt-8">
+                <div className="flex justify-center mt-6">
                   {
                     <QuoteWeth
                       finalPrice={finalPrice}

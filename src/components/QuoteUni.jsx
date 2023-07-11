@@ -447,7 +447,7 @@ const FileUpload = ({
   return (
     <div>
       <button
-        className="flex justify-center border text-green-600 border-green-500 mb-12 p-4 rounded-xl hover:animate-jump hover:animate-once hover:animate-duration-[1500ms] hover:text-green-800 hover:border-green-700 hover:bg-green-100"
+        className="flex justify-center border text-green-600 border-green-500 mb-8 p-4 rounded-xl hover:animate-jump hover:animate-once hover:animate-duration-[1500ms] hover:text-green-800 hover:border-green-700 hover:bg-green-100"
         onClick={onClickSubmission}
       >
         Get Covered !

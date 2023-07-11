@@ -1,28 +1,12 @@
 import { useEffect, useState } from "react";
-import { useGet } from "../hooks/get";
 import { apiKey } from "../App";
 import Web3 from "web3";
 import { NFT_ABI, NFT_CA } from "../web3.config";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { MdOutlineDoNotDisturbOn } from "react-icons/md";
 
 const MyNfts = ({ account }) => {
-  // const {
-  //   getTokenURI,
-  //   tokenURIs,
-  //   getTotalCover,
-  //   totalCover,
-  //   getTokenId,
-  //   tokenIds,
-  //   getNftMetadata,
-  //   myNft,
-  // } = useGet();
-  const [tokenURIs, setTokenURIs] = useState([]); // tokenURI 배열
-  const [totalCover, setTotalCover] = useState(0); // 총 커버 개수
-  const [myNft, setMyNft] = useState([]); // 내 nft 데이터
-  const [tokenIds, setTokenIds] = useState([]); // 가지고 있는 nft tokenId 배열
-  const [nftData, setNftData] = useState([]); // nft 데이터 배열
-
   const [coverTerm, setCoverTerm] = useState();
   const [tokenType, setTokenType] = useState();
   const [ratio, setRatio] = useState();
@@ -30,6 +14,13 @@ const MyNfts = ({ account }) => {
   const [tokenPrice, setTokenPrice] = useState();
   const [coverAmount, setCoverAmount] = useState();
   const [isActive, setIsActive] = useState();
+
+  const [tokenURIs, setTokenURIs] = useState([]); // tokenURI 배열
+  const [totalCover, setTotalCover] = useState(0); // 총 커버 개수
+  const [myNft, setMyNft] = useState([]); // 내 nft 데이터
+  const [tokenIds, setTokenIds] = useState([]); // 가지고 있는 nft tokenId 배열
+  const [nftData, setNftData] = useState([]); // nft 데이터 배열
+  const [realData, setRealData] = useState([]); // 진짜 데이터 배열
 
   const web3 = new Web3(window.ethereum);
   const NFT_contract = new web3.eth.Contract(NFT_ABI, NFT_CA);
@@ -62,36 +53,17 @@ const MyNfts = ({ account }) => {
     }
   };
 
-  const getRealData = () => {
-    if (nftData[0] === 0) {
-      setCoverTerm(30);
-    } else {
-      setCoverTerm(365);
-    }
-
-    if (nftData[1] === 0) {
-      setTokenType("WETH");
-    } else if (nftData[2] === 1) {
-      setTokenType("UNI");
-    } else {
-      setTokenType("LINK");
-    }
-
-    setRatio(nftData[2]);
-  };
-
   const getNftData = async () => {
     try {
       var updatedNfts = [];
       if (tokenIds.length >= 1) {
         for (let i = tokenIds[0]; i < tokenIds.length; i++) {
           const nftDatas = await NFT_contract.methods
-            .getNFTDatas(i, account)
+            .getNFTDatas(tokenIds[i], account)
             .call();
 
-          updatedNfts.push(nftDatas[i]);
+          updatedNfts.push(nftDatas);
         }
-        console.log(updatedNfts);
         setNftData(updatedNfts);
       }
     } catch (error) {
@@ -106,14 +78,14 @@ const MyNfts = ({ account }) => {
       for (let i = 0; i < tokenURIs.length; i++) {
         const response = await axios.get(tokenURIs[i]);
         const metadata = response.data;
-        const tokenIdss = tokenIds[i];
+        const TokenId = tokenIds[i];
 
         updatedNfts.push({
           name: metadata.name,
           description: metadata.description,
           image: metadata.image,
           attributes: metadata.attributes,
-          tokenId: tokenIdss,
+          tokenId: TokenId,
         });
       }
       setMyNft(updatedNfts);
@@ -123,22 +95,18 @@ const MyNfts = ({ account }) => {
   };
 
   useEffect(() => {
+    getNftMetadata();
+    getNftData();
+    console.log(tokenIds);
+  }, [tokenIds]);
+
+  useEffect(() => {
+    // getNftMetadata();
+    // getNftData();
     getTokenURI();
     getTokenId();
     getTotalCover();
-    getNftData();
-    console.log(nftData);
-    console.log(tokenIds[0]);
-    // console.log(tokenURIs);
   }, []);
-
-  useEffect(() => {
-    getNftMetadata();
-  }, [tokenURIs, tokenIds]);
-
-  useEffect(() => {
-    console.log(myNft);
-  }, [myNft]);
 
   return (
     <div className="mt-8 ">
@@ -153,38 +121,71 @@ const MyNfts = ({ account }) => {
 
             const onClickClaim = async () => {
               try {
-                const claim = await NFT_contract.methods
-                  .claimCover(tokenId)
-                  .send({
-                    from: account,
-                  });
+                if (nftData[i][6] === true) {
+                  const claim = await NFT_contract.methods
+                    .claimCover(tokenId)
+                    .send({
+                      from: account,
+                    });
+                } else {
+                  alert("completed claim");
+                }
               } catch (error) {
                 console.log(error);
               }
             };
+
             return (
               <div
                 key={i}
                 className="flex flex-col shadow-2xl shadow-orange-200"
               >
-                <div className="relative shadow-xl">
-                  <img src={v.image} alt="NFT" className="rounded-t-xl" />
-                  <div className="absolute inset-0 flex items-end mb-2 justify-center">
-                    <div className="bg-white/50 rounded-xl text-black/80 hover:scale-95 hover:bg-white hover:text-black duration-300 py-2">
-                      <button className="text-lg px-4" onClick={onClickClaim}>
-                        get Claim
-                      </button>
+                {/* {nftData[i][6] === true ? ( */}
+                {nftData ? (
+                  <div>
+                    <div className="relative shadow-xl">
+                      <img src={v.image} alt="NFT" className="rounded-t-xl" />
+                      <div className="absolute inset-0 flex items-end mb-2 justify-center">
+                        <div className="bg-white/50 rounded-xl text-black/80 hover:scale-95 hover:bg-white hover:text-black duration-300 py-2">
+                          <button
+                            className="text-lg px-4"
+                            onClick={onClickClaim}
+                          >
+                            get Claim
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-b-xl">
+                      <div className="font-display flex items-center gap-2 pt-4 px-2 font-medium text-black">
+                        {v.name} #{v.tokenId}
+                      </div>
+                      <div className="text-sm px-2 pb-2">
+                        Cover Type: {v.attributes[0].trait_type}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="bg-white rounded-b-xl">
-                  <div className="font-display flex items-center gap-2 pt-4 px-2 font-medium text-black">
-                    {v.name} #{v.tokenId}
+                ) : (
+                  <div>
+                    <div className="relative shadow-xl  cursor-not-allowed">
+                      <div className="absolute bg-black w-full h-full bg-opacity-50 rounded-xl flex justify-center items-center text-4xl font-bold">
+                        <MdOutlineDoNotDisturbOn
+                          size={70}
+                          className="opacity-80 text-red-500/80"
+                        />
+                      </div>
+                      <img src={v.image} alt="NFT" className="rounded-t-xl" />
+                    </div>
+                    <div className="bg-white rounded-b-xl">
+                      <div className="font-display flex items-center gap-2 pt-4 px-2 font-medium text-black">
+                        {v.name} #{v.tokenId}
+                      </div>
+                      <div className="text-sm px-2 pb-2">
+                        Cover Type: {v.attributes[0].trait_type}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-sm px-2 pb-2">
-                    Cover Type: {v.attributes[0].trait_type}
-                  </div>
-                </div>
+                )}
               </div>
             );
           })}

@@ -58,7 +58,6 @@ export function useGet(account, id) {
       if (!account || !web3 || !GVN_contract) return;
       var votes = await GVN_contract.methods.getVotePower(account).call();
       setVoteNum(Number(votes));
-      console.log(voteNum);
     } catch (error) {
       alert("failed to get number of votes");
     }

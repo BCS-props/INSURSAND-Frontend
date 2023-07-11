@@ -24,34 +24,10 @@ const CoverUni = ({ account }) => {
   const [coveragePeriod, setCoveragePeriod] = useState(0); // 30 or 365
   const [isChecked, setIsChecked] = useState(false);
 
-  // const [position, setPosition] = useState(0);
-  // const [stop, setStop] = useState();
-
-  // function onScroll() {
-  //   setPosition(window.scrollY);
-  // }
-  // useEffect(() => {
-  //   window.addEventListener("scroll", onScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", onScroll);
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   if (position > 803) {
-  //     setStop("bottom-96");
-  //   } else if (position > 430) {
-  //     setStop("bottom-48");
-  //   } else {
-  //     setStop("");
-  //   }
-  //   console.log(position);
-  // }, [position]);
-
   const calculateDiscount = () => {
     if (Number(amount) >= 5100) {
-      var discountRatio = [Math.floor((Number(amount) - 5000) / 100) * 0.001];
-      setDiscount(Math.floor(Number(amount) * (Number(discountRatio) / 100)));
+      var discountRatio = [((Number(amount) - 5000) / 100) * 0.001];
+      setDiscount((Number(amount) * (Number(discountRatio) / 100)).toFixed(3));
     } else {
       setDiscount(0);
     }
@@ -82,7 +58,7 @@ const CoverUni = ({ account }) => {
   const getUniPrice = async () => {
     try {
       var uniPrice = await NFT_contract.methods.getUNIBalances().call();
-      setUniPrice(Number(uniPrice));
+      setUniPrice((Number(uniPrice) / 1000).toFixed(3));
     } catch (error) {
       console.log(error);
     }
@@ -129,11 +105,23 @@ const CoverUni = ({ account }) => {
     }
   };
 
+  const getRate = async () => {
+    try {
+      const feeRate = await NFT_contract.methods
+        .getCoverFees(period, ratio, amount)
+        .call();
+      setTotalRate((Number(feeRate) / 100).toFixed(3));
+      setDailyRate((Number(feeRate) / 365 / 100).toFixed(3));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getFinalPrice();
     getPeriod();
-    console.log(finalPrice);
-  }, [amount, period]);
+    getRate();
+  }, [amount, period, ratio]);
 
   useEffect(() => {
     getVotes();
@@ -142,7 +130,7 @@ const CoverUni = ({ account }) => {
   useEffect(() => {
     calculateDiscount();
     getUniPrice();
-    setToUsdt(amount * uniPrice);
+    setToUsdt((amount * uniPrice).toFixed(3));
     setActivePrice(Math.floor(uniPrice - (uniPrice * ratio) / 100));
 
     // console.log("discount: ", discount);
@@ -152,7 +140,7 @@ const CoverUni = ({ account }) => {
   }, [amount, ratio]);
 
   return (
-    <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
+    <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20 font-nunito">
       <div className="mx-40 mt-24">
         <div>
           <Link to="/covers">
@@ -439,6 +427,8 @@ const CoverUni = ({ account }) => {
                       amount={amount}
                       isChecked={isChecked}
                       ratio={ratio}
+                      activePrice={activePrice}
+                      uniPrice={uniPrice}
                     />
                   }
                 </div>

@@ -12,6 +12,7 @@ import FAQ from "./pages/faq";
 import CoverWeth from "./pages/coverWeth";
 import CoverUni from "./pages/coverUni";
 import NftDetail from "./pages/nftDetail";
+import CoverLink from "./pages/coverLink";
 export const apiKey = process.env.REACT_APP_INFURA_KEY;
 function App() {
   const [account, setAccount] = useState();
@@ -85,6 +86,14 @@ function App() {
           }
         ></Route>
         <Route
+          path="/covers/link"
+          element={
+            <div>
+              <CoverLink account={account} />
+            </div>
+          }
+        ></Route>
+        <Route
           path="/faqs"
           element={
             <div>
@@ -96,7 +105,7 @@ function App() {
           path="/detail/:tokenId"
           element={
             <div>
-              <NftDetail />
+              <NftDetail account={account} />
             </div>
           }
         ></Route>

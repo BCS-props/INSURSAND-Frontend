@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { NFT_contract, ERC20_contract } from "../pages/covers";
 import { NFT_CA } from "../web3.config";
@@ -8,7 +8,7 @@ const pinataURI = "https://teal-individual-peafowl-274.mypinata.cloud/ipfs/";
 
 // flie 값 반환 (피나타 업로드용)
 
-// // 이미지 생성값 반환 (웹에 띄우는 용도)
+// 이미지 생성값 반환 (웹에 띄우는 용도)
 // const onScreenDrawing = async () => {
 //   // 캔버스 생성
 //   const canvas = document.createElement("canvas");
@@ -91,7 +91,7 @@ const pinataURI = "https://teal-individual-peafowl-274.mypinata.cloud/ipfs/";
 //   ctx.fillText(`Expired Date : ${formatDate(future30Days)} UTC`, 10, 120); // 만료 날짜 (만료 날짜가 지난 경우엔 컨트랙트에서 다른 uri 반환.)
 //   ctx.fillText("Cover Amount : 19222.993 DAI", 10, 150); // 커버 amount
 //   ctx.fillText("Cover Active Price : 1543.991 $", 10, 180); // 보험금 지급받을 수 있는 가격
-//   ctx.fillText("Standard UNI Price : 1983.930 $", 10, 210); // 민팅 당시의 토큰 가격
+//   ctx.fillText("Standard WETH Price : 1983.930 $", 10, 210); // 민팅 당시의 토큰 가격
 //   ctx.fillText(`Mint Date : ${formatDate(currentTime)} UTC`, 10, 240); // 민팅 날짜
 
 //   // 이미지 데이터 가져오기
@@ -124,7 +124,7 @@ const generateMetadata = async (res) => {
     attributes: [
       {
         trait_type: "Asset Coverage",
-        value: `UNI`,
+        value: `LINK`,
       },
     ],
   };
@@ -148,7 +148,7 @@ const FileUpload = ({
   amount,
   isChecked,
   activePrice,
-  uniPrice,
+  linkPrice,
   ratio,
 }) => {
   const [selectedFile, setSelectedFile] = useState();
@@ -200,7 +200,7 @@ const FileUpload = ({
     ctx.fillText(`Expired Date : 20-08-2024`, 10, 40); // 만료 날짜 (만료 날짜가 지난 경우엔 컨트랙트에서 다른 uri 반환.)
     ctx.fillText("Cover Amount : 19222.993 DAI", 10, 70); // 커버 amount
     ctx.fillText("Cover Active Price : 1543.991 $", 10, 100); // 보험금 지급받을 수 있는 가격
-    ctx.fillText("Standard UNI Price : 1983.930 $", 10, 150); // 민팅 당시의 토큰 가격
+    ctx.fillText("Standard LINK Price : 1983.930 $", 10, 150); // 민팅 당시의 토큰 가격
     ctx.fillText(`Mint Date : ${currentDate}`, 10, 180); // 민팅 날짜
 
     // 이미지 데이터 가져오기
@@ -301,7 +301,7 @@ const FileUpload = ({
               if (response.status === 200) {
                 const mint = await NFT_contract.methods
 
-                  .mintNFTCover_UNI(
+                  .mintNFTCover_LINK(
                     period,
                     ratio,
                     amount,
@@ -333,6 +333,7 @@ const FileUpload = ({
       console.log(error);
     }
   };
+
   const onScreengenerateImage = async () => {
     // 캔버스 생성
     const canvas = document.createElement("canvas");
@@ -407,19 +408,20 @@ const FileUpload = ({
       ];
       const month = months[monthIndex];
 
-      return `${day}-${month}-${year}`;
+      return `${month}-${day}-${year}`;
     };
 
     // 텍스트 그리기
     ctx.fillStyle = "white";
     ctx.font = "bold 22px GothicFont, sans-serif";
-    ctx.fillText(`InsurSand Cover NFT`, 10, 30);
-    ctx.fillText(`Price Drop Cover`, 10, 60);
-    ctx.fillText(`Expired Date : ${formatDate(future30Days)} UTC`, 10, 120); // 만료 날짜 (만료 날짜가 지난 경우엔 컨트랙트에서 다른 uri 반환.)
-    ctx.fillText(`Cover Amount : ${amount} DAI`, 10, 150); // 커버 amount
-    ctx.fillText(`Cover Active Price : ${activePrice} $`, 10, 180); // 보험금 지급받을 수 있는 가격
-    ctx.fillText(`Standard UNI Price : ${uniPrice} $`, 10, 210); // 민팅 당시의 토큰 가격
-    ctx.fillText(`Mint Date : ${formatDate(currentTime)} UTC`, 10, 240); // 민팅 날짜
+    ctx.fillText(`INSURSAND Cover NFT`, 10, 30);
+    ctx.fillText(`Asset Cover`, 10, 60);
+    ctx.fillText(`Token Type: LINK`, 10, 90);
+    ctx.fillText(`Cover Amount : ${amount} USDT`, 10, 150); // 커버 amount
+    ctx.fillText(`Cover Active Price :  ${activePrice}$`, 10, 180); // 보험금 지급받을 수 있는 가격
+    ctx.fillText(`Standard LINK Price : ${linkPrice} $`, 10, 210); // 민팅 당시의 토큰 가격
+    ctx.fillText(`Expired Date : ${formatDate(future30Days)}`, 10, 240); // 만료 날짜 (만료 날짜가 지난 경우엔 컨트랙트에서 다른 uri 반환.)
+    ctx.fillText(`Mint Date : ${formatDate(currentTime)}`, 10, 270); // 민팅 날짜
 
     // 이미지 데이터 가져오기
     const imageData = canvas.toDataURL();

@@ -2,7 +2,7 @@ import { BsDiscord, BsTwitter, BsGithub } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <div className="bg-gradient-to-r from-white to-amber-400/80 relative">
+    <div className="bg-gradient-to-r from-white to-amber-400/80 relative font-cairo">
       <div>
         <div className="pt-4 pl-12 pb-4 ml-4">
           <div className="flex w-fit items-center">
@@ -16,7 +16,7 @@ const Footer = () => {
             <div className="pb-4 mt-4 ">Every moment in DeFi,</div>
             <div className="">Safe easy with INSURSAND</div>
           </div>
-          <div className="flex justify-between pr-4 mt-20">
+          <div className="flex justify-between pr-4 mt-12">
             <div className="flex gap-8">
               <BsDiscord size={26} />
               <BsTwitter size={26} />

@@ -96,7 +96,7 @@ const Proposal = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20">
+    <div className="min-h-screen flex justify-center bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20 font-nunito">
       <div className="mx-96 w-1/2 mt-20 min-h-screen bg-white rounded-xl shadow-2xl">
         <div className="flex justify-between p-12">
           <div>

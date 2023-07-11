@@ -74,7 +74,7 @@ const Main = () => {
           />
           <div className="flex-grow px-20 pt-24 z-20">
             <div
-              className={`text-7xl pt-20 flex justify-center text-blue-950/80 font-chakra font-semibold ${
+              className={`text-7xl pt-20 flex justify-center text-blue-950/80 font-gruppo font-semibold ${
                 isObserved &&
                 "animate__animated animate__fadeInUp animate__slow"
               }`}
@@ -83,7 +83,7 @@ const Main = () => {
               INSURSAND solutions
             </div>
             <div className="flex justify-center mt-40">
-              <div className="grid grid-cols-4 gap-12 font-chakra">
+              <div className="grid grid-cols-4 gap-12 font-roboto">
                 <div
                   className={`bg-blue-400/40 flex flex-col rounded-3xl shadow-2xl ${
                     isObserved &&
@@ -180,7 +180,7 @@ const Main = () => {
             <div className="flex justify-center mt-40 mb-20">
               <Link to="/covers">
                 <button
-                  className={`bg-white/80 px-24 py-8 text-2xl rounded-2xl shadow-2xl font-chakra font-semibold hover:bg-white ${
+                  className={`bg-white/80 px-24 py-8 text-2xl rounded-2xl shadow-2xl font-cairo font-semibold hover:bg-white ${
                     isObserved &&
                     "animate__animated animate__fadeInUp animate__slower"
                   }`}

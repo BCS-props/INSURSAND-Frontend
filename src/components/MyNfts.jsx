@@ -57,7 +57,7 @@ const MyNfts = ({ account }) => {
     try {
       var updatedNfts = [];
       if (tokenIds.length >= 1) {
-        for (let i = tokenIds[0]; i < tokenIds.length; i++) {
+        for (let i = 0; i < tokenIds.length; i++) {
           const nftDatas = await NFT_contract.methods
             .getNFTDatas(tokenIds[i], account)
             .call();
@@ -108,6 +108,10 @@ const MyNfts = ({ account }) => {
     getTotalCover();
   }, []);
 
+  useEffect(() => {
+    console.log(nftData);
+  }, [nftData]);
+
   return (
     <div className="mt-8 ">
       <div className="text-3xl font-montserrat font-bold text-amber-900/80">
@@ -140,8 +144,8 @@ const MyNfts = ({ account }) => {
                 key={i}
                 className="flex flex-col shadow-2xl shadow-orange-200"
               >
-                {/* {nftData[i][6] === true ? ( */}
-                {nftData ? (
+                {nftData && nftData[i]?.isActive ? (
+                  // {nftData ? (
                   <div>
                     <div className="relative shadow-xl">
                       <img src={v.image} alt="NFT" className="rounded-t-xl" />

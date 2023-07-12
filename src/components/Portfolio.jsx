@@ -35,7 +35,10 @@ const Portfolio = ({ account }) => {
                   <div className="font-medium text-sm underline">
                     Active Cover Amount
                   </div>
-                  <div className="mt-4 text-black/80">{totalSpend} USDT</div>
+                  <div className="mt-4 text-black/80 flex gap-1">
+                    {totalSpend && <div>{totalSpend.toLocaleString()}</div>}
+                    USDT
+                  </div>
                 </div>
               </div>
               <div>
@@ -43,7 +46,10 @@ const Portfolio = ({ account }) => {
                   <div className="font-medium text-sm underline">
                     My Balance (USDT)
                   </div>
-                  <div className="mt-4 text-black/80">{tokenBalance} USDT</div>
+                  <div className="mt-4 text-black/80 flex gap-1">
+                    {tokenBalance && <div>{tokenBalance.toLocaleString()}</div>}
+                    USDT
+                  </div>
                 </div>
               </div>
               <div>

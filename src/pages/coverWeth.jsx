@@ -5,7 +5,7 @@ import QuoteWeth from "../components/QuoteWeth";
 import { AiOutlineArrowDown, AiOutlineSelect } from "react-icons/ai";
 import { IoReaderOutline } from "react-icons/io5";
 import { GiConfirmed } from "react-icons/gi";
-import { NFT_contract } from "./covers";
+import { BALANCE_contract, NFT_contract } from "./covers";
 const CoverWeth = ({ account }) => {
   const [amount, setAmount] = useState(1);
   const [toUsdt, setToUsdt] = useState(0); // 입력받은 weth가 usdt로 변환된 값
@@ -56,7 +56,7 @@ const CoverWeth = ({ account }) => {
 
   const getWethPrice = async () => {
     try {
-      var wethPrice = await NFT_contract.methods.getWETHBalances().call();
+      var wethPrice = await BALANCE_contract.methods.getWETHBalances().call();
       setWethPrice(Number(wethPrice));
     } catch (error) {
       console.log(error);
@@ -131,7 +131,7 @@ const CoverWeth = ({ account }) => {
     calculateDiscount();
     getWethPrice();
     setToUsdt(amount * wethPrice);
-    setActivePrice(Math.floor(wethPrice - (wethPrice * ratio) / 100));
+    setActivePrice(Math.floor(wethPrice * ratio) / 100);
     // console.log(activePrice);
 
     // console.log("discount: ", discount);
@@ -139,6 +139,10 @@ const CoverWeth = ({ account }) => {
 
     console.log("wETH price: ", wethPrice);
   }, [amount, ratio]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20 font-nunito">
@@ -159,11 +163,11 @@ const CoverWeth = ({ account }) => {
                 alt="weth"
                 className="w-14"
               />
-              Buy WETH Cover
+              Buy WETH Asset Cover
             </div>
             <div className="mt-3 text-lg text-amber-900/80">
               Enter the coverage amount(WETH) and Select the coverage period and
-              the coverage ratio
+              the coverage ratio.
               <br />
               Then get the quote!
             </div>
@@ -209,6 +213,16 @@ const CoverWeth = ({ account }) => {
                   <div className="inline underline">
                     the coverage amount will also be calculated differently
                     based on the chosen coverage amount and duration.
+                  </div>
+                  <br />
+                  <br />· If the final payment amount is less than 100 USDT, you
+                  will receive 1 voting right. If it is between 100 and 200 USDT
+                  (inclusive), you will receive 2 voting rights. If it exceeds
+                  200 USDT, you will receive 3 voting rights.
+                  <br />
+                  <br />·{" "}
+                  <div className="inline underline">
+                    The claimable amount will vary based on the decline rate.
                   </div>
                 </div>
                 <div className="p-6 flex justify-evenly gap-4">

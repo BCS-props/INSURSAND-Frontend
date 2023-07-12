@@ -5,7 +5,7 @@ import QuoteUNI from "../components/QuoteUni";
 import { AiOutlineArrowDown, AiOutlineSelect } from "react-icons/ai";
 import { IoReaderOutline } from "react-icons/io5";
 import { GiConfirmed } from "react-icons/gi";
-import { NFT_contract } from "./covers";
+import { BALANCE_contract, NFT_contract } from "./covers";
 
 const CoverUni = ({ account }) => {
   const [amount, setAmount] = useState(1);
@@ -57,8 +57,9 @@ const CoverUni = ({ account }) => {
 
   const getUniPrice = async () => {
     try {
-      var uniPrice = await NFT_contract.methods.getUNIBalances().call();
+      var uniPrice = await BALANCE_contract.methods.getUNIBalances().call();
       setUniPrice((Number(uniPrice) / 1000).toFixed(3));
+      // setUniPrice(Number(uniPrice));
     } catch (error) {
       console.log(error);
     }
@@ -83,7 +84,7 @@ const CoverUni = ({ account }) => {
       var finalPrices = await NFT_contract.methods
         .calculateCoverFee(period, ratio, amount)
         .call();
-      setFinalPrice(finalPrices);
+      setFinalPrice(finalPrices * (107 / 100));
     } catch (error) {
       console.log(error);
     }
@@ -130,14 +131,18 @@ const CoverUni = ({ account }) => {
   useEffect(() => {
     calculateDiscount();
     getUniPrice();
-    setToUsdt((amount * uniPrice).toFixed(3));
-    setActivePrice(Math.floor(uniPrice - (uniPrice * ratio) / 100));
+    setToUsdt(amount * uniPrice);
+    setActivePrice(Math.floor(uniPrice * ratio) / 100);
 
     // console.log("discount: ", discount);
     // console.log(typeof Number(amount));
 
     console.log("UNI price: ", uniPrice);
   }, [amount, ratio]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20 font-nunito">
@@ -158,11 +163,11 @@ const CoverUni = ({ account }) => {
                 alt="uni"
                 className="w-14 mb-1"
               />
-              Buy UNI Cover
+              Buy UNI Asset Cover
             </div>
             <div className="mt-3 text-lg text-amber-900/80">
               Enter the coverage amount(UNI) and Select the coverage period and
-              the coverage ratio
+              the coverage ratio.
               <br />
               Then get the quote!
             </div>
@@ -208,6 +213,16 @@ const CoverUni = ({ account }) => {
                   <div className="inline underline">
                     the coverage amount will also be calculated differently
                     based on the chosen coverage amount and duration.
+                  </div>
+                  <br />
+                  <br />· If the final payment amount is less than 100 USDT, you
+                  will receive 1 voting right. If it is between 100 and 200 USDT
+                  (inclusive), you will receive 2 voting rights. If it exceeds
+                  200 USDT, you will receive 3 voting rights.
+                  <br />
+                  <br />·{" "}
+                  <div className="inline underline">
+                    The claimable amount will vary based on the decline rate.
                   </div>
                 </div>
                 <div className="p-6 flex justify-evenly gap-4">
@@ -427,8 +442,8 @@ const CoverUni = ({ account }) => {
                       amount={amount}
                       isChecked={isChecked}
                       ratio={ratio}
-                      activePrice={activePrice}
                       uniPrice={uniPrice}
+                      activePrice={activePrice}
                     />
                   }
                 </div>

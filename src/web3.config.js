@@ -706,7 +706,7 @@ export const ERC20_ABI = [
     type: "receive",
   },
 ];
-export const NFT_CA = "0x4a93a4b80731721096d36fe776C55e5086e935f9";
+export const NFT_CA = "0x8f8c8d2e5499A1B296D1A49BD976f54C5D020D11";
 export const NFT_ABI = [
   {
     inputs: [
@@ -907,9 +907,9 @@ export const NFT_ABI = [
   {
     inputs: [
       {
-        internalType: "uint8",
+        internalType: "uint256",
         name: "_coverTerm",
-        type: "uint8",
+        type: "uint256",
       },
       {
         internalType: "uint8",
@@ -968,9 +968,9 @@ export const NFT_ABI = [
   {
     inputs: [
       {
-        internalType: "uint8",
+        internalType: "uint256",
         name: "_coverTerm",
-        type: "uint8",
+        type: "uint256",
       },
       {
         internalType: "uint8",
@@ -984,19 +984,6 @@ export const NFT_ABI = [
       },
     ],
     name: "getCoverFees",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getLINKBalances",
     outputs: [
       {
         internalType: "uint256",
@@ -1025,9 +1012,9 @@ export const NFT_ABI = [
       {
         components: [
           {
-            internalType: "uint8",
+            internalType: "uint256",
             name: "coverTerm",
-            type: "uint8",
+            type: "uint256",
           },
           {
             internalType: "uint8",
@@ -1140,32 +1127,6 @@ export const NFT_ABI = [
   },
   {
     inputs: [],
-    name: "getUNIBalances",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getWETHBalances",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "insurPool",
     outputs: [
       {
@@ -1204,9 +1165,9 @@ export const NFT_ABI = [
   {
     inputs: [
       {
-        internalType: "uint8",
+        internalType: "uint256",
         name: "_coverTerm",
-        type: "uint8",
+        type: "uint256",
       },
       {
         internalType: "uint8",
@@ -1236,24 +1197,28 @@ export const NFT_ABI = [
         name: "_id",
         type: "uint256[]",
       },
-    ],
-    name: "mintNFTCover_Lido",
-    outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "_coverRatio",
         type: "uint256",
       },
+      {
+        internalType: "string",
+        name: "_ipfsHash",
+        type: "string",
+      },
     ],
-    stateMutability: "view",
+    name: "mintNFTCover_Lido",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [
       {
-        internalType: "uint8",
+        internalType: "uint256",
         name: "_coverTerm",
-        type: "uint8",
+        type: "uint256",
       },
       {
         internalType: "uint8",
@@ -1279,9 +1244,9 @@ export const NFT_ABI = [
   {
     inputs: [
       {
-        internalType: "uint8",
+        internalType: "uint256",
         name: "_coverTerm",
-        type: "uint8",
+        type: "uint256",
       },
       {
         internalType: "uint8",
@@ -1450,29 +1415,6 @@ export const NFT_ABI = [
   {
     inputs: [
       {
-        internalType: "uint8",
-        name: "_setFormula_30",
-        type: "uint8",
-      },
-      {
-        internalType: "uint16",
-        name: "_setFormula_365",
-        type: "uint16",
-      },
-      {
-        internalType: "uint8",
-        name: "_priceDiscount",
-        type: "uint8",
-      },
-    ],
-    name: "setPriceFormula",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "bytes4",
         name: "interfaceId",
         type: "bytes4",
@@ -1568,6 +1510,563 @@ export const NFT_ABI = [
     name: "transferFrom",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+];
+export const BALANCE_CA = "0x238f0c7C5eA55281C8035FB2EC2255070c1de840";
+export const BALANCE_ABI = [
+  {
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [],
+    name: "getLINKBalances",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getUNIBalances",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getWETHBalances",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+];
+export const LIDO_CA = "0x6591db3c949CB384Ae88550Fe5c48f8067c42BA5";
+export const LIDO_ABI = [
+  {
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [],
+    name: "BatchesAreNotSorted",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "CantSendValueRecipientMayHaveReverted",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "EmptyBatches",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_hint",
+        type: "uint256",
+      },
+    ],
+    name: "InvalidHint",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_requestId",
+        type: "uint256",
+      },
+    ],
+    name: "InvalidRequestId",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "startId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "endId",
+        type: "uint256",
+      },
+    ],
+    name: "InvalidRequestIdRange",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InvalidState",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "NotEnoughEther",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_sender",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "_owner",
+        type: "address",
+      },
+    ],
+    name: "NotOwner",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_requestId",
+        type: "uint256",
+      },
+    ],
+    name: "RequestAlreadyClaimed",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_requestId",
+        type: "uint256",
+      },
+    ],
+    name: "RequestNotFoundOrNotFinalized",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "sent",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "maxExpected",
+        type: "uint256",
+      },
+    ],
+    name: "TooMuchEtherToFinalize",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ZeroAmountOfETH",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ZeroShareRate",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ZeroTimestamp",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "requestId",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "receiver",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amountOfETH",
+        type: "uint256",
+      },
+    ],
+    name: "WithdrawalClaimed",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "requestId",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "requestor",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amountOfStETH",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amountOfShares",
+        type: "uint256",
+      },
+    ],
+    name: "WithdrawalRequested",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "from",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "to",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amountOfETHLocked",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "sharesToBurn",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "timestamp",
+        type: "uint256",
+      },
+    ],
+    name: "WithdrawalsFinalized",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_maxShareRate",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_maxTimestamp",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_maxRequestsPerCall",
+        type: "uint256",
+      },
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "remainingEthBudget",
+            type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "finished",
+            type: "bool",
+          },
+          {
+            internalType: "uint256[36]",
+            name: "batches",
+            type: "uint256[36]",
+          },
+          {
+            internalType: "uint256",
+            name: "batchesLength",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct WithdrawalQueueBase.BatchesCalculationState",
+        name: "_state",
+        type: "tuple",
+      },
+    ],
+    name: "calculateFinalizationBatches",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "remainingEthBudget",
+            type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "finished",
+            type: "bool",
+          },
+          {
+            internalType: "uint256[36]",
+            name: "batches",
+            type: "uint256[36]",
+          },
+          {
+            internalType: "uint256",
+            name: "batchesLength",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct WithdrawalQueueBase.BatchesCalculationState",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256[]",
+        name: "_id",
+        type: "uint256[]",
+      },
+    ],
+    name: "checkStatus",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256[]",
+        name: "_id",
+        type: "uint256[]",
+      },
+    ],
+    name: "getAmountTimestamp",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getLastCheckpointIndex",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getLastFinalizedRequestId",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getLastRequestId",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getLockedEtherAmount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "msgsender",
+        type: "address",
+      },
+    ],
+    name: "getRequests",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "MAX_BATCHES_LENGTH",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256[]",
+        name: "_batches",
+        type: "uint256[]",
+      },
+      {
+        internalType: "uint256",
+        name: "_maxShareRate",
+        type: "uint256",
+      },
+    ],
+    name: "prefinalize",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "ethToLock",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "sharesToBurn",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "unfinalizedRequestNumber",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "unfinalizedStETH",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
 ];

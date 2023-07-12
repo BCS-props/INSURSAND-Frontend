@@ -123,7 +123,7 @@ const Main = () => {
                   </div>
                   <div className="flex flex-col justify-center items-center border-4 border-blue-900/40 border-dashed m-12 rounded-full">
                     <div className="mt-20 mb-8 text-2xl text-blue-900/80 font-medium">
-                      {totalAmount}
+                      {totalAmount && <div>{totalAmount.toLocaleString()}</div>}
                     </div>
                     <div className="mt-2 mb-20 text-blue-900/80 font-medium">
                       USDT

@@ -706,7 +706,7 @@ export const ERC20_ABI = [
     type: "receive",
   },
 ];
-export const NFT_CA = "0x8f8c8d2e5499A1B296D1A49BD976f54C5D020D11";
+export const NFT_CA = "0x5E0D4f863Bf006BEC8694206b2c5b8d5276b7099";
 export const NFT_ABI = [
   {
     inputs: [
@@ -1560,7 +1560,7 @@ export const BALANCE_ABI = [
     type: "function",
   },
 ];
-export const LIDO_CA = "0x6591db3c949CB384Ae88550Fe5c48f8067c42BA5";
+export const LIDO_CA = "0xdE55338344265cC1E0512f4140a613EA2e711B46";
 export const LIDO_ABI = [
   {
     inputs: [],
@@ -1805,6 +1805,19 @@ export const LIDO_ABI = [
     type: "event",
   },
   {
+    inputs: [],
+    name: "MAX_BATCHES_LENGTH",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "uint256",
@@ -1877,6 +1890,69 @@ export const LIDO_ABI = [
         internalType: "struct WithdrawalQueueBase.BatchesCalculationState",
         name: "",
         type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_coverRatio",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_timestamp",
+        type: "uint256",
+      },
+    ],
+    name: "calculateLido",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256[]",
+        name: "_id",
+        type: "uint256[]",
+      },
+      {
+        internalType: "uint256",
+        name: "_coverRatio",
+        type: "uint256",
+      },
+    ],
+    name: "calculateLido_two",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -1996,19 +2072,6 @@ export const LIDO_ABI = [
         internalType: "uint256[]",
         name: "",
         type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "MAX_BATCHES_LENGTH",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
       },
     ],
     stateMutability: "view",

@@ -1,50 +1,29 @@
 import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import { useEffect, useState } from "react";
-import QuoteLink from "../components/QuoteLink";
+import QuoteLido from "../components/QuoteLido";
 import { AiOutlineArrowDown, AiOutlineSelect } from "react-icons/ai";
 import { IoReaderOutline } from "react-icons/io5";
 import { GiConfirmed } from "react-icons/gi";
-import { BALANCE_contract, NFT_contract } from "./covers";
+import { BALANCE_contract, LIDO_contract, NFT_contract } from "./covers";
+
 const CoverLido = ({ account }) => {
-  const [amount, setAmount] = useState(1);
-  const [toUsdt, setToUsdt] = useState(1); // 입력받은 LINK가 usdt로 변환된 값
-  const [linkPrice, setLinkPrice] = useState(null); // 현재 LINK 가격 조회
+  const [ethPrice, setEthPrice] = useState(null); // 현재 ETH 가격 조회
   const [activePrice, setActivePrice] = useState(); // 보험금을 청구할 수 있는 LINK 가격
-  const [period, setPeriod] = useState(null); // 0(30) or 1(365)
   const [ratio, setRatio] = useState(10);
-  const [discount, setDiscount] = useState(0);
-  const [toggle, setToggle] = useState(false);
-  const [toggle2, setToggle2] = useState(false);
+  const [discountRate, setDiscountRate] = useState(0);
   const [finalPrice, setFinalPrice] = useState(0);
   const [votes, setVotes] = useState(0);
-  const [totalRate, setTotalRate] = useState(0);
-  const [dailyRate, setDailyRate] = useState(0);
-  const [coveragePeriod, setCoveragePeriod] = useState(0); // 30 or 365
   const [isChecked, setIsChecked] = useState(false);
 
-  const calculateDiscount = () => {
-    if (Number(amount) >= 5100) {
-      var discountRatio = [((Number(amount) - 5000) / 100) * 0.001];
-      setDiscount((Number(amount) * (Number(discountRatio) / 100)).toFixed(3));
-    } else {
-      setDiscount(0);
-    }
-  };
-
-  const onClickToggle = () => {
-    // 30
-    setPeriod(0);
-    setToggle(!toggle);
-    setToggle2(false);
-  };
-
-  const onClickToggle2 = () => {
-    // 365
-    setPeriod(1);
-    setToggle2(!toggle2);
-    setToggle(false);
-  };
+  // LIDO useState
+  const [myRequestId, setMyRequestId] = useState([]);
+  const [requestId, setRequestId] = useState();
+  const [selectedId, setSelectedId] = useState(null);
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [amountWei, setAmountWei] = useState(0);
+  const [timestamp, setTimestamp] = useState();
+  const [amount, setAmount] = useState(0);
 
   const handleCheckboxChange = (e) => {
     setIsChecked(e.target.checked);
@@ -54,24 +33,10 @@ const CoverLido = ({ account }) => {
     setRatio(e.target.value);
   };
 
-  const getLinkPrice = async () => {
+  const getEthPrice = async () => {
     try {
-      var linkPrices = await BALANCE_contract.methods.getLINKBalances().call();
-      setLinkPrice((Number(linkPrices) / 1000).toFixed(3));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPeriod = async () => {
-    try {
-      if (period === 0) {
-        setCoveragePeriod(30);
-      } else if (period === 1) {
-        setCoveragePeriod(365);
-      } else {
-        setCoveragePeriod(0);
-      }
+      var ethPrices = await BALANCE_contract.methods.getWETHBalances().call();
+      setEthPrice(Number(ethPrices));
     } catch (error) {
       console.log(error);
     }
@@ -79,15 +44,15 @@ const CoverLido = ({ account }) => {
 
   const getFinalPrice = async () => {
     try {
-      var finalPrices = await NFT_contract.methods
-        .calculateCoverFee(period, ratio, amount)
+      var finalPrices = await LIDO_contract.methods
+        .calculateLido_two(requestId, ratio)
         .call();
-      setFinalPrice(finalPrices);
+      setFinalPrice(finalPrices[0]);
+      setDiscountRate(finalPrices[1]);
     } catch (error) {
       console.log(error);
     }
   };
-
   const getVotes = async () => {
     try {
       if (finalPrice < 100) {
@@ -104,13 +69,24 @@ const CoverLido = ({ account }) => {
     }
   };
 
-  const getRate = async () => {
+  const getRequestId = async () => {
     try {
-      const feeRate = await NFT_contract.methods
-        .getCoverFees(period, ratio, amount)
+      const requestIds = await LIDO_contract.methods
+        .getRequests(account)
         .call();
-      setTotalRate((Number(feeRate) / 100).toFixed(3));
-      setDailyRate((Number(feeRate) / 365 / 100).toFixed(3));
+      setMyRequestId(requestIds);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAmountTimestamp = async () => {
+    try {
+      var amountTimestamps = await LIDO_contract.methods
+        .getAmountTimestamp(requestId)
+        .call();
+      setAmountWei(amountTimestamps[1]);
+      setTimestamp(amountTimestamps[0]);
     } catch (error) {
       console.log(error);
     }
@@ -118,26 +94,24 @@ const CoverLido = ({ account }) => {
 
   useEffect(() => {
     getFinalPrice();
-    getPeriod();
-    getRate();
-  }, [amount, period, ratio]);
+    getAmountTimestamp();
+  }, [requestId, ratio]);
 
   useEffect(() => {
     getVotes();
   }, [finalPrice]);
 
   useEffect(() => {
-    calculateDiscount();
-    getLinkPrice();
-    setToUsdt((amount * linkPrice).toFixed(3));
-    setActivePrice(Math.floor(linkPrice - (linkPrice * ratio) / 100));
-    // console.log(activePrice);
+    getRequestId();
+  }, []);
 
-    // console.log("discount: ", discount);
-    // console.log(typeof Number(amount));
-
-    console.log("LINK price: ", linkPrice);
-  }, [amount, ratio]);
+  useEffect(() => {
+    getEthPrice();
+    setActivePrice(Math.floor(ethPrice * ratio) / 100);
+    setDiscountAmount((finalPrice * (discountRate / 1000)).toFixed(3));
+    setAmount((amountWei / 10 ** 18).toFixed(2));
+    // setAmount(amountWei / 10 ** 18);
+  }, [amount, ratio, requestId]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -162,7 +136,7 @@ const CoverLido = ({ account }) => {
                 alt="link"
                 className="w-14"
               />
-              Buy LIDO Lock-up Cover
+              Buy LIDO Unstaking Cover
             </div>
             <div className="mt-3 text-lg text-amber-900/80">
               Enter the request ID and decide the coverage ratio.
@@ -180,37 +154,36 @@ const CoverLido = ({ account }) => {
                   Coverage Options
                 </div>
                 <div className="p-6">
-                  · You can choose between two coverage options:&nbsp;
-                  <div className="inline underline font-bold">30 days</div>{" "}
-                  and&nbsp;
-                  <div className="inline underline font-bold">365 days</div>.
+                  ·{" "}
+                  <div className="inline underline">
+                    LIDO staking service has a fixed maximum lock-up period of 5
+                    days
+                  </div>{" "}
+                  for rewarding purposes.
                   <br /> <br />
-                  · Please note that the fee rates may vary depending on the
-                  chosen duration,
-                  <br /> and the coverage amount will also be calculated
-                  differently based on the chosen coverage amount and duration.
+                  · The coverage amount will be calculated differently based on
+                  the chosen coverage amount and duration.
+                  <br />
+                  <br />· You will select the{" "}
+                  <div className="inline underline">requestId</div> of your
+                  staking.
                   <br />
                   <br />· If the price declines to the user-inputted coverage
                   decline rate, which can range&nbsp;
                   <div className="inline underline font-bold">
-                    from 10% to 90%
+                    from 5% to 90%
                   </div>
                   ,
                   <br />
                   you will be eligible to receive the insurance payout.
                   <br />
-                  <br /> · There is a discount available for the total payment
-                  amount.
-                  <br />{" "}
-                  <div className="inline underline font-bold">
-                    For payments totaling 5,000 LINK or more, there will be a
-                    discount of 0.001% for every 100 LINK increment.
-                  </div>
+                  <br /> · The coverage amount will be calculated differently
+                  based on the chosen coverage amount and duration.
                   <br />
                   <br /> ·&nbsp;
                   <div className="inline underline">
-                    the coverage amount will also be calculated differently
-                    based on the chosen coverage amount and duration.
+                    The insurance payout amount will vary based on the selected
+                    decline rate.
                   </div>
                 </div>
                 <div className="p-6 flex justify-evenly gap-4">
@@ -218,54 +191,45 @@ const CoverLido = ({ account }) => {
                     <div className="text-xl flex justify-center pt-4">
                       <u>Coverage Period (days)</u>
                     </div>
-                    <div className="flex mt-3 gap-10 p-4 justify-around">
-                      <button
-                        className={`rounded-3xl p-8 border-2 transition duration-300 hover:scale-95 hover:text-blue-600/50 hover:border-blue-500/50 hover:bg-blue-100/50 ${
-                          toggle &&
-                          "bg-blue-100 border-blue-500 text-blue-600 hover:text-blue-600/50 hover:border-blue-500/50 hover:bg-blue-100/50"
-                        }`}
-                        onClick={onClickToggle}
-                      >
-                        30 days
-                      </button>
-                      <button
-                        className={`rounded-3xl p-8 border-2 transition duration-300 hover:scale-95 hover:text-blue-600/50 hover:border-blue-500/50 hover:bg-blue-100/50 ${
-                          toggle2 &&
-                          "bg-blue-100 border-blue-500 text-blue-600 hover:text-blue-600/50 hover:border-blue-500/50 hover:bg-blue-100/50"
-                        }`}
-                        onClick={onClickToggle2}
-                      >
-                        365 days
-                      </button>
+                    <div className="flex mt-12 p-4 justify-center items-center">
+                      <div className="rounded-3xl p-8 border-2 transition duration-300 bg-blue-100 border-blue-500 text-blue-600">
+                        5 days
+                      </div>
                     </div>
                   </div>
                   <div className="w-1/2 border rounded-xl">
                     <div className="text-xl flex justify-center pt-4">
-                      <u>Coverage Amount (LINK)</u>
+                      <u>Coverage Request ID (LIDO)</u>
                     </div>
-                    {/* <div className="flex justify-end mr-12">
-                      {period === null ? <div>enter period!</div> : <div></div>}
-                    </div> */}
                     <div className="p-5 flex flex-col">
-                      <div className="flex items-center gap-4">
-                        <input
-                          placeholder="0"
-                          type="number"
-                          className="p-4 pr-4 text-lg flex w-3/5"
-                          value={amount}
-                          onChange={(e) => setAmount(e.target.value)}
-                          style={{ textAlign: "right" }}
-                        ></input>
-                        <span className="text-lg text-amber-800">LINK</span>
-                      </div>
-                      <div className="flex items-center ml-3 mt-2 mb-2 justify-center">
-                        <AiOutlineArrowDown size={24} />
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <div className="p-4 pr-4 text-lg flex justify-end w-3/5">
-                          {toUsdt}
+                      <div className="flex flex-col items-center gap-4 border rounded-xl h-36">
+                        <div className="mt-1">
+                          The requestId of your staking:
                         </div>
-                        <span className="text-lg text-amber-800">USDT</span>
+                        {myRequestId && (
+                          <div className="gap-3 pb-4 grid grid-cols-5">
+                            {myRequestId.map((v, i) => {
+                              const handleClick = () => {
+                                setRequestId([myRequestId[i]]);
+                                setSelectedId(myRequestId[i]);
+                              };
+
+                              const buttonClassName =
+                                selectedId === myRequestId[i]
+                                  ? "bg-blue-100 border-blue-500 text-blue-600"
+                                  : "";
+                              return (
+                                <div
+                                  className={`text-xs p-1 border rounded-lg transition duration-300 hover:scale-95 hover:text-blue-600/50 hover:border-blue-500/50 hover:bg-blue-100/50  ${buttonClassName}`}
+                                >
+                                  <button onClick={handleClick}>
+                                    {myRequestId[i]}
+                                  </button>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -379,11 +343,15 @@ const CoverLido = ({ account }) => {
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
                     <div>coverage period:</div>
-                    <div className="font-bold">{coveragePeriod} days</div>
+                    <div className="font-bold">5 days</div>
+                  </div>
+                  <div className="flex justify-between p-3 mx-8 text-sm">
+                    <div>coverage request ID:</div>
+                    <div className="font-bold">{requestId}</div>
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
                     <div>coverage amount:</div>
-                    <div className="font-bold">{amount} LINK</div>
+                    <div className="font-bold">{amount} ETH</div>
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
                     <div>coverage ratio:</div>
@@ -396,11 +364,11 @@ const CoverLido = ({ account }) => {
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
                     <div>discount amount:</div>
-                    <div className="font-bold">{discount} USDT</div>
+                    <div className="font-bold">{discountAmount} ETH</div>
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
                     <div>amount you'll pay:</div>
-                    <div className="font-bold">{finalPrice} USDT</div>
+                    <div className="font-bold">{finalPrice[0]} ETH</div>
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
                     <div>claimable amount:</div>
@@ -413,9 +381,9 @@ const CoverLido = ({ account }) => {
                   <div className="flex-grow flex justify-between p-3 mx-8 text-sm">
                     <div>fee rate:</div>
                     <div className="flex font-bold">
-                      <div>{totalRate}% (total)</div>
+                      <div>7.5% (total)</div>
                       <div className="mx-1"> | </div>
-                      <div>{dailyRate}% (daily)</div>
+                      <div>1.5% (daily)</div>
                     </div>
                   </div>
                 </div>
@@ -423,14 +391,14 @@ const CoverLido = ({ account }) => {
               <div>
                 <div className="flex justify-center mt-6">
                   {
-                    <QuoteLink
+                    <QuoteLido
                       finalPrice={finalPrice}
-                      period={period}
                       account={account}
                       amount={amount}
                       isChecked={isChecked}
+                      requestId={requestId}
                       ratio={ratio}
-                      linkPrice={linkPrice}
+                      ethPrice={ethPrice}
                       activePrice={activePrice}
                     />
                   }

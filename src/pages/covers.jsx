@@ -4,6 +4,8 @@ import {
   BALANCE_CA,
   ERC20_ABI,
   ERC20_CA,
+  LIDO_ABI,
+  LIDO_CA,
   NFT_ABI,
   NFT_CA,
 } from "../web3.config";
@@ -17,6 +19,7 @@ const web3 = new Web3(window.ethereum);
 export const NFT_contract = new web3.eth.Contract(NFT_ABI, NFT_CA);
 export const ERC20_contract = new web3.eth.Contract(ERC20_ABI, ERC20_CA);
 export const BALANCE_contract = new web3.eth.Contract(BALANCE_ABI, BALANCE_CA);
+export const LIDO_contract = new web3.eth.Contract(LIDO_ABI, LIDO_CA);
 
 const Covers = () => {
   console.log(window.ethereum.isConnected());
@@ -39,7 +42,7 @@ const Covers = () => {
           </button>
         </a>
         <a
-          href="https://drive.google.com/file/d/1TofVhqCEqtqdmrKiH0CkAeI9tlitoCMb/view?usp=sharing"
+          href="https://drive.google.com/file/d/1LsPuCh4GvYIOBfGwk20gF7zE3JAr5wLO/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -50,7 +53,7 @@ const Covers = () => {
           </button>
         </a>
         <a
-          href="https://drive.google.com/file/d/1_lgB9Yh-rCm3MujRWpOrcWnSMWRj5clX/view?usp=sharing"
+          href="https://drive.google.com/file/d/1OqgiiFI-6KwR3yS1QYG2o8nEvTt0CU7F/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -260,7 +263,7 @@ const Covers = () => {
                   <div className="font-bold text-lg">INSURSAND</div>
                   <div className="flex items-center gap-2 text-amber-800/80">
                     <HiLockClosed />
-                    Lock-up Insur.
+                    Unstaking Insur.
                   </div>
                 </div>
               </div>
@@ -269,7 +272,7 @@ const Covers = () => {
                   <div>Type: </div>
                   <div className="flex items-center gap-1">
                     <BsGraphDownArrow />
-                    Lock-up Insur.
+                    Unstaking Insur.
                   </div>
                 </div>
                 <div className="mt-8 mx-12 flex justify-between">

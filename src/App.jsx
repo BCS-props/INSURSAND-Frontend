@@ -13,6 +13,7 @@ import CoverWeth from "./pages/coverWeth";
 import CoverUni from "./pages/coverUni";
 import NftDetail from "./pages/nftDetail";
 import CoverLink from "./pages/coverLink";
+import CoverLido from "./pages/coverLido";
 export const apiKey = process.env.REACT_APP_INFURA_KEY;
 function App() {
   const [account, setAccount] = useState();
@@ -90,6 +91,14 @@ function App() {
           element={
             <div>
               <CoverLink account={account} />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/covers/lido"
+          element={
+            <div>
+              <CoverLido account={account} />
             </div>
           }
         ></Route>

@@ -5,7 +5,7 @@ import QuoteLink from "../components/QuoteLink";
 import { AiOutlineArrowDown, AiOutlineSelect } from "react-icons/ai";
 import { IoReaderOutline } from "react-icons/io5";
 import { GiConfirmed } from "react-icons/gi";
-import { NFT_contract } from "./covers";
+import { BALANCE_contract, NFT_contract } from "./covers";
 const CoverLink = ({ account }) => {
   const [amount, setAmount] = useState(1);
   const [toUsdt, setToUsdt] = useState(1); // 입력받은 LINK가 usdt로 변환된 값
@@ -56,7 +56,7 @@ const CoverLink = ({ account }) => {
 
   const getLinkPrice = async () => {
     try {
-      var linkPrices = await NFT_contract.methods.getLINKBalances().call();
+      var linkPrices = await BALANCE_contract.methods.getLINKBalances().call();
       setLinkPrice((Number(linkPrices) / 1000).toFixed(3));
     } catch (error) {
       console.log(error);
@@ -82,7 +82,7 @@ const CoverLink = ({ account }) => {
       var finalPrices = await NFT_contract.methods
         .calculateCoverFee(period, ratio, amount)
         .call();
-      setFinalPrice(finalPrices);
+      setFinalPrice(finalPrices * (105 / 100));
     } catch (error) {
       console.log(error);
     }
@@ -139,6 +139,10 @@ const CoverLink = ({ account }) => {
     console.log("LINK price: ", linkPrice);
   }, [amount, ratio]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="bg-gradient-to-r from-amber-400/80 to-amber-600/80 pt-14 pb-20 font-nunito">
       <div className="mx-40 mt-24">
@@ -158,11 +162,11 @@ const CoverLink = ({ account }) => {
                 alt="link"
                 className="w-14"
               />
-              Buy LINK Cover
+              Buy LINK Asset Cover
             </div>
             <div className="mt-3 text-lg text-amber-900/80">
               Enter the coverage amount(LINK) and Select the coverage period and
-              the coverage ratio
+              the coverage ratio.
               <br />
               Then get the quote!
             </div>
@@ -208,6 +212,16 @@ const CoverLink = ({ account }) => {
                   <div className="inline underline">
                     the coverage amount will also be calculated differently
                     based on the chosen coverage amount and duration.
+                  </div>
+                  <br />
+                  <br />· If the final payment amount is less than 100 USDT, you
+                  will receive 1 voting right. If it is between 100 and 200 USDT
+                  (inclusive), you will receive 2 voting rights. If it exceeds
+                  200 USDT, you will receive 3 voting rights.
+                  <br />
+                  <br />·{" "}
+                  <div className="inline underline">
+                    The claimable amount will vary based on the decline rate.
                   </div>
                 </div>
                 <div className="p-6 flex justify-evenly gap-4">

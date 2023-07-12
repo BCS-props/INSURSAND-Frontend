@@ -1,17 +1,16 @@
 import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import { useEffect, useState } from "react";
-import QuoteUNI from "../components/QuoteUni";
+import QuoteLink from "../components/QuoteLink";
 import { AiOutlineArrowDown, AiOutlineSelect } from "react-icons/ai";
 import { IoReaderOutline } from "react-icons/io5";
 import { GiConfirmed } from "react-icons/gi";
 import { BALANCE_contract, NFT_contract } from "./covers";
-
-const CoverUni = ({ account }) => {
+const CoverLido = ({ account }) => {
   const [amount, setAmount] = useState(1);
-  const [toUsdt, setToUsdt] = useState(1); // 입력받은 uni가 usdt로 변환된 값
-  const [uniPrice, setUniPrice] = useState(null); // 현재 UNI 가격 조회
-  const [activePrice, setActivePrice] = useState(); // 보험금을 청구할 수 있는 UNI 가격
+  const [toUsdt, setToUsdt] = useState(1); // 입력받은 LINK가 usdt로 변환된 값
+  const [linkPrice, setLinkPrice] = useState(null); // 현재 LINK 가격 조회
+  const [activePrice, setActivePrice] = useState(); // 보험금을 청구할 수 있는 LINK 가격
   const [period, setPeriod] = useState(null); // 0(30) or 1(365)
   const [ratio, setRatio] = useState(10);
   const [discount, setDiscount] = useState(0);
@@ -55,11 +54,10 @@ const CoverUni = ({ account }) => {
     setRatio(e.target.value);
   };
 
-  const getUniPrice = async () => {
+  const getLinkPrice = async () => {
     try {
-      var uniPrice = await BALANCE_contract.methods.getUNIBalances().call();
-      setUniPrice((Number(uniPrice) / 1000).toFixed(3));
-      // setUniPrice(Number(uniPrice));
+      var linkPrices = await BALANCE_contract.methods.getLINKBalances().call();
+      setLinkPrice((Number(linkPrices) / 1000).toFixed(3));
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +82,7 @@ const CoverUni = ({ account }) => {
       var finalPrices = await NFT_contract.methods
         .calculateCoverFee(period, ratio, amount)
         .call();
-      setFinalPrice(finalPrices * (107 / 100));
+      setFinalPrice(finalPrices);
     } catch (error) {
       console.log(error);
     }
@@ -130,14 +128,15 @@ const CoverUni = ({ account }) => {
 
   useEffect(() => {
     calculateDiscount();
-    getUniPrice();
-    setToUsdt(amount * uniPrice);
-    setActivePrice(Math.floor(uniPrice * ratio) / 100);
+    getLinkPrice();
+    setToUsdt((amount * linkPrice).toFixed(3));
+    setActivePrice(Math.floor(linkPrice - (linkPrice * ratio) / 100));
+    // console.log(activePrice);
 
     // console.log("discount: ", discount);
     // console.log(typeof Number(amount));
 
-    console.log("UNI price: ", uniPrice);
+    console.log("LINK price: ", linkPrice);
   }, [amount, ratio]);
 
   useEffect(() => {
@@ -159,15 +158,14 @@ const CoverUni = ({ account }) => {
           <div>
             <div className="mt-4 text-5xl text-amber-900 flex items-center gap-2">
               <img
-                src={`${process.env.PUBLIC_URL}/images/uniswap_logo.png`}
-                alt="uni"
-                className="w-14 mb-1"
+                src={`${process.env.PUBLIC_URL}/images/lido_logo.png`}
+                alt="link"
+                className="w-14"
               />
-              Buy UNI Asset Cover
+              Buy LIDO Lock-up Cover
             </div>
             <div className="mt-3 text-lg text-amber-900/80">
-              Enter the coverage amount(UNI) and Select the coverage period and
-              the coverage ratio.
+              Enter the request ID and decide the coverage ratio.
               <br />
               Then get the quote!
             </div>
@@ -205,24 +203,14 @@ const CoverUni = ({ account }) => {
                   amount.
                   <br />{" "}
                   <div className="inline underline font-bold">
-                    For payments totaling 5,000 UNI or more, there will be a
-                    discount of 0.001% for every 100 UNI increment.
+                    For payments totaling 5,000 LINK or more, there will be a
+                    discount of 0.001% for every 100 LINK increment.
                   </div>
                   <br />
                   <br /> ·&nbsp;
                   <div className="inline underline">
                     the coverage amount will also be calculated differently
                     based on the chosen coverage amount and duration.
-                  </div>
-                  <br />
-                  <br />· If the final payment amount is less than 100 USDT, you
-                  will receive 1 voting right. If it is between 100 and 200 USDT
-                  (inclusive), you will receive 2 voting rights. If it exceeds
-                  200 USDT, you will receive 3 voting rights.
-                  <br />
-                  <br />·{" "}
-                  <div className="inline underline">
-                    The claimable amount will vary based on the decline rate.
                   </div>
                 </div>
                 <div className="p-6 flex justify-evenly gap-4">
@@ -253,7 +241,7 @@ const CoverUni = ({ account }) => {
                   </div>
                   <div className="w-1/2 border rounded-xl">
                     <div className="text-xl flex justify-center pt-4">
-                      <u>Coverage Amount (UNI)</u>
+                      <u>Coverage Amount (LINK)</u>
                     </div>
                     {/* <div className="flex justify-end mr-12">
                       {period === null ? <div>enter period!</div> : <div></div>}
@@ -268,9 +256,9 @@ const CoverUni = ({ account }) => {
                           onChange={(e) => setAmount(e.target.value)}
                           style={{ textAlign: "right" }}
                         ></input>
-                        <span className="text-lg text-amber-800">UNI</span>
+                        <span className="text-lg text-amber-800">LINK</span>
                       </div>
-                      <div className="flex items-center mt-3 mb-2 justify-center">
+                      <div className="flex items-center ml-3 mt-2 mb-2 justify-center">
                         <AiOutlineArrowDown size={24} />
                       </div>
                       <div className="flex items-center gap-4">
@@ -395,7 +383,7 @@ const CoverUni = ({ account }) => {
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
                     <div>coverage amount:</div>
-                    <div className="font-bold">{amount} UNI</div>
+                    <div className="font-bold">{amount} LINK</div>
                   </div>
                   <div className="flex justify-between p-3 mx-8 text-sm">
                     <div>coverage ratio:</div>
@@ -435,14 +423,14 @@ const CoverUni = ({ account }) => {
               <div>
                 <div className="flex justify-center mt-6">
                   {
-                    <QuoteUNI
+                    <QuoteLink
                       finalPrice={finalPrice}
                       period={period}
                       account={account}
                       amount={amount}
                       isChecked={isChecked}
                       ratio={ratio}
-                      uniPrice={uniPrice}
+                      linkPrice={linkPrice}
                       activePrice={activePrice}
                     />
                   }
@@ -468,4 +456,4 @@ const CoverUni = ({ account }) => {
   );
 };
 
-export default CoverUni;
+export default CoverLido;

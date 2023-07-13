@@ -129,11 +129,11 @@ const FAQ = () => {
               <div className="mt-2 text-gray-600 p-4 rounded-xl ">
                 <ul className="animate-fade-down animate-once animate-duration-500">
                   <li className="flex">
-                    · Asset Insurance(When the value of a coin drops.)
+                    · Asset Insurance (When the value of a coin drops)
                   </li>
                   <li className="flex mt-2">
-                    · Unstaking Lockup Insurance(When the price drops during the
-                    lock-up period after unstaking.)
+                    · Unstaking Insurance (If the price of the token decreases
+                    during the withdrawal waiting period after unstaking)
                   </li>
                 </ul>
               </div>
@@ -164,9 +164,8 @@ const FAQ = () => {
                     the price drops to a certain level
                   </li>
                   <li className="flex mt-2">
-                    · Unstaking Lockup Insurance - Covers when the price drops
-                    during a certain period of lock-up after unstaking DeFi of
-                    the contract you own
+                    · Unstaking Insurance - Covers when the price drops during
+                    the withdrawal waiting period after unstaking.
                   </li>
                   <li className="flex mt-2">
                     · After the INSURSAND insurance contract is concluded, if
@@ -201,7 +200,7 @@ const FAQ = () => {
                     · Choose one of the insurances you want covered.
                   </li>
                   <li className="flex mt-2">
-                    · When signing insurance, INSURSAND will airdrop NFTs.
+                    · When signing insurance, INSURSAND will mint NFTs.
                   </li>
                   <li className="flex mt-2">
                     · During the insurance contract period, when the insurance
@@ -239,40 +238,11 @@ const FAQ = () => {
                     insurance contract.
                   </li>
                   <li className="flex mt-2">
-                    · When making a claim, you must have the initially paid NFT
-                    or the claim will be invalidated. After the user submits
-                    NFTs and verifiable materials, the insurance amount will be
-                    paid in the normal course of business after review by the
-                    management team.
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-          <div>
-            <div
-              className="text-amber-800 text-2xl cursor-pointer flex justify-start items-center gap-2"
-              onClick={handleTextClick6}
-            >
-              <FaMountain className="" />
-              When is the insurance payment paid?
-              {iconReverse6 ? (
-                <div>
-                  <HiArrowNarrowUp />
-                </div>
-              ) : (
-                <div>
-                  <HiArrowDown />
-                </div>
-              )}
-            </div>
-            {isTextVisible6 && (
-              <div className="mt-2 text-gray-600 p-4 rounded-xl ">
-                <ul className=" animate-fade-down animate-once animate-duration-500">
-                  <li className="flex">
-                    · From the time you submit your claim, it usually takes
-                    between three and six days for claims assessors to review,
-                    vote, and determine a claim's outcome.
+                    · When filing a compensation claim, it is necessary to
+                    possess the relevant NFT. The claim conditions are
+                    automatically verified through the smart contract, and if
+                    the conditions are met, the insurance payout will be made
+                    promptly.
                   </li>
                 </ul>
               </div>
@@ -298,7 +268,11 @@ const FAQ = () => {
             {isTextVisible7 && (
               <div className="mt-2 text-gray-600 p-4 rounded-xl ">
                 <ul className=" animate-fade-down animate-once animate-duration-500">
-                  <li className="flex">· Stable Coin (Tether)</li>
+                  <li className="flex">
+                    · We support payment and payouts using the stablecoin USDT.
+                    In the future, we plan to expand our support to include
+                    various other stablecoins such as USDC, BUSD, DAI, and more.
+                  </li>
                 </ul>
               </div>
             )}
@@ -309,8 +283,7 @@ const FAQ = () => {
               onClick={handleTextClick8}
             >
               <FaMountain className="mt-1" />
-              What if a claim cannot be made until the end of the contract
-              period after signing the insurance contract?
+              Can I trade the received NFT after the insurance contract?
               {iconReverse8 ? (
                 <div className="flex items-center">
                   <HiArrowNarrowUp />
@@ -325,9 +298,12 @@ const FAQ = () => {
               <div className=" text-gray-600 p-4 rounded-xl ">
                 <ul className=" animate-fade-down animate-once animate-duration-500">
                   <li className="flex">
-                    · You can always second trade on the marketplace if you feel
-                    your risk is relatively low until the end of the policy
-                    team.
+                    · Certainly! You can trade the received NFT on NFT
+                    marketplaces like OpenSea and Rarible at any time. However,
+                    please keep in mind that the ownership of the NFT represents
+                    the right to claim insurance payout. If you sell the NFT to
+                    someone else, you will no longer be eligible to claim the
+                    insurance payout.
                   </li>
                   <li className="flex mt-2">· The choice is yours.</li>
                 </ul>
@@ -385,9 +361,10 @@ const FAQ = () => {
               <div className="mt-2 text-gray-600 p-4 rounded-xl ">
                 <ul className=" animate-fade-down animate-once animate-duration-500">
                   <li className="flex">
-                    · After purchasing the product, we provide tokens that can
-                    be used for governance according to the number of days of
-                    insurance contract.
+                    · Once you purchase insurance, voting rights will be
+                    distributed based on the amount of insurance purchased. You
+                    can use these voting rights to participate in governance
+                    proposals and voting processes.
                   </li>
                 </ul>
               </div>

@@ -18,9 +18,30 @@ const Footer = () => {
           </div>
           <div className="flex justify-between pr-4 mt-12">
             <div className="flex gap-8">
-              <BsDiscord size={26} />
-              <BsTwitter size={26} />
-              <BsGithub size={26} />
+              <a
+                href="https://discord.gg/h4QwrSfA"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-600"
+              >
+                <BsDiscord size={26} />
+              </a>
+              <a
+                href="https://twitter.com/INSURSAND"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-600"
+              >
+                <BsTwitter size={26} />
+              </a>
+              <a
+                href="https://github.com/BCS-props"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-600"
+              >
+                <BsGithub size={26} />
+              </a>
             </div>
             <div>© 2023 INSURSAND. All rights reserved.</div>
           </div>

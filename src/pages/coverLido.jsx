@@ -166,19 +166,16 @@ const CoverLido = ({ account }) => {
                   <br />
                   <br />· You will select the{" "}
                   <div className="inline underline">requestId</div> of your
-                  staking.
+                  unstaking.
                   <br />
                   <br />· If the price declines to the user-inputted coverage
                   decline rate, which can range&nbsp;
                   <div className="inline underline font-bold">
-                    from 5% to 90%
+                    from 10% to 90%
                   </div>
                   ,
                   <br />
                   you will be eligible to receive the insurance payout.
-                  <br />
-                  <br /> · The coverage amount will be calculated differently
-                  based on the chosen coverage amount and duration.
                   <br />
                   <br /> ·&nbsp;
                   <div className="inline underline">
@@ -204,7 +201,7 @@ const CoverLido = ({ account }) => {
                     <div className="p-5 flex flex-col">
                       <div className="flex flex-col items-center gap-4 border rounded-xl h-36">
                         <div className="mt-1">
-                          The requestId of your staking:
+                          The requestId of your unstaking:
                         </div>
                         {myRequestId && (
                           <div className="gap-3 pb-4 grid grid-cols-5">
@@ -268,11 +265,11 @@ const CoverLido = ({ account }) => {
                   </div>
                   <div className="p-6 text-sm">
                     <div className="text-xl mb-2">1. Coverage Options</div>
-                    &nbsp; &nbsp;1.1. You can choose between two coverage
-                    options: 30 days and 365 days. The coverage period starts
-                    from the date of purchase.
-                    <br /> &nbsp; &nbsp;1.2. Please note that the fee rates may
-                    vary depending on the chosen duration.
+                    &nbsp; &nbsp;1.1. The duration is fixed at 5 days, which is
+                    the maximum duration for unstaking in Lido Finance.
+                    <br /> &nbsp; &nbsp;1.2. Insurance coverage will be provided
+                    for any price decline during the fixed 5-day withdrawal
+                    period.
                     <br /> &nbsp; &nbsp;1.3. The coverage amount will be
                     calculated differently based on the chosen coverage amount
                     and duration.

@@ -150,7 +150,7 @@ const Main = () => {
                     </div>
                     <div className="mt-2 mb-16 text-2xl flex text-blue-900/80 font-medium">
                       {/* <BsDot className="mt-1" /> */}
-                      Lock-up Cover (LIDO)
+                      Unstaking Cover (LIDO Finance)
                     </div>
                   </div>
                 </div>

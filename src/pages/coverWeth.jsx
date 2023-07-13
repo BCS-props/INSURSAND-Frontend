@@ -201,12 +201,11 @@ const CoverWeth = ({ account }) => {
                   <br />
                   you will be eligible to receive the insurance payout.
                   <br />
-                  <br /> · There is a discount available for the total payment
-                  amount.
+                  <br /> · There is a discount available for the total amount.
                   <br />{" "}
                   <div className="inline underline font-bold">
-                    For payments totaling 5,000 WETH or more, there will be a
-                    discount of 0.001% for every 100 WETH increment.
+                    For payments totaling 5,000 USDT or more, there will be a
+                    discount of 0.001% for every 100 USDT increment.
                   </div>
                   <br />
                   <br /> ·&nbsp;

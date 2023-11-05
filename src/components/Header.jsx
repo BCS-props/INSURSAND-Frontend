@@ -1,18 +1,21 @@
 import { Link } from "react-router-dom";
-// import { MetaMaskAvatar } from "react-metamask-avatar";
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { BsDiscord, BsTwitter } from "react-icons/bs";
 import { IoExit } from "react-icons/io5";
 import { BiLink } from "react-icons/bi";
 import { MdSpaceDashboard } from "react-icons/md";
-import { useOnClick } from "../hooks/onClick";
 import Web3 from "web3";
 import { apiKey } from "../App";
+
+// i18n
+import { useTranslation } from "react-i18next";
 
 const web3 = new Web3(window.ethereum);
 
 const Header = ({ account, setAccount }) => {
+  const { t } = useTranslation();
+
   const [isWalletOpen, setIsWalletOpen] = useState(false);
   const [isCommunityOpen, setIsCommunityOpen] = useState(false);
 
@@ -168,7 +171,7 @@ const Header = ({ account, setAccount }) => {
                     }`}
                     onClick={() => handleItemClick(0)}
                   >
-                    Buy Cover
+                    {t("header.buyCover")}
                   </Link>
                 </li>
                 <li>
@@ -181,7 +184,7 @@ const Header = ({ account, setAccount }) => {
                     }`}
                     onClick={() => handleItemClick(1)}
                   >
-                    Governance
+                    {t("header.governance")}
                   </Link>
                 </li>
                 <li
@@ -190,7 +193,7 @@ const Header = ({ account, setAccount }) => {
                   onMouseLeave={handleCommunityLeave}
                   onClick={handleCommunityClick}
                 >
-                  Community
+                  {t("header.community.title")}
                   {isCommunityOpen && (
                     <div className="animate-fade-down animate-once absolute top-4 rounded-xl text-black border border-amber-600 duration-200 flex flex-col p-2 mt-4 gap-1 divide-amber-600">
                       <a
@@ -201,7 +204,7 @@ const Header = ({ account, setAccount }) => {
                       >
                         <div className="flex items-center gap-1">
                           <BsDiscord />
-                          Discord
+                          {t("header.community.discord")}
                         </div>
                       </a>
                       <a
@@ -212,7 +215,7 @@ const Header = ({ account, setAccount }) => {
                       >
                         <div className="flex items-center gap-1">
                           <BsTwitter />
-                          Twitter
+                          {t("header.community.twitter")}
                         </div>
                       </a>
                     </div>
@@ -228,7 +231,7 @@ const Header = ({ account, setAccount }) => {
                     }`}
                     onClick={() => handleItemClick(2)}
                   >
-                    FAQs
+                    {t("header.faq")}
                   </Link>
                 </li>
               </ul>
@@ -243,7 +246,6 @@ const Header = ({ account, setAccount }) => {
                 onClick={handleWalletClick}
               >
                 <button className="text-amber-600 border border-amber-600 hover:border-amber-800 hover:text-amber-800 duration-200 rounded-xl p-2 items-center flex">
-                  {/* <MetaMaskAvatar address={account} size={24} /> */}
                   <div className="ml-2">
                     <div className="flex items-center gap-4">
                       {account.substring(0, 6)}....
@@ -267,7 +269,7 @@ const Header = ({ account, setAccount }) => {
                         onClick={() => setSelectedItem(null)}
                       >
                         <MdSpaceDashboard />
-                        Dashboard
+                        {t("header.button.dashboard")}
                       </button>
                     </Link>
                     <Link
@@ -279,7 +281,7 @@ const Header = ({ account, setAccount }) => {
                         onClick={() => setSelectedItem(null)}
                       >
                         <BiLink />
-                        Open in Etherscan
+                        {t("header.button.etherscan")}
                       </button>
                     </Link>
                     <Link to="/">
@@ -288,7 +290,7 @@ const Header = ({ account, setAccount }) => {
                         onClick={onClickDisconnect}
                       >
                         <IoExit />
-                        Disconnect
+                        {t("header.button.disconnect")}
                       </button>
                     </Link>
                   </div>
@@ -299,7 +301,7 @@ const Header = ({ account, setAccount }) => {
                 className="p-2 text-amber-600 border border-amber-600 hover:border-amber-800 hover:text-amber-800 duration-200 rounded-xl animate-delay-300"
                 onClick={onClickConnect}
               >
-                Connect Wallet
+                {t("header.button.connect")}
               </button>
             )}
           </div>

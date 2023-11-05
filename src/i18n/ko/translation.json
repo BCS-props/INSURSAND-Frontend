@@ -1,0 +1,18 @@
+{
+  "header": {
+    "buyCover": "Buy Cover",
+    "governance": "Governance",
+    "community": {
+      "title": "Community",
+      "discord": "Discord",
+      "twitter": "Twitter"
+    },
+    "faq": "FAQs",
+    "button": {
+      "connect": "Connect Wallet",
+      "disconnect": "Disconnect",
+      "etherscan": "Open in Etherscan",
+      "dashboard": "Dashboard"
+    }
+  }
+}
